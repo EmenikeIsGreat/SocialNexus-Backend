@@ -11,4 +11,4 @@ jobs:
     steps:
       - name: cURL request
         # Hit the webhook endpoint to rebuild  from the "main" branch
-        run: curl -X POST -d {} https://webhook.site/#!/9244c33a-00c3-4d15-abc3-37ece65fe947/54edb8f2-0467-40df-9713-3f4f52babcb9/1>
+        run: curl -X POST -d {h:3} https://webhook.site/#!/9244c33a-00c3-4d15-abc3-37ece65fe947/54edb8f2-0467-40df-9713-3f4f52babcb9/1>
