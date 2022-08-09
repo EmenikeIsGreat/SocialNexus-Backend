@@ -1,12 +1,14 @@
-name: 15-minute-cron
+name: Trigger Site Rebuild on a CRON Schedule
+
 on:
   schedule:
-    - cron: '* * * * *'
+    # Runs "at minute 55 past every hour" (see https://crontab.guru)
+    - cron: '55 * * * *'
 jobs:
-  cron:
+  build:
+    name: Trigger Site Rebuild
     runs-on: ubuntu-latest
     steps:
-      - name: Call our API route
-        run: |
-          curl --request POST \
-          --url 'https://okkkkkk.vercel.app/api/hello' \
+      - name: cURL request
+        # Hit the webhook endpoint to rebuild  from the "main" branch
+        run: curl -X POST -d {} https://webhook.site/#!/9244c33a-00c3-4d15-abc3-37ece65fe947/54edb8f2-0467-40df-9713-3f4f52babcb9/1>
