@@ -28,7 +28,7 @@ function initAssetStats(userID, launchTime){
         stats:{
             dailyHigh: 0,
             dailyLow:0,
-            todaysVolume:0,
+            todaysVolume:100,
             averageVolume:0,
             highestPeakWeek:0,
             lowestPeakWeek:0,

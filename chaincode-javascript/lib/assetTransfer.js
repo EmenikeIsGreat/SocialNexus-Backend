@@ -403,6 +403,7 @@ class AssetTransfer extends Contract {
 
             await ctx.stub.setEvent('event', Buffer.from(stringify(assetEvent)));
         }
+
     }
 
 
@@ -470,6 +471,34 @@ class AssetTransfer extends Contract {
         let LP = this.Liquity_Pool_Math(lpObj, TokenTrasnactionAmount, tx_Status, modify)
 
         return LP
+
+
+    }
+
+    async getPrice(ctx, assetIDs){
+        
+        let returnVals = []
+        
+        for(let i = 0; i < assetIDs.length; i++){
+
+
+            let asset = await this.getAsset(ctx, assetIDs[i]);
+            let price = asset.LP.Price/asset.LP.Asset
+    
+
+            let jsonVal = {
+                
+                ID: assetIDs[i],
+                currentPrice:price
+
+            }
+            returnVals.push(jsonVal)
+        
+        }
+
+
+
+        return returnVals
 
 
     }

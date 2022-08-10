@@ -52,5 +52,5 @@ async function createEventStream(eventStreamName, webHookUrl){
     }
 }
 
-createEventStream("name", "https://webhook.site/b47a3e71-0b82-4123-9ebe-c041444e8831")
+createEventStream("name", "http://3.83.122.246:3000/event")
 

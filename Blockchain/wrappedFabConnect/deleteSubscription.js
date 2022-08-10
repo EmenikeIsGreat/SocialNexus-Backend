@@ -41,4 +41,4 @@ async function deleteSubscription(subID){
     }
 }
 
-deleteSubscription("sb-ed20861f-79c5-4586-45c9-ac309973c3d4")
+deleteSubscription("sb-5e42044b-eaf5-47e6-7197-5ac47ad2818c")

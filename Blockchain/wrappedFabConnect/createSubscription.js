@@ -57,4 +57,4 @@ async function createSubscription(name, stream, channel, signer, startingBlock){
     }
 }
 
-createSubscription("emenike", "es-aeebdc04-3b27-45bc-784c-02ed4f4c3c71", "test", "Emenike", "0")
+createSubscription("SocialNexusEvents", "es-cd01d6a5-2ff8-44ac-7938-5b919e2c5fca", "test", "Emenike", "741")
