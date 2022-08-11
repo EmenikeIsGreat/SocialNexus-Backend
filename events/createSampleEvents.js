@@ -1,11 +1,11 @@
 const mongoose = require("mongoose");
 const user = "mongodb+srv://Emenike:Ninjaboy12345$@cluster0.lc7v34m.mongodb.net/?retryWrites=true&w=majority"
-const orders = require('../../schemas/Orders')
-const bids = require('../../schemas/Bids.js')
-const Message = require('../../schemas/Message')
-const User = require('../../schemas/User');
-let Price = require('../../schemas/AssetTracking')
-const ExternalTx = require('../../schemas/ExternalTransactions')
+//const orders = require('../../schemas/Orders')
+//const bids = require('../../schemas/Bids.js')
+const Message = require('../schemas/Message')
+//const User = require('../../schemas/User');
+//let Price = require('../../schemas/AssetTracking')
+//const ExternalTx = require('../../schemas/ExternalTransactions')
 
 
 
@@ -15,6 +15,18 @@ mongoose.connect(user).then((result) =>{
 }).catch((error) =>{
     console.log(error)
 })
+
+
+async function testing(){
+    let message = await Message.create({
+        sender: "SocialNexus",
+        recipient: "Emenike",
+        body: "Test"
+    })
+}
+
+testing()
+
 
 async function transferTransaction(){
     try{
@@ -321,7 +333,7 @@ async function simulateTxProcessing(event){
 
 }
 
-simulateTxProcessing(sampleAssetEvent)
+//simulateTxProcessing(sampleAssetEvent)
 
 async function createUser(){
     let val = await User.create({

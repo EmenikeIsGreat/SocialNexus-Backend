@@ -23,7 +23,6 @@ curl -X 'POST' \
 }'
 */
 
-
 module.exports = async function query(signer, channel, contract, func, args){
     try{
         
@@ -47,6 +46,7 @@ module.exports = async function query(signer, channel, contract, func, args){
         );
         console.log("success")
         //console.log(res.data)
+        console.log(res.data)
         return res.data
     }
     catch(error){
@@ -56,6 +56,18 @@ module.exports = async function query(signer, channel, contract, func, args){
     }
 }
 
+
+let arr = stringify({
+  assets: ['testCoin']
+})
+
+
+// arr = JSON.parse(arr).assets
+// for(let i = 0; i < arr.length; i++){
+//   console.log(arr[i])
+// }
+
+
 //query("Emenike", "test", "contract", "getOrder", ["Emenike32222"])
-//query("Emenike", "test", "contract", "getUser", ["62bf5a2abd0ed4455548ffcd"])
-query("Emenike", "test", "contract", "getAsset", ["testCoin4"])
+//query("Emenike", "test", "contract", "getUser", ["testCoin"])
+query("Emenike", "test", "contract", "getPrice", [arr])

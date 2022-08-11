@@ -1,120 +1,119 @@
-const {MongoClient} = require('mongodb')
-const Pusher = require("pusher");
-const url = "mongodb+srv://Emenike:Ninjaboy12345$@cluster0.lc7v34m.mongodb.net/?retryWrites=true&w=majority"
+const mongoose = require("mongoose");
+const user = "mongodb+srv://Emenike:Ninjaboy12345$@cluster0.lc7v34m.mongodb.net/?retryWrites=true&w=majority"
+const orders = require('../../schemas/Orders')
+const bids = require('../../schemas/Bids.js')
+const Message = require('../../schemas/Message')
+const User = require('../../schemas/User');
+let Price = require('../../schemas/AssetTracking')
+const ExternalTx = require('../../schemas/ExternalTransactions')
 
 
-const client = new MongoClient(url)
-const pusher = new Pusher({
-    appId: "1426906",
-    key: "c6cd91c5c5d1d767214c",
-    secret: "11b894da88b794ec76e6",
-    cluster: "us2",
-    useTLS: true
-    });
 
 
-//events: Orders, Bids, ExternalTransfer, messages, create asset, create user=
-async function pushTransactionEvents(){
-
-    
+async function message(UserID, payload){
     try{
+       let message = await Message.create({
+            sender: "astra",
+            recipient: UserID,
+            body: payload
+        })
+        console.log("message Sent")
+    }
 
-        await client.connect()
-        console.log("Message event handler is deployed")
+    catch(error){
+        console.log(error);
+    }
+}
 
-        let db1 = client.db("test").collection("messages")
+
+
+
+async function simulateTxProcessing(event){
+
+
+        switch (event.Type){
+            case "Order":
+                let price = await Price.create({
+                    AssetID: event.Transaction.AssetID,
+                    Price: event.Transaction.NewPriceOfAsset
+                })
+
+                let tx = await orders.create({
+                    Type: event.Transaction.Type,
+                    UserID: event.UserID,
+                    OrderID: event.Transaction.orderID,
+                    Transaction: event.Transaction,
+                })
+
+
+            
+                await message(event.UserID, event.Transaction)
+                break
+
+            case "RecievedAssetFromInit":
+                let price2 = await Price.create({
+                    AssetID: event.Transaction.AssetID,
+                    Price: event.Transaction.NewPriceOfAsset
+                })
+
+                let tx3 = await orders.create({
+                    Type: event.Transaction.Type,
+                    UserID: event.UserID,
+                    OrderID: event.Transaction.orderID,
+                    Transaction: event.Transaction,
+                })
+
+
+            
+                await message(event.UserID, event.Transaction)
+                break
+            
+            case "Bid":
+                let tx1 = await bids.create({
+                    UserID: event.UserID,
+                    BidID: event.Transaction.BidID,
+                    Transaction: event.Transaction
+            
+                })
+          
         
-        // watch usersDatabse too implement later
-
-        const changeStreamIterator = db1.watch();
-
-
-        while(await changeStreamIterator.hasNext()){
-            // while the change strea is avalible
-            const next = await changeStreamIterator.next();
-            console.log(next)
-
-            pusher.trigger("testing", next.fullDocument.recipient, {
-            message: next.fullDocument.body
-            });
-        }
-
-    }
-    catch(error){
-        console.log(error);
-        return error
-    }
-}
-
-pushTransactionEvents()
-
-console.log('-------------------------');
-
-// for tokens
-async function liveTokenTracking(){
-    
-    try{
-
-        await client.connect()
-        console.log("event handler is deployed")
-
-        let db = client.db("test").collection('assetprices')
-
-        const changeStreamIterator = db.watch();
-
-
-        while(await changeStreamIterator.hasNext()){
-            // while the change strea is avalible
-            const next = await changeStreamIterator.next();
-            console.log(next)
-
-            // pasrse event and trigger it as a token not all
-            pusher.trigger("testing", "all", {
-            message: next.fullDocument
-            });
-        }
-
-    }
-    catch(error){
-        console.log(error);
-        return error
-    }
-}
-
-//liveTokenTracking()
-
-async function pushUserEvent(){
-
-
-    
-    try{
-
-        await client.connect()
-        console.log("event handler is deployed")
-
-        let db = client.db("test").collection('users')
-
-        const changeStreamIterator = db.watch();
-
-
-        while(await changeStreamIterator.hasNext()){
-            // while the change strea is avalible
-            const next = await changeStreamIterator.next();
+                await message(event.UserID, event.Transaction)
+                break
             
-            console.log(next)
-            /*
-            pusher.trigger("testing", next.fullDocument.UserID, {
-            message: next.fullDocument.UserID
+            // deposits, withdraws, transfers
+            case "External":
+                let tx2 = await ExternalTx.create({
+                    UserID: event.UserID,
+                    Transaction: event.Transaction
+                })
+
+                await message(event.UserID, event.Transaction) 
+                break 
+
+            case "CreateUser":
+                await message(event.UserID, "user has been created on the Blockchain") 
+                break;
             
-            }); */
+            
+            case "CreateAsset":
+                let AssetCreate = await User.findById(event.UserID);
+            
+                AssetCreate.Asset = {
+                    AssetID: event.AssetID,
+                    InitStatus: false
+                }
+                await AssetCreate.save();
+                let messages = event.AssetID + " has been created"
+                await message(event.UserID, messages)
+                break;
+        
+
+
+            default:
+                console.log("no events match")
         }
 
-    }
-    catch(error){
-        console.log(error);
-        return error
-    }
 }
 
-//pushUserEvent()
+simulateTxProcessing(sampleAssetEvent)
 

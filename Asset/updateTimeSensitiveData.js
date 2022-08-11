@@ -301,29 +301,6 @@ function run(asset){
 
     if(currentdate.getMinutes() != initialMinute){
 
-
-        if(asset.stats.volumeAcrossFiveDays.length < 5){
-            asset.stats.volumeAcrossFiveDays.push(asset.stats.todaysVolume)
-            console.log("pushed")
-            asset.stats.todaysVolume = 0
-        }
-
-        else{
-            asset.stats.volumeAcrossFiveDays.shift()
-            asset.stats.volumeAcrossFiveDays.push(asset.stats.todaysVolume)
-            asset.stats.averageVolume = () =>{
-                let sum = 0;
-                for(let i = 0; i < asset.stats.averageVolume.length; i++){
-                    sum += asset.stats.averageVolume[i]
-                }
-
-                return sum/5
-            }
-        }
-
-
-
-
         refreshChartData(asset, 'minute')
         
         console.log(asset)
