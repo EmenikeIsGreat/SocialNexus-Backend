@@ -28,6 +28,12 @@ channel.bind('Emenike', function(data) {
   console.log(data.message)
 })
 
+channel.bind('62f2fa563471195687a3f0e8', function(data) {
+  console.log("transaction recieved for user Emenike")
+  console.log("-------------------------------------")
+  console.log(data)
+})
+
 
 let token;
 //tokens

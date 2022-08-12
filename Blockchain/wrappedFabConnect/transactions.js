@@ -25,7 +25,7 @@ curl -X 'POST' \
 */
 
 
-async function transaction(signer, channel, contract, func, args, sync){
+module.exports = async function transaction(signer, channel, contract, func, args, sync){
     let url = 'https://u0gqwel2qs-u0f6ogmk5v-connect.us0-aws-ws.kaleido.io/transactions?fly-sync=' + sync
     try{
         
@@ -83,7 +83,7 @@ let testOrder4 = stringify([
 ])
 
 //transaction("Emenike", "test", "contract", "executeOrder", ["testCoin", testOrder], true)
-transaction("Emenike", "test", "contract", "createUser", ['EmenikeV2'], true)
+//transaction("Emenike", "test", "contract", "createUser", ['EmenikeV2'], true)
 //transaction("Emenike", "test", "contract", "deposit", ["Emenike2", "10000000000", "true"], true)
 //transaction("Emenike", "test", "contract", "initalizeAssets", ["testCoin"], true)
 

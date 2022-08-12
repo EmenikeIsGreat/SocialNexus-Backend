@@ -1,8 +1,7 @@
 const mongoose = require("mongoose");
 const url = "mongodb+srv://Emenike:Ninjaboy12345$@cluster0.lc7v34m.mongodb.net/?retryWrites=true&w=majority"
-const transaction = require('../../Blockchain/wrappedFabConnect/transactions');
-const { find } = require("../../schemas/User");
-const user = require('../../schemas/User')
+//const transaction = require('../../Blockchain/wrappedFabConnect/transactions');
+const user = require('../schemas/User')
 const checkIfEmailExist = require('./checkEmailExist')
 const checkIfUserNameExist = require('./checkUserNameExist')
 const checkIfPhoneNumberExist = require('./checkPhoneNumberExist')
@@ -68,7 +67,7 @@ async function createUser(userJson){
         let findUser = await user.findById(userID)
         findUser.UserID = userID
         await findUser.save()
-        transaction("Emenike", "test", "contract", "createUser", [userID], true)
+        //transaction("Emenike", "test", "contract", "createUser", [userID], true)
     }
 
     catch(error){

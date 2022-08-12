@@ -1,6 +1,8 @@
 const mongoose = require("mongoose");
 const url = "mongodb+srv://Emenike:Ninjaboy12345$@cluster0.lc7v34m.mongodb.net/?retryWrites=true&w=majority"
 const assets = require('../schemas/Assets')
+const Pusher = require("pusher");
+
 
 mongoose.connect(url).then((result) =>{
     console.log("connected")
@@ -261,7 +263,15 @@ let initialHour = initialDate.getHours()
 let initialMinute = initialDate.getMinutes()
 
 
+const pusher = new Pusher({
+    appId: "1426906",
+    key: "c6cd91c5c5d1d767214c",
+    secret: "11b894da88b794ec76e6",
+    cluster: "us2",
+    useTLS: true
+    });
 
+    
 
 function run(asset){
 
@@ -302,6 +312,8 @@ function run(asset){
     if(currentdate.getMinutes() != initialMinute){
 
         refreshChartData(asset, 'minute')
+        
+        pusher.trigger("testing", asset.id, asset)
         
         console.log(asset)
     }

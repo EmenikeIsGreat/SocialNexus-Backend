@@ -70,4 +70,4 @@ let arr = stringify({
 
 //query("Emenike", "test", "contract", "getOrder", ["Emenike32222"])
 //query("Emenike", "test", "contract", "getUser", ["testCoin"])
-query("Emenike", "test", "contract", "getPrice", [arr])
+//query("Emenike", "test", "contract", "getPrice", [arr])

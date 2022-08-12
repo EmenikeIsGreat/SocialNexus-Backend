@@ -49,7 +49,7 @@ mongoose.connect(url).then((result) =>{
 //)
 
 
-async function updateStatistics(assetID, price, shares){
+module.exports = async function updateStatistics(assetID, price, shares){
 
     let assetCollection = await assets.find()
     let id = assetCollection[0].id
@@ -101,7 +101,7 @@ async function updateStatistics(assetID, price, shares){
 }
 
 
-let id1 = '62f02bafad3c3033cee62fd8'
-let id2 = '62f02bb6ab04c72f4620a53e'
-updateStatistics(id2,101,22)
+// let id1 = '62f02bafad3c3033cee62fd8'
+// let id2 = '62f02bb6ab04c72f4620a53e'
+// updateStatistics(id2,101,22)
 

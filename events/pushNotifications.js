@@ -47,7 +47,7 @@ async function pushTransactionEvents(){
     }
 }
 
-pushTransactionEvents()
+//pushTransactionEvents()
 
 console.log('-------------------------');
 

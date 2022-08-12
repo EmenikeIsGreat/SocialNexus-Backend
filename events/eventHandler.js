@@ -1,19 +1,18 @@
 const mongoose = require("mongoose");
 const user = "mongodb+srv://Emenike:Ninjaboy12345$@cluster0.lc7v34m.mongodb.net/?retryWrites=true&w=majority"
-const orders = require('../../schemas/Orders')
-const bids = require('../../schemas/Bids.js')
-const Message = require('../../schemas/Message')
-const User = require('../../schemas/User');
-let Price = require('../../schemas/AssetTracking')
-const ExternalTx = require('../../schemas/ExternalTransactions')
-
+const orders = require('../schemas/Orders')
+const bids = require('../schemas/Bids.js')
+const Message = require('../schemas/Message')
+const User = require('../schemas/User');
+const ExternalTx = require('../schemas/ExternalTransactions')
+const updateStatistics = require('../Asset/updateStatistics')
 
 
 
 async function message(UserID, payload){
     try{
        let message = await Message.create({
-            sender: "astra",
+            sender: "SocialNexus",
             recipient: UserID,
             body: payload
         })
@@ -25,18 +24,65 @@ async function message(UserID, payload){
     }
 }
 
+let sampleAssetEvent = {
+    UserID:"62b750b69e2542d58f9721c6",
+    Type: "RecievedAssetFromInit",
+    Transaction:{
+        Type:"InitAsset",
+        orderID: "test123",
+        AssetID: "EmenikeID3",
+        AssetAmount: 20,
+        USDSHAmount: 20,
+        StrikePrice: 37,
+        fee: 30,
+        NewPriceOfAsset: 44
+    },
+    UserBalance:{
+        USDSH: 27,
+        ArinzeCoin: 38
+    }
+}
 
 
+let sampleOrderEvent = {
+    UserID:"62b750b69e2542d58f9721c6",
+    Type: "Order",
+    Transaction:{
+        Type:"Buy",
+        orderID: "test123",
+        AssetID: "62f2fa563471195687a3f0e8",
+        AssetAmount: 40,
+        USDSHAmount: 20,
+        StrikePrice: 37,
+        fee: 30,
+        NewPriceOfAsset: 47,
+    },
+    UserBalance:{
+        USDSH: 27,
+        EmenikeCoin: 38
+    }
+}
+
+let sampleBidEvent = {
+    UserID:"62b750b69e2542d58f9721c6",
+    Type: "Bid",
+    Transaction:{
+        BidID: "test123",
+        AssetID: "EmenikeID",
+        USDSHAmount: 60,
+    },
+    UserBalance:{
+        USDSH: 26,
+        EmenikeCoin: 35
+    }
+}
 
 async function simulateTxProcessing(event){
 
 
         switch (event.Type){
             case "Order":
-                let price = await Price.create({
-                    AssetID: event.Transaction.AssetID,
-                    Price: event.Transaction.NewPriceOfAsset
-                })
+
 
                 let tx = await orders.create({
                     Type: event.Transaction.Type,
@@ -45,16 +91,17 @@ async function simulateTxProcessing(event){
                     Transaction: event.Transaction,
                 })
 
+                let response = await updateStatistics(event.Transaction.AssetID, 
+                                    event.Transaction.NewPriceOfAsset,  
+                                    event.Transaction.AssetAmount)
+
 
             
                 await message(event.UserID, event.Transaction)
                 break
 
             case "RecievedAssetFromInit":
-                let price2 = await Price.create({
-                    AssetID: event.Transaction.AssetID,
-                    Price: event.Transaction.NewPriceOfAsset
-                })
+  
 
                 let tx3 = await orders.create({
                     Type: event.Transaction.Type,
@@ -115,5 +162,5 @@ async function simulateTxProcessing(event){
 
 }
 
-simulateTxProcessing(sampleAssetEvent)
+simulateTxProcessing(sampleOrderEvent)
 

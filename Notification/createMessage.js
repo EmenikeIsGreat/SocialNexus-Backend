@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const user = "mongodb+srv://Emenike:Ninjaboy12345$@cluster0.lc7v34m.mongodb.net/?retryWrites=true&w=majority"
-const message = require('../../schemas/Message')
+const message = require('../schemas/Message')
 
 mongoose.connect(user).then(()=>{
     console.log("connected")
