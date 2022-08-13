@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const url = "mongodb+srv://Emenike:Ninjaboy12345$@cluster0.lc7v34m.mongodb.net/?retryWrites=true&w=majority"
 const user = require('../schemas/User')
-const checkPhoneNumberExist = require('./checkPhoneNumberExist')
+const checkUserNameExist = require('./checkUserNameExist')
 
 
 mongoose.connect(url).then(()=>{
@@ -12,10 +12,13 @@ mongoose.connect(url).then(()=>{
 
     })
 
-async function changeUserName(userID, phoneNumber){
+module.exports = async function changeUserName(jsonInfo){
+
+    let {id, userName} = jsonInfo
+
 
     try{
-        let check = await checkPhoneNumberExist(phoneNumber)
+        let check = await checkUserNameExist(userName)
         
         if(check){
             console.log("exist")
@@ -23,12 +26,12 @@ async function changeUserName(userID, phoneNumber){
         }
     
         else{
-            let user2 = await user.findById(userID)
+            let user2 = await user.findById(id)
             console.log(user2)
 
-            user2.phoneNumber = phoneNumber;
+            user2.userName = userName;
             await user2.save();
-            return true
+            return jsonInfo
         }
     }
 
@@ -40,5 +43,5 @@ async function changeUserName(userID, phoneNumber){
 
 }
 
-changeUserName('62c07a866e540038583133d1', '61728696102')
+//changeUserName({userID:'62c0eadc47ec21fd9e585023', userName: 'EmenikeCool1000000000000'})
 

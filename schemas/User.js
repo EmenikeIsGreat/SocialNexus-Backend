@@ -43,7 +43,9 @@ const User = new mongoose.Schema({
     
     Balances: Object,
 
-    Asset:String
+    Asset:String,
+
+    privacy:Boolean
 
     },
 

@@ -12,22 +12,25 @@ mongoose.connect(url).then(()=>{
 
     })
 
-async function changeEmail(userID, email){
+module.exports = async function changeEmail(jsonInfo){
 
+    let {id, email} = jsonInfo
+    console.log(jsonInfo)
     try{
         let check = await checkIfEmailExist(email)
         
         if(check){
+            console.log("exist")
             return false
         }
     
         else{
-            let user2 = await user.findById(userID)
+            let user2 = await user.findById(id)
             console.log(user2)
 
             user2.email = email;
             await user2.save();
-            return true
+            return jsonInfo
         }
     }
 
@@ -39,5 +42,5 @@ async function changeEmail(userID, email){
 
 }
 
-//changeEmail('62c07a866e540038583133d1', 'emenike@email2')
+//changeEmail({userID: '62c0eadc47ec21fd9e585023', email: 'EmenikeCool100000000000000000000000000000'})
 

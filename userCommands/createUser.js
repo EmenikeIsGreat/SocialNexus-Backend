@@ -1,7 +1,14 @@
 const mongoose = require("mongoose");
+
+const bcrypt = require("bcryptjs")
+
 const url = "mongodb+srv://Emenike:Ninjaboy12345$@cluster0.lc7v34m.mongodb.net/?retryWrites=true&w=majority"
+
+
 //const transaction = require('../../Blockchain/wrappedFabConnect/transactions');
 const user = require('../schemas/User')
+const passwords = require('../schemas/passwords')
+
 const checkIfEmailExist = require('./checkEmailExist')
 const checkIfUserNameExist = require('./checkUserNameExist')
 const checkIfPhoneNumberExist = require('./checkPhoneNumberExist')
@@ -26,11 +33,11 @@ async function validInputs(userName, phoneNumber, email){
         inputStatus.valid = true;
         return inputStatus
     }
-
+    inputStatus.valid = false
     return inputStatus
 }
 
-async function createUser(userJson){
+module.exports = async function createUser(userJson){
     
     let checkDuplicates = await validInputs(userJson.userName, userJson.phoneNumber, userJson.email)
     
@@ -56,18 +63,42 @@ async function createUser(userJson){
 
             userName: userJson.userName,
 
-            // encrypt password
-            password:userJson.password
+            privacy: false
 
         })
+
         console.log("did it work")
 
         let userID = newUser.id
         console.log(newUser.id)
         let findUser = await user.findById(userID)
         findUser.UserID = userID
+
+
+        bcrypt.genSalt(10, function (saltError, salt) {
+            if (saltError) {
+              throw saltError
+            } else {
+              bcrypt.hash(userJson.password, salt, function(hashError, hash) {
+                if (hashError) {
+                  throw hashError
+                } else {
+                    
+                    let newPassword = passwords.create({
+                        ID:userID,
+                        encryptedPassword:hash
+                    })
+                  //$2a$10$FEBywZh8u9M0Cec/0mWep.1kXrwKeiWDba6tdKvDfEBjyePJnDT7K
+                }
+              })
+            }
+          })
+
+
+
         await findUser.save()
         //transaction("Emenike", "test", "contract", "createUser", [userID], true)
+        return {userCreated:true}
     }
 
     catch(error){
@@ -78,110 +109,6 @@ async function createUser(userJson){
 }
 
 
-let userJson = {
-        
-    firstName: "Emenike",
-    
-    lastName:"Anigbogu",
-
-    email:"emenike@email1",
-    
-    phoneNumber:"61728696101",
-
-    password:"Ninjaboy12345",
-
-    userName: "EmenikeCool"
-} 
-
-createUser(userJson)
 
 
-async function test1(){
-    let userJson = {
-        
-        firstName: "Emenike",
-        
-        lastName:"Anigbogu",
 
-        email:"emenike@email32",
-        
-        phoneNumber:"6172869610",
-
-        password:"Ninjaboy12345",
-
-        userName: "EMenikeCOol"
-    } 
-
-    let newUser = await user.create({
-
-        firstName: userJson.firstName,
-    
-        lastName:userJson.lastName,
-
-        email:userJson.email,
-        
-        phoneNumber:userJson.phoneNumber,
-
-        password:userJson.password,
-
-        userName: userJson.userName
-
-    })
-
-    console.log(newUser)
-
-
-}
-
-//test1()
-
-async function test2(){
-    let findUser = await checkIfEmailExist("emenike@email32")
-    console.log(findUser)
-
-    let findUser2 = await checkIfPhoneNumberExist("6172869610")
-}
-
-//test2()
-
-async function test3(){
-
-
-    let userJson = {
-        
-        firstName: "Emenike",
-        
-        lastName:"Anigbogu",
-
-        email:"emenike@email32",
-        
-        phoneNumber:"6172869610",
-
-        password:"Ninjaboy12345"
-    } 
-
-
-    let newUser = await user.create({
-
-        firstName: userJson.firstName,
-    
-        lastName:userJson.lastName,
-
-        email:userJson.email,
-        
-        phoneNumber:userJson.phoneNumber,
-
-        password:userJson.password
-
-    })
-    let userID = newUser.id
-    let findUser = await user.findById(userID)
-    console.log(findUser)
-    findUser.UserID = userID
-    await findUser.save()
-
-    let findUser2 = await user.findById(userID)
-    console.log(findUser2)
-}
-
-//test3()
