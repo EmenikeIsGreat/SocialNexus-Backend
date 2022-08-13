@@ -8,7 +8,7 @@ const hash = require('hash')
 
 
 
-let myHash = new hash()
+//let myHash = new hash()
 
 
 //const MegaHash = require('megahash');
@@ -30,19 +30,29 @@ myHash.forEach(function iterator (value, key) {
 */
 
 
-let orderHash = new hash()
+let BuySellOrderHash = new hash()
+let BidOrderHash = new hash()
 
 router.post('/empty',(req,res) =>{
 
     if(req.body.permissionToEmpty){
         // dump the array
 
-        orderHash.forEach(function iterator (value, key) {
+        BuySellBuySellOrderHash.forEach(function iterator (value, key) {
                         // use test to see if it works then execute order
             //signer, channel, contract, func, args, sync
-            transaction("Emenike", "test", "contract", "testing",[key, stringify(value)], false)
-            orderHash.del(key)
+            //transaction("Emenike", "test", "contract", "testing",[key, stringify(value)], false)
+            BuySellBuySellOrderHash.del(key)
         })
+
+        BidOrderHash.forEach(function iterator (value, key) {
+                        // use test to see if it works then execute order
+            //signer, channel, contract, func, args, sync
+            //transaction("Emenike", "test", "contract", "testing",[key, stringify(value)], false)
+            BidOrderHash.del(key)
+})
+
+        
 
         res.send("orders sent")
 
@@ -54,37 +64,72 @@ router.post('/empty',(req,res) =>{
 
 // adds order to the hashtable
 
-//orderId, UserID, AssetID, OrderType, TokenAmount, strikePrices, Slippage
-let sampleOrder = {
+//orderId, UserID, assetID, OrderType, TokenAmount, strikePrices, Slippage
+
+
+let sampleOrderBuySell = {
     orderID: "EmenikeOrderID",
-    UserID: "Emenike",
-    AssetID: "testCoin",
-    OrderType: "Buy",
-    TokenAmount: 1,
+    userID: "Emenike",
+    assetID: "testCoin",
+    orderType: "Buy",
+    tokenAmount: 1,
     strikePrice: 111.11,
-    Slippage: 0.01
+    slippage: 0.01
+}
+
+
+let sampleOrderBid = {
+    orderID: "EmenikeOrderID",
+    userID: "Emenike",
+    assetID: "testCoin",
+    orderType: "Bid",
+    usdsn: 20
 }
 
 
 router.post('/addOrder', (req,res) =>{
-    let order = req.body.order
-
-    if(orderHash.get(order.AssetID) == undefined){
-        orderHash.set(order.AssetID, [])
-        transaction("Emenike", "test", "contract", "testing",[order.AssetID, stringify([order])], false)
+    let order = req.body
+    console.log(order)
+    if(order.orderType == "Bid"){
+    
+        if(BidOrderHash.get(order.assetID) == undefined){
+            BidOrderHash.set(order.assetID, [])
+    
+            //transaction("Emenike", "test", "contract", "userBid",[order.assetID, stringify([order])], false)
+    
+        }
+    
+        else{
+            BidOrderHash.get(order.assetID).push(order)
+        }
+    
+        res.send("order recieved: " + order)
     }
 
     else{
-        orderHash.get(order.AssetID).push(order)
+        if(BuySellOrderHash.get(order.assetID) == undefined){
+            BuySellOrderHash.set(order.assetID, [])
+    
+            //transaction("Emenike", "test", "contract", "executeOrder",[order.assetID, stringify([order])], false)
+    
+        }
+    
+        else{
+            BuySellOrderHash.get(order.assetID).push(order)
+        }
+    
+        res.send({orderRecieved:true})
     }
 
-    res.send("order recieved: " + order)
     
 })
 
+
+
+// testing purposes
 router.get('/sendMeOrders', (req,res) =>{
     
-    res.send(orderHash)
+    res.send({BuySellOrders:BuySellOrderHash, BidOrder: BidOrderHash})
     
 })
 

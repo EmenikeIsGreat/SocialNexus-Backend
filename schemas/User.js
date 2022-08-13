@@ -39,13 +39,9 @@ const User = new mongoose.Schema({
 
     followers: Number,
 
-    createdAsset: String,
-    
-    Balances: Object,
+    privacy:Boolean,
 
-    Asset:String,
-
-    privacy:Boolean
+    Bio:String
 
     },
 

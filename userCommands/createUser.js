@@ -63,7 +63,9 @@ module.exports = async function createUser(userJson){
 
             userName: userJson.userName,
 
-            privacy: false
+            privacy: false,
+
+            Bio:''
 
         })
 

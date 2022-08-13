@@ -1,9 +1,10 @@
 const express = require('express')
-const userCollection = require('../schemas/User')
-const transaction = require('../Blockchain/wrappedFabConnect/transactions')
-const query = require('../Blockchain/wrappedFabConnect/query')
+
 const createUser = require('../userCommands/createUser')
-const bodyParser = require('body-parser')
+const getUserBalance = require('../userCommands/getUserBalance')
+const changeBio = require('../userCommands/changeBio')
+const getTx = require('../userCommands/getTx')
+
 const router = express.Router()
 
 
@@ -16,6 +17,52 @@ router.post('/createUser', (req, res) =>{
     //console.log(userJson)
     
     let resValue = createUser(userJson).then((data)=>res.send(data))
+    .catch((error)=>res.send(error))
+    //res.end()
+
+
+    // testing
+    // res.send(req.body)
+    // res.end()
+})
+
+
+router.post('/getUserBalance', (req, res) =>{
+
+    let id = req.body
+    //console.log(userJson)
+    
+    let resValue = getUserBalance(id).then((data)=>res.send(data))
+    .catch((error)=>res.send(error))
+    //res.end()
+
+
+    // testing
+    // res.send(req.body)
+    // res.end()
+})
+
+router.post('/changeBio', (req, res) =>{
+
+    let jsonInfo = req.body
+    //console.log(userJson)
+    
+    let resValue = changeBio(jsonInfo).then((data)=>res.send(data))
+    .catch((error)=>res.send(error))
+    //res.end()
+
+
+    // testing
+    // res.send(req.body)
+    // res.end()
+})
+
+router.post('/getTx', (req, res) =>{
+
+    let jsonInfo = req.body
+    console.log(jsonInfo)
+    
+    let resValue = getTx(jsonInfo).then((data)=>res.send(data))
     .catch((error)=>res.send(error))
     //res.end()
 

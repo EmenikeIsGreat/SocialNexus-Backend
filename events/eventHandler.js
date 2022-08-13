@@ -6,7 +6,7 @@ const Message = require('../schemas/Message')
 const User = require('../schemas/User');
 const ExternalTx = require('../schemas/ExternalTransactions')
 const updateStatistics = require('../Asset/updateStatistics')
-
+const tx = require('../schemas/transaction')
 
 
 async function message(UserID, payload){
@@ -77,6 +77,22 @@ let sampleBidEvent = {
     }
 }
 
+
+let sampleExternalEvent = {
+    UserID:"62b750b69e2542d58f9721c6",
+    Type: "External",
+    
+    Transaction:{
+        External: "deposit",
+        USDSHAmount: 20,
+    },
+
+    UserBalance:{
+        USDSH: 25,
+        EmenikeCoin: 35
+    }
+}
+
 async function simulateTxProcessing(event){
 
 
@@ -84,7 +100,15 @@ async function simulateTxProcessing(event){
             case "Order":
 
 
-                let tx = await orders.create({
+                // let tx = await orders.create({
+                //     Type: event.Transaction.Type,
+                //     UserID: event.UserID,
+                //     OrderID: event.Transaction.orderID,
+                //     Transaction: event.Transaction,
+                // })
+
+                
+                let transaction1 = await tx.create({
                     Type: event.Transaction.Type,
                     UserID: event.UserID,
                     OrderID: event.Transaction.orderID,
@@ -103,7 +127,14 @@ async function simulateTxProcessing(event){
             case "RecievedAssetFromInit":
   
 
-                let tx3 = await orders.create({
+                // let tx3 = await orders.create({
+                //     Type: event.Transaction.Type,
+                //     UserID: event.UserID,
+                //     OrderID: event.Transaction.orderID,
+                //     Transaction: event.Transaction,
+                // })
+
+                let transaction2 = await tx.create({
                     Type: event.Transaction.Type,
                     UserID: event.UserID,
                     OrderID: event.Transaction.orderID,
@@ -116,11 +147,18 @@ async function simulateTxProcessing(event){
                 break
             
             case "Bid":
-                let tx1 = await bids.create({
-                    UserID: event.UserID,
-                    BidID: event.Transaction.BidID,
-                    Transaction: event.Transaction
+                // let tx1 = await bids.create({
+                //     UserID: event.UserID,
+                //     BidID: event.Transaction.BidID,
+                //     Transaction: event.Transaction
             
+                // })
+
+                let transaction3 = await tx.create({
+                    Type: event.Transaction.Type,
+                    UserID: event.UserID,
+                    OrderID: event.Transaction.orderID,
+                    Transaction: event.Transaction,
                 })
           
         
@@ -128,10 +166,19 @@ async function simulateTxProcessing(event){
                 break
             
             // deposits, withdraws, transfers
+           
             case "External":
-                let tx2 = await ExternalTx.create({
+                // let tx2 = await ExternalTx.create({
+                //     UserID: event.UserID,
+                //     Transaction: event.Transaction
+                // })
+
+
+                let transaction4 = await tx.create({
+                    Type: event.Transaction.Type,
                     UserID: event.UserID,
-                    Transaction: event.Transaction
+                    OrderID: event.Transaction.orderID,
+                    Transaction: event.Transaction,
                 })
 
                 await message(event.UserID, event.Transaction) 
@@ -162,5 +209,5 @@ async function simulateTxProcessing(event){
 
 }
 
-simulateTxProcessing(sampleOrderEvent)
+simulateTxProcessing(sampleExternalEvent)
 

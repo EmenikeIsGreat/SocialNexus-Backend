@@ -1,0 +1,74 @@
+const mongoose = require("mongoose");
+const user = "mongodb+srv://Emenike:Ninjaboy12345$@cluster0.lc7v34m.mongodb.net/?retryWrites=true&w=majority"
+const tx = require('../schemas/transaction')
+
+mongoose.connect(user).then(()=>{
+    console.log("connected")
+})
+    .catch((error)=>{
+        console.log(error)
+
+    })
+
+module.exports = async function getTransaction(jsonInfo){
+
+    let {id, amount, intialRender, date} = jsonInfo
+    try{
+        if(intialRender){
+            let transaction = await tx.find({'UserID':id}).sort({$natural:-1}).limit(amount)
+            console.log(transaction)
+            
+           
+            let max = false
+            if(transaction.length < amount){
+                max = true
+            }
+            return {
+                messages: transaction,
+                lastDate: transaction[transaction.length-1].createdAt,
+                max:max
+            }
+        }
+    
+        else{
+
+            let nextTransaction = await tx.find({"UserID":id,
+            createdAt: {
+                $lte: new Date(date)
+            }
+                }).sort({$natural:-1}).limit(amount)
+    
+            console.log(nextTransaction)
+
+
+            let max = false
+            if(nextTransaction.length < amount){
+                max = true
+            }
+    
+            return {
+                messages: nextTransaction,
+                lastDate: nextTransaction[nextTransaction.length-1].createdAt,
+                max:max
+            }
+        }
+    }
+
+   catch(error){
+        console.log(error)
+       return error
+       
+   }
+
+
+}
+
+//getTransaction({id: '62b750b69e2542d58f9721c6',amount: 100,intialRender: true,date: "2022-07-02T17:12:54.407Z"}).then((data)=> console.log(data))
+
+async function test1(){
+    let order = await tx.find({'UserID':'62b750b69e2542d58f9721c6'}).sort({$natural:-1}).limit(100)
+
+    console.log(order)
+}
+
+//test1()
