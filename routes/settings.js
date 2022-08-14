@@ -3,12 +3,12 @@ const bodyParser = require('body-parser')
 
 
 const userCollection = require('../schemas/User')
-const changeName = require('../userCommands/changeName')
-const changeUserName = require('../userCommands/changeUserName')
-const changeEmail = require('../userCommands/changeEmail')
-const changePhoneNumber = require('../userCommands/changePhoneNumber')
-const changePassword = require('../userCommands/changePassword')
-const changePrivacyStatus = require('../userCommands/changePrivacyStatus')
+const changeName = require('../userCommands/settingsFuncs/changeName')
+const changeUserName = require('../userCommands/settingsFuncs/changeUserName')
+const changeEmail = require('../userCommands/settingsFuncs/changeEmail')
+const changePhoneNumber = require('../userCommands/settingsFuncs/changePhoneNumber')
+const changePassword = require('../userCommands/settingsFuncs/changePassword')
+const changePrivacyStatus = require('../userCommands/settingsFuncs/changePrivacyStatus')
 
 const router = express.Router()
 

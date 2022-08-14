@@ -79,7 +79,7 @@ let sampleBidEvent = {
 
 
 let sampleExternalEvent = {
-    UserID:"62b750b69e2542d58f9721c6",
+    UserID:"62f7fdd597c2ceea6ad4595c",
     Type: "External",
     
     Transaction:{

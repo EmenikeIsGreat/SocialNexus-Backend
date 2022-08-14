@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const url = "mongodb+srv://Emenike:Ninjaboy12345$@cluster0.lc7v34m.mongodb.net/?retryWrites=true&w=majority"
-const user = require('../schemas/User')
-const checkIfEmailExist = require('./checkEmailExist')
+const user = require('../../schemas/User')
+const checkUserNameExist = require('../checks/checkUserNameExist')
 
 
 mongoose.connect(url).then(()=>{
@@ -12,12 +12,13 @@ mongoose.connect(url).then(()=>{
 
     })
 
-module.exports = async function changeEmail(jsonInfo){
+module.exports = async function changeUserName(jsonInfo){
 
-    let {id, email} = jsonInfo
-    console.log(jsonInfo)
+    let {id, userName} = jsonInfo
+
+
     try{
-        let check = await checkIfEmailExist(email)
+        let check = await checkUserNameExist(userName)
         
         if(check){
             console.log("exist")
@@ -28,7 +29,7 @@ module.exports = async function changeEmail(jsonInfo){
             let user2 = await user.findById(id)
             console.log(user2)
 
-            user2.email = email;
+            user2.userName = userName;
             await user2.save();
             return jsonInfo
         }
@@ -42,5 +43,5 @@ module.exports = async function changeEmail(jsonInfo){
 
 }
 
-//changeEmail({userID: '62c0eadc47ec21fd9e585023', email: 'EmenikeCool100000000000000000000000000000'})
+//changeUserName({userID:'62c0eadc47ec21fd9e585023', userName: 'EmenikeCool1000000000000'})
 

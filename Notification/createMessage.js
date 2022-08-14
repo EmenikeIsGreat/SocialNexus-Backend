@@ -28,7 +28,7 @@ module.exports = async function createMessage(sender, recipient, body){
     }
 }
 
-//createMessage("Emenike","Arinze","test")
+//createMessage("Emenike","62f7fdd597c2ceea6ad4595c","test")
 
 
 

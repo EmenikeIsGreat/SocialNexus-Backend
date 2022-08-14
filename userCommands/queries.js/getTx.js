@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const user = "mongodb+srv://Emenike:Ninjaboy12345$@cluster0.lc7v34m.mongodb.net/?retryWrites=true&w=majority"
-const tx = require('../schemas/transaction')
+const tx = require('../../schemas/transaction')
 
 mongoose.connect(user).then(()=>{
     console.log("connected")
@@ -12,11 +12,11 @@ mongoose.connect(user).then(()=>{
 
 module.exports = async function getTransaction(jsonInfo){
 
-    let {id, amount, intialRender, date} = jsonInfo
+    let {id, amount, initialRender, date} = jsonInfo
     try{
-        if(intialRender){
+        if(initialRender){
             let transaction = await tx.find({'UserID':id}).sort({$natural:-1}).limit(amount)
-            console.log(transaction)
+            //console.log(transaction)
             
            
             let max = false
@@ -38,7 +38,7 @@ module.exports = async function getTransaction(jsonInfo){
             }
                 }).sort({$natural:-1}).limit(amount)
     
-            console.log(nextTransaction)
+            //console.log(nextTransaction)
 
 
             let max = false
@@ -63,7 +63,7 @@ module.exports = async function getTransaction(jsonInfo){
 
 }
 
-//getTransaction({id: '62b750b69e2542d58f9721c6',amount: 100,intialRender: true,date: "2022-07-02T17:12:54.407Z"}).then((data)=> console.log(data))
+//getTransaction({id: '62f7fdd597c2ceea6ad4595c',amount: 100,intialRender: true,date: "2022-07-02T17:12:54.407Z"}).then((data)=> console.log(data))
 
 async function test1(){
     let order = await tx.find({'UserID':'62b750b69e2542d58f9721c6'}).sort({$natural:-1}).limit(100)

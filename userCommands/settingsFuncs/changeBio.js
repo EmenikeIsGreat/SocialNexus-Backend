@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const url = "mongodb+srv://Emenike:Ninjaboy12345$@cluster0.lc7v34m.mongodb.net/?retryWrites=true&w=majority"
-const user = require('../schemas/User')
-const checkIfPhoneNumberExist = require('../userCommands/checkPhoneNumberExist')
+const user = require('../../schemas/User')
+
 
 
 mongoose.connect(url).then(()=>{
@@ -12,23 +12,17 @@ mongoose.connect(url).then(()=>{
 
     })
 
-module.exports = async function changePhoneNumber(jsonInfo){
+module.exports = async function changeBio(jsonInfo){
     
-    let {id, phoneNumber} = jsonInfo
+    let {id, newBio} = jsonInfo
 
     try{
 
-        let check = await checkIfPhoneNumberExist(phoneNumber)
-        
-        if(check){
-            console.log("exist")
-            return false
-        }
-
-
         let user2 = await user.findById(id)
+        console.log(user2)
 
-        user2.phoneNumber = phoneNumber;
+        user2.Bio = newBio
+
         
         let response = await user2.save();
         console.log(response)
@@ -44,5 +38,5 @@ module.exports = async function changePhoneNumber(jsonInfo){
 
 }
 
-//changePhoneNumber({id:'62c0eadc47ec21fd9e585023', phoneNumber:3})
+//changeBio({id: '62f7fdd597c2ceea6ad4595c', newBio:"Test Bio"})
 

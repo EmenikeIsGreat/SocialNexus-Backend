@@ -6,12 +6,12 @@ const url = "mongodb+srv://Emenike:Ninjaboy12345$@cluster0.lc7v34m.mongodb.net/?
 
 
 //const transaction = require('../../Blockchain/wrappedFabConnect/transactions');
-const user = require('../schemas/User')
-const passwords = require('../schemas/passwords')
+const user = require('../../schemas/User')
+const passwords = require('../../schemas/passwords')
 
-const checkIfEmailExist = require('./checkEmailExist')
-const checkIfUserNameExist = require('./checkUserNameExist')
-const checkIfPhoneNumberExist = require('./checkPhoneNumberExist')
+const checkIfEmailExist = require('../checks/checkEmailExist')
+const checkIfUserNameExist = require('../checks/checkUserNameExist')
+const checkIfPhoneNumberExist = require('../checks/checkPhoneNumberExist')
 
 mongoose.connect(url).then((result) =>{
     console.log("connected")

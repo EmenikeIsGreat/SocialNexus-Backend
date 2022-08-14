@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const url = "mongodb+srv://Emenike:Ninjaboy12345$@cluster0.lc7v34m.mongodb.net/?retryWrites=true&w=majority"
-const message = require('../Notification/createMessage')
-const user = require('../schemas/User')
+const message = require('../../Notification/createMessage')
+const user = require('../../schemas/User')
 
 
 mongoose.connect(url).then((result) =>{
@@ -11,8 +11,9 @@ mongoose.connect(url).then((result) =>{
 })
 
 
-async function followUnfollow(status, fromID, toID){
+module.exports = async function followUnfollow(jsonInfo){
 
+    let {status, fromID, toID} = jsonInfo
     let fromFollower = await user.findById(fromID)
     let follower = await user.findById(toID)
     
@@ -32,10 +33,12 @@ async function followUnfollow(status, fromID, toID){
     let response1 = await fromFollower.save()
     let response2 = await follower.save()
 
-    console.log(response1)
-    console.log('--------------')
-    console.log(response2)
+    // console.log(response1)
+    // console.log('--------------')
+    // console.log(response2)
+
+    return {success: true}
     
 }
 
-followUnfollow('follow','62c0eadc47ec21fd9e585023','62c0eadc47ec21fd9e585023')
+//followUnfollow({status: 'follow',fromID: '62f67c52c7ef61f24b5b1888',toID:'62f68a6150693c2e9d6bb4bd'})

@@ -1,9 +1,12 @@
 const express = require('express')
 
-const createUser = require('../userCommands/createUser')
-const getUserBalance = require('../userCommands/getUserBalance')
-const changeBio = require('../userCommands/changeBio')
-const getTx = require('../userCommands/getTx')
+const createUser = require('../userCommands/initialize/createUser')
+const getUserBalance = require('../userCommands/queries.js/getUserBalance')
+const changeBio = require('../userCommands/settingsFuncs/changeBio')
+const getTx = require('../userCommands/queries.js/getTx')
+const getAsset = require('../userCommands/assetFuncs/getAsset')
+const followUnfollow = require('../userCommands/searchableUsers.js/followUnfollow')
+const queryUser = require('../userCommands/searchableUsers.js/queryUser')
 
 const router = express.Router()
 
@@ -71,6 +74,58 @@ router.post('/getTx', (req, res) =>{
     // res.send(req.body)
     // res.end()
 })
+
+router.post('/getAsset', (req, res) =>{
+
+    let jsonInfo = req.body
+    console.log(jsonInfo)
+    
+    let resValue = getAsset(jsonInfo).then((data)=>res.send(data))
+    .catch((error)=>res.send(error))
+    //res.end()
+
+
+    // testing
+    // res.send(req.body)
+    // res.end()
+})
+
+
+router.post('/followUnfollow', (req, res) =>{
+
+    let jsonInfo = req.body
+    console.log(jsonInfo)
+    
+    let resValue = followUnfollow(jsonInfo).then((data)=>{
+
+        res.send(data) })
+    .catch((error)=>res.send(error))
+    //res.end()
+
+
+    // testing
+    // res.send(req.body)
+    // res.end()
+})
+
+
+router.post('/queryUser', (req, res) =>{
+
+    let jsonInfo = req.body
+    console.log(jsonInfo)
+    
+    let resValue = queryUser(jsonInfo).then((data)=>{
+
+        res.send(data) })
+    .catch((error)=>res.send(error))
+    //res.end()
+
+
+    // testing
+    // res.send(req.body)
+    // res.end()
+})
+
 
 
 

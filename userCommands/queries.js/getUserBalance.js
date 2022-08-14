@@ -1,4 +1,4 @@
-const query = require('../Blockchain/wrappedFabConnect/query')
+const query = require('../../Blockchain/wrappedFabConnect/query')
 
 
 module.exports = async function getUserBalance(userID){

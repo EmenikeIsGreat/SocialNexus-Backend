@@ -10,12 +10,14 @@ mongoose.connect(user).then(()=>{
 
     })
 
-async function getMessage(user, amount, render, date){
+module.exports = async function getMessage(jsonInfo){
+
+    let {id, amount, initialRender, date} = jsonInfo
 
     try{
-        if(render){
-            let renderMessages = await message.find({'recipient':user}).sort({$natural:-1}).limit(amount)
-            console.log(renderMessages)
+        if(initialRender){
+            let renderMessages = await message.find({'recipient':id}).sort({$natural:-1}).limit(amount)
+            //console.log(renderMessages)
             return {
                 messages: renderMessages,
                 lastDate: renderMessages[renderMessages.length-1].createdAt
@@ -23,13 +25,13 @@ async function getMessage(user, amount, render, date){
         }
     
         else{
-            let nextMessages = await message.find({"recipient":user,
+            let nextMessages = await message.find({"recipient":id,
             createdAt: {
                 $lte: new Date(date)
             }
                 }).sort({$natural:-1}).limit(amount)
     
-            console.log(nextMessages)
+            //console.log(nextMessages)
     
             return {
                 messages: nextMessages,
@@ -45,5 +47,5 @@ async function getMessage(user, amount, render, date){
 
 }
 
-getMessage("Arinze",2,false,"2022-07-01T16:35:04.821Z")
+//getMessage("Arinze",2,false,"2022-07-01T16:35:04.821Z")
 

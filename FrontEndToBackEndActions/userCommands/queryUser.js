@@ -3,15 +3,15 @@ const axios = require('axios')
 
 
 
-let id = {id:"62f2fa563471195687a3f0e8"}
+let id = {id:"62f68a6150693c2e9d6bb4bd"}
 
-async function getAsset(id){
-    const res = await axios.post('http://localhost:3000/userProfile/getAsset',id)
+async function queryUser(id){
+    const res = await axios.post('http://localhost:3000/userProfile/queryUser',id)
     console.log(res.data)
 }
 
 
-getAsset(id)
+queryUser(id)
 
 async function test(){
     const res = await axios.get('http://localhost:3000/test')
