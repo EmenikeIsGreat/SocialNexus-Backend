@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const user = "mongodb+srv://Emenike:Ninjaboy12345$@cluster0.lc7v34m.mongodb.net/?retryWrites=true&w=majority"
 const User = require('../../schemas/User')
 const followingUnfollowing = require('../../schemas/followerFollowing')
-
+const {getPhoto} = require('./getPhoto')
 
 mongoose.connect(user).then(()=>{
     console.log("connected")
@@ -35,7 +35,9 @@ async function queryUser(jsonInfo){
             mutual: (toIdRelationshipStatus && fromIdRelationshipStatus) ? true:false
         }
 
-        console.log({userInfo: searchedUser, relationShipStatus:relationshipStatus})
+        let photoData = await getPhoto(queriedId)
+
+        console.log({userInfo: searchedUser, relationShipStatus:relationshipStatus, profilePic: photoData})
         return {userInfo: searchedUser, relationShipStatus:relationshipStatus}
 
     }

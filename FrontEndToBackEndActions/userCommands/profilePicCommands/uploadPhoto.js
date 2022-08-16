@@ -37,6 +37,6 @@ const upload = async (id) => {
       }
     }
   
-//upload(id).then(resp => console.log(resp));
+upload(id).then(resp => console.log(resp));
 
 

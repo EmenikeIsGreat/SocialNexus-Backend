@@ -12,11 +12,14 @@ const queryUser = require('../userCommands/searchableUsers.js/queryUser')
 const multer  = require('multer');
 const os = require('os')
 const upload = multer({ dest: os.tmpdir()});
-const {changePhoto, getFileStream} = require('../userCommands/searchableUsers.js/changePhoto')
-
-
+const {changePhoto} = require('../userCommands/searchableUsers.js/changePhoto')
+const {getFileStream} = require('../userCommands/searchableUsers.js/getPhoto')
+const {deletePhoto} = require('../userCommands/searchableUsers.js/getPhoto')
+const bcrypt = require("bcryptjs")
+const user = require('../schemas/User')
+const passwordCollection = require('../schemas/passwords')
 const router = express.Router()
-
+const renderUser = require('../userCommands/initialize/renderUser')
 
 
 
@@ -151,6 +154,22 @@ router.get('/getPhoto:id', async (req, res) =>{
 
 })
 
+router.get('/deletePhoto:id', async (req, res) =>{
+
+
+
+    let readStream = deletePhoto(req.params.id)
+    
+
+
+    readStream.pipe(res)
+    
+    //res.send(readStream.data)
+
+    // console.log(title);
+    // console.log(file);
+
+})
 
 
 router.post('/changePhoto:id', upload.single('file'), async (req, res) =>{
@@ -175,6 +194,40 @@ router.post('/changePhoto:id', upload.single('file'), async (req, res) =>{
 
 
 
+router.post('/signIn', async (req, res) =>{
+
+    let {email, password} = req.body
+
+    let potentialUser = await user.findOne({email:email})
+
+    let userID = potentialUser.id;
+
+    let encryptedUsers = await passwordCollection.findOne({id:userID})
+
+    encryptedUsers = usersPassword.encryptedPassword
+
+
+
+    bcrypt.compare(password, encryptedUsers, async function(error, isMatch) {
+        if (error) {
+            throw error
+        } 
+        
+        else if (!isMatch) {
+            res.send({valid:false})
+        } 
+        
+        else {
+            res.send({valid:true, signIn: await renderUser(userID)})
+        }
+    })
+
+})
+
+
+
+
+
 
 /*
 
@@ -192,9 +245,7 @@ share post
 
 get Balance get
 
-get orders get
-
-get bids get
+getTransactions
 
 check order status get 
 

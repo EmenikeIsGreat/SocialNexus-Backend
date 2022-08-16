@@ -6,7 +6,7 @@ const queryUser = require('../searchableUsers.js/queryUser')
 const getBalance = require('../queries.js/getUserBalance')
 const getNotifications = require('../queries.js/getMessage')
 const getTx = require('../queries.js/getTx')
-
+const {getPhoto} = require('./getPhoto')
 
 
 
@@ -24,12 +24,15 @@ module.exports = async function renderUser(jsonInfo){
         let balance = await getBalance(jsonInfo)
         let notifications = await getNotifications(renderSpecifications)
         let transactions = await getTx(renderSpecifications)
+        let photoData = await getPhoto(queriedId)
+
 
         let returnVal = {
             user:user,
             balance:balance,
             notifications: notifications,
-            transactions:transactions
+            transactions:transactions,
+            profilePic: photoData
         }
 
         console.log(returnVal)

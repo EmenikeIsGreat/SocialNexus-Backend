@@ -51,4 +51,4 @@ module.exports = async function followUnfollow(jsonInfo){
     
 }
 
-followUnfollow({status: 'follow',fromID: '62f68a6150693c2e9d6bb4bd', toID:'62f67c52c7ef61f24b5b1888'})
+//followUnfollow({status: 'follow',fromID: '62f68a6150693c2e9d6bb4bd', toID:'62f67c52c7ef61f24b5b1888'})
