@@ -1,4 +1,6 @@
+
 const express = require('express')
+
 
 const createUser = require('../userCommands/initialize/createUser')
 const getUserBalance = require('../userCommands/queries.js/getUserBalance')
@@ -7,9 +9,13 @@ const getTx = require('../userCommands/queries.js/getTx')
 const getAsset = require('../userCommands/assetFuncs/getAsset')
 const followUnfollow = require('../userCommands/searchableUsers.js/followUnfollow')
 const queryUser = require('../userCommands/searchableUsers.js/queryUser')
+const multer  = require('multer');
+const os = require('os')
+const upload = multer({ dest: os.tmpdir()});
+const {changePhoto, getFileStream} = require('../userCommands/searchableUsers.js/changePhoto')
+
 
 const router = express.Router()
-
 
 
 
@@ -124,6 +130,47 @@ router.post('/queryUser', (req, res) =>{
     // testing
     // res.send(req.body)
     // res.end()
+})
+
+
+
+router.get('/getPhoto:id', async (req, res) =>{
+
+
+
+    let readStream = getFileStream(req.params.id)
+    
+
+
+    readStream.pipe(res)
+    
+    //res.send(readStream.data)
+
+    // console.log(title);
+    // console.log(file);
+
+})
+
+
+
+router.post('/changePhoto:id', upload.single('file'), async (req, res) =>{
+    
+    console.log(req.params.id)
+
+    
+    const title = req.body.title;
+
+    const file = req.file;
+    
+    
+    //console.log(title)
+
+    let response = await changePhoto(file, req.params.id)
+    //console.log(response)
+    // console.log(title);
+    // console.log(file);
+
+    res.send(response)
 })
 
 

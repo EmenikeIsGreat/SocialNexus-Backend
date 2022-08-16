@@ -41,7 +41,9 @@ const User = new mongoose.Schema({
 
     privacy:Boolean,
 
-    Bio:String
+    Bio:String,
+
+    profilePic:String
 
     },
 
