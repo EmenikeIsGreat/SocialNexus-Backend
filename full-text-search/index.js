@@ -93,3 +93,9 @@ async function searchAsset(element){
     }
 }
 exports.searchAsset = searchAsset
+
+async function delete2(){
+    let cursor = AssetList.find().cursor()
+    console.log(await cursor.next())
+}
+delete2()
