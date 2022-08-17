@@ -4,7 +4,7 @@ const FormData = require('form-data');
 const Path = require('path');
 
 
-id = "Whatever"
+id = "hello"
 
 async function getPhotos(id){
 
@@ -33,4 +33,4 @@ async function getPhotos(id){
   }
   
 
-//getPhotos(id)
+getPhotos(id)

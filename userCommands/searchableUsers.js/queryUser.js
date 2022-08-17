@@ -12,7 +12,7 @@ mongoose.connect(user).then(()=>{
 
     })
 
-async function queryUser(jsonInfo){
+module.exports = async function queryUser(jsonInfo){
 
     let {id, queriedId} = jsonInfo
     try{
@@ -34,8 +34,8 @@ async function queryUser(jsonInfo){
             followingUser: fromIdRelationshipStatus == null ? false:true,
             mutual: (toIdRelationshipStatus && fromIdRelationshipStatus) ? true:false
         }
-
-        let photoData = await getPhoto(queriedId)
+        const resp = await axios.get('http://localhost:5000/userProfile/getPhoto'+id);
+        let photoData = await resp.data
 
         console.log({userInfo: searchedUser, relationShipStatus:relationshipStatus, profilePic: photoData})
         return {userInfo: searchedUser, relationShipStatus:relationshipStatus}

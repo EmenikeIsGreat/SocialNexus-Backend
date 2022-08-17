@@ -18,9 +18,10 @@ const {deletePhoto} = require('../userCommands/searchableUsers.js/getPhoto')
 const bcrypt = require("bcryptjs")
 const user = require('../schemas/User')
 const passwordCollection = require('../schemas/passwords')
-const router = express.Router()
 const renderUser = require('../userCommands/initialize/renderUser')
+const {searchUser, searchAsset} = require('../full-text-search/index')
 
+const router = express.Router()
 
 
 router.post('/createUser', (req, res) =>{
@@ -179,7 +180,7 @@ router.post('/changePhoto:id', upload.single('file'), async (req, res) =>{
     
     const title = req.body.title;
 
-    const file = req.file;
+    const file = req.file;  
     
     
     //console.log(title)
@@ -198,29 +199,51 @@ router.post('/signIn', async (req, res) =>{
 
     let {email, password} = req.body
 
+
     let potentialUser = await user.findOne({email:email})
 
     let userID = potentialUser.id;
+    
+    let encryptedUsers = await passwordCollection.findOne({ID:userID})
 
-    let encryptedUsers = await passwordCollection.findOne({id:userID})
+    encryptedUsers = encryptedUsers.encryptedPassword
+    console.log("encrypted password is " + encryptedUsers)
 
-    encryptedUsers = usersPassword.encryptedPassword
-
-
-
+    
+    
     bcrypt.compare(password, encryptedUsers, async function(error, isMatch) {
         if (error) {
             throw error
         } 
         
         else if (!isMatch) {
+            console.log("does not matched")
             res.send({valid:false})
         } 
         
         else {
-            res.send({valid:true, signIn: await renderUser(userID)})
+            console.log('matched')
+            res.send({valid:true, renderedUser: await renderUser(userID)})
         }
     })
+
+})
+
+
+router.get('/search', async (req, res) =>{
+
+    const {type, input} = req.query
+
+
+    if(type == "user"){
+        res.send({potentialUsers: await searchUser(input)})
+    }
+
+    else{
+        res.send({potentialAssets: await searchAsset(input)})
+    }
+
+    
 
 })
 
@@ -233,9 +256,8 @@ router.post('/signIn', async (req, res) =>{
 
 
 
-render user post
 
-edit bio post
+
 
 deposit post
 
@@ -243,17 +265,12 @@ withdraw post
 
 share post
 
-get Balance get
-
 getTransactions
 
 check order status get 
 
-get Asset get 
-
 get notifications get 
 
-follow/unfollow post
 
 */
 

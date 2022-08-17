@@ -30,10 +30,14 @@ function getFileStream(fileKey) {
       Key: fileKey,
       Bucket: bucketName
     }
-  
-    return s3.getObject(downloadParams).createReadStream()
+    
+    let response = s3.getObject(downloadParams).createReadStream()
+    console.log(response)
+    return response
 
 //getFileStream("Whatever")
 }
+
+//getFileStream("hello")
 
 exports.getFileStream = getFileStream

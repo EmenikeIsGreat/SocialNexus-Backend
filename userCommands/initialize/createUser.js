@@ -98,9 +98,9 @@ module.exports = async function createUser(userJson){
 
 
 
-        await findUser.save()
+        let createdUser = await findUser.save()
         //transaction("Emenike", "test", "contract", "createUser", [userID], true)
-        return {userCreated:true}
+        return {userCreated:createUser}
     }
 
     catch(error){
