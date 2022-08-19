@@ -9,6 +9,7 @@ mongoose.connect(url).then((result) =>{
 })
 
 
+
 // const AssetTracking = new mongoose.Schema({
     
 //     Assets:[{
@@ -78,16 +79,22 @@ module.exports = async function updateStatistics(assetID, price, shares){
 
    
     
-    if(asset.monthlyChart.length == 0){
-        asset.stats.deltaMonth = 0
+    if(asset.monthlyChart.length > 1){
+
+        asset.stats.deltaMonth = (asset.monthlyChart[asset.monthlyChart.length-1] - asset.monthlyChart[asset.monthlyChart.length-2])/asset.monthlyChart[asset.monthlyChart.length-2]*100
+
     }
 
-    if(asset.weeklyChart.length == 0){
-        asset.stats.deltaWeek = 0
+
+    if(asset.weeklyChart.length > 1){
+        
+        asset.stats.deltaWeek = (asset.weeklyChart[asset.weeklyChart.length-1] - asset.weeklyChart[asset.weeklyChart.length-2])/asset.weeklyChart[asset.weeklyChart.length-2]*100
+  
     }
 
-    if(asset.dailyChart.length == 0){
-        asset.stats.deltaDay = 0
+
+    if(asset.dailyChart.length > 1){
+        asset.stats.deltaDay = (asset.dailyChart[asset.dailyChart.length-1] - asset.dailyChart[asset.dailyChart.length-2])/asset.dailyChart[asset.dailyChart.length-2]*100
     }
 
     asset.stats.withinMinuteData.push(price)

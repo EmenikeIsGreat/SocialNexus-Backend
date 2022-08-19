@@ -42,7 +42,7 @@ const randomName = uniqueNamesGenerator({ dictionaries: [adjectives, colors, ani
 
 
 async function doIt(){
-    for(let i = 0; i < 1000; i++){
+    for(let i = 0; i < 700; i++){
         const name = uniqueNamesGenerator({
             dictionaries: [adjectives, animals, colors], // colors can be omitted here as not used
             length: 1
@@ -63,7 +63,7 @@ async function doIt(){
     
     
 }
-//doIt()
+doIt()
 
 let limit = 20
 async function searchUser(element){
@@ -98,4 +98,3 @@ async function delete2(){
     let cursor = AssetList.find().cursor()
     console.log(await cursor.next())
 }
-delete2()

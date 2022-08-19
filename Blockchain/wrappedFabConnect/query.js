@@ -1,6 +1,16 @@
 const axios = require('axios') 
 const stringify  = require('json-stringify-deterministic');
+const path = require('path');
 
+
+const coolPath = path.join(__dirname, '../../.env')
+require("dotenv").config({path:coolPath})
+
+let baseURL = process.env.KALEIDO_PEER_BASE_URL
+let HLF_Signer = process.env.HLF_SIGNER
+let flyChannel = process.env.HLF_FLY_CHANNEL
+let auth = process.env.AUTHORIZATION
+let contract = process.env.HLF_CONTRACT
 
 /*
 sample curl reequest
@@ -23,14 +33,14 @@ curl -X 'POST' \
 }'
 */
 
-module.exports = async function query(signer, channel, contract, func, args){
+async function query(func, args){
     try{
         
-        const res = await axios.post('https://u0gqwel2qs-u0f6ogmk5v-connect.us0-aws-ws.kaleido.io/query',
+        const res = await axios.post(baseURL + 'query',
             {
                 "headers": {
-                  "signer": signer,
-                  "channel": channel,
+                  "signer": HLF_Signer,
+                  "channel": flyChannel,
                   "chaincode": contract
                 },
                 "func": func,
@@ -40,7 +50,7 @@ module.exports = async function query(signer, channel, contract, func, args){
             headers: {
                 'accept': '*/*',
                 'Content-Type': 'application/json',
-                'Authorization': 'Basic dTBmbmVuNDB5azpMbVFMMjE1MkpRLWxhMDVUb3JOenlteGFvaFpjdUtHdnRJSUEza2dQeGJR'
+                'Authorization': 'Basic ' + auth
               }   
         }
         );
@@ -70,4 +80,34 @@ let arr = stringify({
 
 //query("Emenike", "test", "contract", "getOrder", ["Emenike32222"])
 //query("Emenike", "test", "contract", "getUser", ["testCoin"])
-//query("Emenike", "test", "contract", "getPrice", [arr])
+
+
+let arr2 = ["Emenike", "Arinze", "Izunna", "Adanna"]
+
+let arr3 = stringify({
+  assets: arr2
+})
+
+
+// query("getUser", ["Emenike"]).then((data)=>{
+//   console.log(data)
+// })
+
+
+// query("getPrice_Test", [arr3]).then((data)=>{
+
+//   let Obj = new Map()
+//   console.log(data.result._data)
+
+//   for(let i = 0; i < data.result._data.length; i++){
+//       let jsonFirstElement = Object.keys(data.result._data[i])[0]
+//       Obj.set(Object.keys(jsonFirstElement), data.result._data.length[i][jsonFirstElement]) 
+//       console.log("Emenike")
+//     }
+//   //console.log(Obj)
+// })
+
+
+// console.log(JSON.parse(arr3).assets)
+
+

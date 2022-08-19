@@ -31,10 +31,10 @@ async function initializeAsset(assetID){
         })
         await transaction("Emenike", "test", "contract", "initalizeAssets", [assetID], true)
         let price = await query("Emenike", "test", "contract", "getPrice", [asset])
-        let messageToAssetCreator = await message(price.results.Creator,"Your asset has been intialized")
+        let messageToAssetCreator = await message(price.results[0].ID,"Your asset has been intialized")
         
         
-        price = price.results[0].currentPrice
+        price = price.results[0].ID
         for(let i = 0; i < assetsCollection.Assets.length; i++){
             if(assetsCollection.Assets[i].id == assetID){
                 assetsCollection.Assets[i].initialized = true

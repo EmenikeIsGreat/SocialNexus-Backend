@@ -5,14 +5,16 @@ const User = new mongoose.Schema({
 
 
         userID:String,
-        
-        yearChart:[Number],
+        currentPrice: Number,
+        yearlyChart:[Number],
         monthlyChart:[Number],
         weeklyChart:[Number],
         dailyChart:[Number],
         minuteChart:[Number],
+        withinMInutData:[Number],
     
         stats:{
+            deltaYear:Number,
             deltaWeek:Number,
             deltaDay:Number,
             deltaMonth:Number,

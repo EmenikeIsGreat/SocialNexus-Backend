@@ -1,5 +1,14 @@
 const axios = require('axios') 
+const path = require('path');
 
+
+const coolPath = path.join(__dirname, '../../.env')
+require("dotenv").config({path:coolPath})
+
+let baseURL = process.env.KALEIDO_PEER_BASE_URL
+let HLF_Signer = process.env.HLF_SIGNER
+let flyChannel = process.env.HLF_FLY_CHANNEL
+let auth = process.env.AUTHORIZATION
 
 
 /*
@@ -23,7 +32,7 @@ curl -X 'POST' \
 async function createEventStream(eventStreamName, webHookUrl){
     try{
         
-        const res = await axios.post('https://u0gqwel2qs-u0f6ogmk5v-connect.us0-aws-ws.kaleido.io/eventstreams',
+        const res = await axios.post(baseURL + 'eventstreams',
             {
                 "name": eventStreamName,
                 "type": "webhook",
@@ -37,7 +46,7 @@ async function createEventStream(eventStreamName, webHookUrl){
                 headers: {
                     'accept': '*/*',
                     'Content-Type': 'application/json',
-                    'Authorization': 'Basic dTBmbmVuNDB5azpMbVFMMjE1MkpRLWxhMDVUb3JOenlteGFvaFpjdUtHdnRJSUEza2dQeGJR'
+                    'Authorization': 'Basic ' + auth
                 }   
         }
         );

@@ -10,7 +10,7 @@
 const stringify  = require('json-stringify-deterministic');
 const sortKeysRecursive  = require('sort-keys-recursive');
 const { Contract } = require('fabric-contract-api');
-
+const hash = require('hash')
 
 /*
 error codes
@@ -476,32 +476,61 @@ class AssetTransfer extends Contract {
     }
 
     async getPrice(ctx, assetIDs){
+
+        assetIDs = JSON.parse(assetIDs)
+        assetIDs = assetIDs.assetIDs
         
-        let returnVals = []
+        let returnVal = []
         
         for(let i = 0; i < assetIDs.length; i++){
 
 
-            let asset = await this.getAsset(ctx, assetIDs[i]);
+            let asset = await this.getAsset(ctx, assetIDs[i].name);
             let price = asset.LP.Price/asset.LP.Asset
-    
+            
+            returnVal.push({asset:assetIDs,price:price})
 
-            let jsonVal = {
-                
-                ID: assetIDs[i],
-                currentPrice:price
 
-            }
-            returnVals.push(jsonVal)
+            
+
+
         
         }
 
 
 
-        return returnVals
+        return assetToPriceHash
 
 
     }
+
+    
+    async getPrice_Test(ctx, arrayData){
+
+        arrayData = JSON.parse(arrayData)
+        arrayData = arrayData.assets
+        
+        let assetToPriceHash = new hash()
+        let count = 0;
+         
+         for(let i = 0; i < arrayData.length; i++){
+ 
+ 
+    
+             assetToPriceHash.set(arrayData[i], count)
+             count++
+ 
+ 
+ 
+         
+         }
+ 
+ 
+ 
+         return assetToPriceHash
+ 
+ 
+     }
 
 
     async executeOrder(ctx, assetID, orders){

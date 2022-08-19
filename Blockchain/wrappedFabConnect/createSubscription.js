@@ -1,5 +1,14 @@
 const axios = require('axios') 
+const path = require('path');
 
+
+const coolPath = path.join(__dirname, '../../.env')
+require("dotenv").config({path:coolPath})
+
+let baseURL = process.env.KALEIDO_PEER_BASE_URL
+let HLF_Signer = process.env.HLF_SIGNER
+let flyChannel = process.env.HLF_FLY_CHANNEL
+let auth = process.env.AUTHORIZATION
 
 
 /*
@@ -23,15 +32,15 @@ curl -X 'POST' \
 */
 
 
-async function createSubscription(name, stream, channel, signer, startingBlock){
+async function createSubscription(name, stream, startingBlock){
     try{
-        let url = 'https://u0gqwel2qs-u0f6ogmk5v-connect.us0-aws-ws.kaleido.io/subscriptions'
+        let url = baseURL + 'subscriptions'
         const res = await axios.post(url,
             {
                 "name": name,
                 "stream": stream,
-                "channel": channel,
-                "signer": signer,
+                "channel": flyChannel,
+                "signer": HLF_Signer,
                 "fromBlock": startingBlock,
                 "payloadType": "json",
                 "filter": {
@@ -42,7 +51,7 @@ async function createSubscription(name, stream, channel, signer, startingBlock){
                 headers: {
                     'accept': '*/*',
                     'Content-Type': 'application/json',
-                    'Authorization': 'Basic dTBmbmVuNDB5azpMbVFMMjE1MkpRLWxhMDVUb3JOenlteGFvaFpjdUtHdnRJSUEza2dQeGJR'
+                    'Authorization': 'Basic ' + auth
                 }   
         }
         );
@@ -57,4 +66,4 @@ async function createSubscription(name, stream, channel, signer, startingBlock){
     }
 }
 
-createSubscription("SocialNexusEvents", "es-cd01d6a5-2ff8-44ac-7938-5b919e2c5fca", "test", "Emenike", "741")
+createSubscription("SocialNexusEvents", "es-cd01d6a5-2ff8-44ac-7938-5b919e2c5fca", "741")

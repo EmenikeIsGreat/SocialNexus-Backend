@@ -19,6 +19,7 @@
     "dependencies": {
         "fabric-contract-api": "^2.0.0",
         "fabric-shim": "^2.0.0",
+        "hash": "^0.2.1",
         "json-stringify-deterministic": "^1.0.1",
         "sort-keys-recursive": "^2.1.2"
     },

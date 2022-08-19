@@ -1,6 +1,16 @@
 const axios = require('axios') 
 const stringify  = require('json-stringify-deterministic');
+const path = require('path');
 
+
+const coolPath = path.join(__dirname, '../../.env')
+require("dotenv").config({path:coolPath})
+
+let baseURL = process.env.KALEIDO_PEER_BASE_URL
+let HLF_Signer = process.env.HLF_SIGNER
+let flyChannel = process.env.HLF_FLY_CHANNEL
+let auth = process.env.AUTHORIZATION
+let contract = process.env.HLF_CONTRACT
 
 /*
 sample curl reequest
@@ -25,16 +35,16 @@ curl -X 'POST' \
 */
 
 
-module.exports = async function transaction(signer, channel, contract, func, args, sync){
-    let url = 'https://u0gqwel2qs-u0f6ogmk5v-connect.us0-aws-ws.kaleido.io/transactions?fly-sync=' + sync
+module.exports = async function transaction(func, args){
+    let url = baseURL + 'transactions?fly-sync=' + true
     try{
         
         const res = await axios.post(url,
             {
                 "headers": {
                     "type": "SendTransaction",
-                    "signer": signer,
-                    "channel": channel,
+                    "signer": HLF_Signer,
+                    "channel": flyChannel,
                     "chaincode": contract
                 },
                 "func": func,
@@ -44,7 +54,7 @@ module.exports = async function transaction(signer, channel, contract, func, arg
             headers: {
                 'accept': '*/*',
                 'Content-Type': 'application/json',
-                'Authorization': 'Basic dTBmbmVuNDB5azpMbVFMMjE1MkpRLWxhMDVUb3JOenlteGFvaFpjdUtHdnRJSUEza2dQeGJR'
+                'Authorization': 'Basic ' + auth
               }   
         }
         );
@@ -83,7 +93,7 @@ let testOrder4 = stringify([
 ])
 
 //transaction("Emenike", "test", "contract", "executeOrder", ["testCoin", testOrder], true)
-//transaction("Emenike", "test", "contract", "createUser", ['EmenikeV2'], true)
+transaction("createUser", ['EmenikeV2'])
 //transaction("Emenike", "test", "contract", "deposit", ["Emenike2", "10000000000", "true"], true)
 //transaction("Emenike", "test", "contract", "initalizeAssets", ["testCoin"], true)
 

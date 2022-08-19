@@ -28,9 +28,9 @@ const AssetTracking = new mongoose.Schema({
             supply:Number,
             popularity:Number,
             marketCap:Number,
-            deltaWeek:Number,
-            deltaDay:Number,
-            deltaMonth:Number,
+            deltaWeek:Object,
+            deltaDay:Object,
+            deltaMonth:Object,
             volumeAcrossFiveDays:[Number],
             withinMinuteData:[Number]
         },

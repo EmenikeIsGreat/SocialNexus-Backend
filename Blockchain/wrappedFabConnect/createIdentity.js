@@ -1,4 +1,14 @@
 const axios = require('axios')
+const path = require('path');
+
+
+const coolPath = path.join(__dirname, '../../.env')
+require("dotenv").config({path:coolPath})
+
+let baseURL = process.env.KALEIDO_PEER_BASE_URL
+let HLF_Signer = process.env.HLF_SIGNER
+let flyChannel = process.env.HLF_FLY_CHANNEL
+let auth = process.env.AUTHORIZATION
 
 /*
 curl request to register identity
@@ -18,7 +28,7 @@ curl -X 'POST' \
 
 async function registerIdentity(identity){
     try{
-        const res = await axios.post('https://u0gqwel2qs-u0f6ogmk5v-connect.us0-aws-ws.kaleido.io/identities', {
+        const res = await axios.post(baseURL + 'identities', {
             "name": identity,
             "type": "client",
             "maxEnrollments": 0,
@@ -30,7 +40,7 @@ async function registerIdentity(identity){
             // See: http://bit.ly/text-json
             'accept': 'application/json',
             'Content-Type': 'application/json',
-            'Authorization': 'Basic dTBmbmVuNDB5azpMbVFMMjE1MkpRLWxhMDVUb3JOenlteGFvaFpjdUtHdnRJSUEza2dQeGJR'
+            'Authorization': 'Basic ' + auth
         
         
           }
@@ -69,7 +79,7 @@ curl -X 'POST' \
 
 async function enrollIdentity(name, secret){ 
     try{
-        let url = 'https://u0gqwel2qs-u0f6ogmk5v-connect.us0-aws-ws.kaleido.io/identities/' + name + '/enroll'
+        let url = baseURL + 'identities' + '/' + name + '/enroll'
         const res = await axios.post(url, {
             "secret": secret,
             "attributes": {}
@@ -80,7 +90,7 @@ async function enrollIdentity(name, secret){
             // See: http://bit.ly/text-json
             'accept': 'application/json',
             'Content-Type': 'application/json',
-            'Authorization': 'Basic dTBmbmVuNDB5azpMbVFMMjE1MkpRLWxhMDVUb3JOenlteGFvaFpjdUtHdnRJSUEza2dQeGJR'
+            'Authorization': 'Basic ' + auth
         
           }
         });
