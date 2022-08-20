@@ -79,12 +79,12 @@ module.exports = async function updateStatistics(assetID, price, shares){
 
    
     
-    if(asset.monthlyChart.length > 1){
+    if(asset.yearlyChart.length > 1){
 
-        asset.stats.deltaMonth = (asset.monthlyChart[asset.monthlyChart.length-1] - asset.monthlyChart[asset.monthlyChart.length-2])/asset.monthlyChart[asset.monthlyChart.length-2]*100
+        asset.stats.deltaYear = (asset.yearlyChart[asset.yearlyChart.length-1] - 
+            asset.yearlyChart[asset.yearlyChart.length-2])/asset.yearlyChart[asset.yearlyChart.length-2]*100
 
     }
-
 
     if(asset.weeklyChart.length > 1){
         

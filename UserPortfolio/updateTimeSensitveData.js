@@ -2,21 +2,23 @@ const mongoose = require("mongoose");
 const url = "mongodb+srv://Emenike:Ninjaboy12345$@cluster0.lc7v34m.mongodb.net/?retryWrites=true&w=majority"
 const User_Portfolio = require('../schemas/userPortfolio')
 const Pusher = require("pusher");
-const stringify = require("stringify")
+
 const query = require('../Blockchain/wrappedFabConnect/query')
 const AssetList = require('../schemas/listofAssetByName')
 const hash = require('hash')
+const stringify = require('json-stringify-deterministic');
+const transaction = require('../Blockchain/wrappedFabConnect/transactions')
 
 const express = require('express')
 const bodyParser = require('body-parser')
 const app = express()
 app.use(bodyParser.json())
 
-// mongoose.connect(url).then((result) =>{
-//     console.log("connected")
-// }).catch((error) =>{
-//     console.log(error)
-// })
+mongoose.connect(url).then((result) =>{
+    console.log("connected")
+}).catch((error) =>{
+    console.log(error)
+})
 
 
 
@@ -25,67 +27,159 @@ app.use(bodyParser.json())
 
 
 let nameOfAllAssets = new hash()
+
 let position = 0
 
-app.post('/addAsset', (req,res)=>{
-    let {name} = req.body
 
-    nameOfAllAssets.set(name, position)
-    position++
+// only uncomment for production
+// app.post('/addAsset', (req,res)=>{
+//     let {name} = req.body
+
+//     nameOfAllAssets.set(name, position)
+//     position++
+// })
+
+// let port = 3001
+// app.listen(port,()=>{
+//     console.log("add Asset modifier is listenong on port " + port)
+// })
+
+
+
+// create test transactions
+
+// create fake balances for user
+let usersBalance = stringify({
+    EA:{balance:10},
+    AA:{balance:100},
+    IA:{balance:5},
+    EAJR:{balance:20},
+    AAJR:{balance:30},
+    HA:{balance:45},
+    SS:{balance:22},
+    LP:{balance:66},
+    ES:{balance:78},
+    GA:{balance:15}
+})
+// put fake user and their balance onto blockchain
+//transaction('testing',["SocialNexus", usersBalance])
+
+//transaction('createUser',["Emenike"])
+
+// get usersBalances from blockchain
+//query('getUser',["Emenike"]).then((data)=>console.log(data))
+//query('getUser',["SocialNexus"]).then((data)=>console.log(data))
+
+
+
+
+
+// put fake asset onto the blockchain
+
+let fakeAsset = stringify({
+    LP:{
+        Asset: 20,
+        USDSN:20
+    }
 })
 
-let port = 3001
-app.listen(port,()=>{
-    console.log("add Asset modifier is listenong on port " + port)
-})
+
+// transaction('testing',["Emenike",stringify({
+//     SocialNexusAsset:{balance:15}
+// })])
+
+//query('getUser',["Emenike"]).then((data)=>console.log(data))
+
+
+//transaction('testing',["SocialNexusAsset", fakeAsset])
+// query('getAsset',["SocialNexusAsset"]).then((data)=>console.log(data))
+let arrayOfAssets = stringify(["SocialNexusAsset"])
+let arrayOfAssets2 = stringify(["Emenike2Asset"])
 
 
 
 
 
+
+// query('getPrice5',[arrayOfAssets]).then((data)=>console.log(data))
+// .catch((error)=>console.log(error))
+
+// query('getPrice6',[arrayOfAssets2]).then((data)=>console.log(data))
+// .catch((error)=>console.log(error))
+
+
+//transaction('createUser',['Emenike2'])
+// transaction('createAsset',['Emenike2Asset','Emenike2'])
+// transaction('deposit',['Emenike2','10000'])
+
+
+let sampleOrderBid = {
+    orderID: "EmenikeOrderID",
+    userID: "Emenike",
+    assetID: "testCoin",
+    orderType: "Bid",
+    usdsn: 20
+}
+//transaction('userBid',['Emenike2Asset', stringify(sampleOrderBid)])
+//transaction('initalizeAssets',['Emenike2Asset'])
+//query('getAsset',["Emenike2Asset"]).then((data)=>console.log(data))
+
+
+
+
+//intialize hashmap with fake data
+// nameOfAllAssets.set("EA",0)
+// nameOfAllAssets.set("AA",1)
+// nameOfAllAssets.set("GA",2)
+// nameOfAllAssets.set("ES",3)
+// nameOfAllAssets.set("LP",4)
+// nameOfAllAssets.set("SS",5)
+// nameOfAllAssets.set("HA",6)
+// nameOfAllAssets.set("AAJR",7)
+// nameOfAllAssets.set("EAJR",8)
+// nameOfAllAssets.set("IA",9)
+// nameOfAllAssets.set("EAJR",10)
+// nameOfAllAssets.set("TR",11)
+// nameOfAllAssets.set("ED",12)
+// nameOfAllAssets.set("JH",13)
+nameOfAllAssets.set("SocialNexusAsset",0)
+// let newVaL = stringify(nameOfAllAssets)
+// console.log(Object.keys(JSON.parse(newVaL)))
 
 
 
 async function calculateTotalValOfUsersPortfolio(userID){
 
 
-    // let prices = await query('getPrice',stringify(nameOfAllAssets))
-    // prices = prices.result
+    let prices = await query('getPrice5',[stringify(nameOfAllAssets)])
+    prices = prices.result
 
-    // let usersBalance = await query('getUser', userID)
-    // usersBalance = usersBalance.result
+    
+
+    let usersBalance = await query('getUser', [userID])
+    usersBalance = usersBalance.result
+    
+
+
     
     let totalAssetEvalInUSD = 0
 
     //testing
-    let usersBalance = {LP:{balance:50}, JP:{balance:60}, kP:{balance:50}, yP:{balance:60}
-                        ,rP:{balance:50}, fP:{balance:60},jP:{balance:50}}
-
-    nameOfAllAssets.set("LP",0)
-    nameOfAllAssets.set("JP",1)
-    nameOfAllAssets.set("kP",2)
-    nameOfAllAssets.set("yP",3)
-    nameOfAllAssets.set("rP",4)
-    nameOfAllAssets.set("fP",5)
-    nameOfAllAssets.set("jP",6)
-
-
-    let prices = [{asset:"LP", price:40},{asset:"JP", price:40}, 
-                {asset:"kP", price:40},{asset:"yP", price:40}, 
-                {asset:"rP", price:40}, {asset:"fP", price:40}, 
-                {asset:"jP", price:40}]
+    
+    // let prices = [{asset:"LP", price:40},{asset:"JP", price:40}, 
+    //             {asset:"kP", price:40},{asset:"yP", price:40}, 
+    //             {asset:"rP", price:40}, {asset:"fP", price:40}, 
+    //             {asset:"jP", price:40}]
     
 
-    console.log(Object.keys(usersBalance).length)
+
     for(let i = 0; i < Object.keys(usersBalance).length; i++){
 
         let token = Object.keys(usersBalance)[i]
-        console.log(token)
 
         let tokenShare = usersBalance[token].balance
 
         let positionOfAssetInPrices = nameOfAllAssets.get(token)
-        console.log("NUMBER: "+positionOfAssetInPrices)
 
 
         let assetPPS = prices[positionOfAssetInPrices].price
@@ -93,19 +187,43 @@ async function calculateTotalValOfUsersPortfolio(userID){
         let totalValuationOfAssetInUSD = tokenShare*assetPPS
         totalAssetEvalInUSD += totalValuationOfAssetInUSD
 
-        console.log(totalAssetEvalInUSD)
+
        
     }
-    console.log(totalAssetEvalInUSD)
+    //console.log(totalAssetEvalInUSD)
     return totalAssetEvalInUSD
 }
 
 
-//calculateTotalValOfUsersPortfolio(20)
+//calculateTotalValOfUsersPortfolio("Emenike")
 
 
 
 
+
+
+
+function modifyChartDataArray(array, valuation, limit){
+
+
+    if(limit == null){
+        limit =  Number.MAX_SAFE_INTEGER + 1
+    }
+
+    if(array.length < limit){
+        array.push(valuation)
+        console.log('less than')
+    }
+
+    else{
+        array.shift()
+        array.push(valuation)
+
+        console.log('greater than')
+    }
+
+    return array
+}
 let sampleUserPortfolio = {
     userID:"Emenike",
     currentPrice: 20,
@@ -122,36 +240,6 @@ let sampleUserPortfolio = {
         deltaMonth:0,
     }
 }
-
-
-
-
-function modifyChartDataArray(array, valuation, limit){
-
-
-    let lastElement = array[array.length-1]
-
-
-    if(limit == null){
-        limit =  Number.MAX_SAFE_INTEGER + 1
-    }
-
-    if(array.length < limit){
-        array.push(valuation)
-        lastElement = []
-        console.log('less than')
-    }
-
-    else{
-        array.shift()
-        array.push(valuation)
-        lastElement = []
-        console.log('greater than')
-    }
-
-    return array
-}
-
 function updateChartData(portfolio, valuation, timeFrame){
 
 
@@ -172,6 +260,7 @@ function updateChartData(portfolio, valuation, timeFrame){
             portfolio.dailyChart = modifyChartDataArray(portfolio.dailyChart, valuation, 365)
             break
         case 'minute':
+
             portfolio.minuteChart = modifyChartDataArray(portfolio.minuteChart, valuation, 60)
 
         default:
@@ -182,13 +271,15 @@ function updateChartData(portfolio, valuation, timeFrame){
 
 }
 
-//updateChartData(sampleUserPortfolio, 30, 'minute')
-
+// let port = updateChartData(sampleUserPortfolio, 30, 'minute')
+// port = updateChartData(port, 30, 'minute')
+// console.log(port)
 
 function updateStats(portfolio, evaluation){
+    
 
     portfolio.currentPrice = evaluation
-
+    
     if(portfolio.yearlyChart.length > 1){
 
         portfolio.stats.deltaYear = (portfolio.yearlyChart[portfolio.yearlyChart.length-1] - 
@@ -216,11 +307,31 @@ function updateStats(portfolio, evaluation){
         portfolio.stats.deltaDay = (portfolio.dailyChart[portfolio.dailyChart.length-1] - 
             portfolio.dailyChart[portfolio.dailyChart.length-2])/portfolio.dailyChart[portfolio.dailyChart.length-2]*100
     }
-
-    console.log(portfolio)
+    
+    return portfolio
 }
 
-//updateStats(sampleUserPortfolio, 40)
+// let sampleUserPortfolio = {
+//     userID:"Emenike",
+//     currentPrice: 20,
+//     yearlyChart:[1,2,3,4],
+//     monthlyChart:[1,2,3,4],
+//     weeklyChart:[1,2,3,4],
+//     dailyChart:[1,2,3,4],
+//     minuteChart:[1,2,3,4],
+
+//     stats:{
+//         deltaYear:0,
+//         deltaWeek:0,
+//         deltaDay:0,
+//         deltaMonth:0,
+//     }
+// }
+
+
+
+// let portfolio = updateStats(sampleUserPortfolio, 40)
+// let Newportfolio = updateStats(portfolio, 40)
 
 
 
@@ -234,57 +345,160 @@ let initialHour = initialDate.getHours()
 let initialMinute = initialDate.getMinutes()
 
 
-async function run(portfolio){
+function run(portfolio, valuation){
 
     //subsittute this for total evaluation from the calcualte function above
-    let valuation = 20;
+    
+
 
     let currentdate = new Date();
 
 
     if(currentdate.getFullYear() != initialYear){
         // run updateUsersPortofilio functin
-        portfolio = updateChartData(portfolio,valuation,'yearly')
+        updateChartData(portfolio,valuation,'yearly')
     }
 
     if(currentdate.getMonth() != initialMonth){
         // run updateUsersPortofilio functin   
-        portfolio = updateChartData(portfolio,valuation,'monthly') 
+        updateChartData(portfolio,valuation,'monthly') 
     }
 
     if(currentdate.getDay() == 6){
         // run updateUsersPortofilio functin    
-        portfolio = updateChartData(portfolio,valuation,'weekly')
+        updateChartData(portfolio,valuation,'weekly')
     }
     
     if(currentdate.getDay() != initialDay){
         // run updateUsersPortofilio functin   
-        portfolio = updateChartData(portfolio,valuation,'daily') 
+        updateChartData(portfolio,valuation,'daily') 
     }
 
     if(currentdate.getMinutes() != initialMinute){
         // run updateUsersPortofilio functin
-        portfolio = updateChartData(portfolio,valuation,'minute')
+        updateChartData(portfolio,valuation,'minute')
+
     }
     
     // get the user ID of the portfolio and save it to the database
 
-    console.log("Seconds: " + currentdate.getSeconds())
+    //console.log("Seconds: " + currentdate.getSeconds())
 
-    portfolio = updateStats(portfolio, valuation)
 
-    return portfolio
+    
+    updateStats(portfolio, valuation)
+    
+
+    //return portfolio
+
 
 
 
 }
+
+let samplePort = {
+    userID:"Emenike",
+    currentPrice: 20,
+    yearlyChart:[1,2,3,4],
+    monthlyChart:[1,2,3,4],
+    weeklyChart:[1,2,3,4],
+    dailyChart:[1,2,3,4],
+    minuteChart:[1,2,3,4],
+
+    stats:{
+        deltaYear:0,
+        deltaWeek:0,
+        deltaDay:0,
+        deltaMonth:0,
+    }
+}
+
+
+
+
+let initialDate2 = new Date()
+let initialYear2 = initialDate2.getFullYear()
+let initialMonth2 = initialDate2.getMonth()
+let initialDay2 = initialDate2.getDay()
+let initialHour2 = initialDate2.getHours()
+let initialMinute2 = initialDate2.getMinutes()
 
 
 async function updateAllUsersPortfolio(){
-    // queres the database and run a forloop and pass in the array into 
+    let currentdate = new Date();
+    console.log("Seconds: " + currentdate.getSeconds())
+    if(currentdate.getMinutes() != initialMinute2){
+    
+
+        for await (const doc of User_Portfolio.find()) {
+            let totalValuation = await calculateTotalValOfUsersPortfolio(doc.userID)
+
+            run(doc, totalValuation)
+            let response = await doc.save()
+            console.log(response)
+          }
+
+        let newDate = new Date();
+        initialMinute2 = newDate.getMinutes()
+        initialDay2 = newDate.getDay()
+        initialMonth2 = newDate.getMonth()
+        initialYear2 = newDate.getFullYear()
+    }
+
 }
 
-// let sample = {name:{first:"Emenike", last:"Anigbogu"}}
 
-// console.log(Object.keys(sample)[0])
-// console.log(sample['first'])
+// node updateTimeSensitveData
+
+let currentdate = new Date();
+
+
+setInterval(async ()=>{
+    await updateAllUsersPortfolio()
+
+}, 1000)
+
+
+
+async function testing(){
+    console.log("hello")
+    let response = await User_Portfolio.create({
+            userID:"Emenike",
+            currentPrice: 20,
+            yearlyChart:[1,2,3,4],
+            monthlyChart:[1,2,3,4],
+            weeklyChart:[1,2,3,4],
+            dailyChart:[1,2,3,4],
+            minuteChart:[1,2,3,4],
+        
+            stats:{
+                deltaYear:0,
+                deltaWeek:0,
+                deltaDay:0,
+                deltaMonth:0,
+            }
+        })
+    console.log(response)
+
+}
+
+//testing()
+
+
+
+async function testing3(){
+    let response = await User_Portfolio.find()
+    console.log(response)
+}
+
+//testing3()
+
+async function testing4(){
+    for await (const doc of User_Portfolio.find()) {
+        doc.userID = "Emenike is the goat"
+        let response = await doc.save()
+        console.log(response)
+      }
+    }
+
+//testing4()

@@ -1,7 +1,7 @@
 
 const mongoose = require('mongoose');
 
-const User = new mongoose.Schema({
+const Portfolio = new mongoose.Schema({
 
 
         userID:String,
@@ -11,7 +11,6 @@ const User = new mongoose.Schema({
         weeklyChart:[Number],
         dailyChart:[Number],
         minuteChart:[Number],
-        withinMInutData:[Number],
     
         stats:{
             deltaYear:Number,
@@ -23,7 +22,7 @@ const User = new mongoose.Schema({
     { timestamps: true },
 )
 
-module.exports = mongoose.model('User', User)
+module.exports = mongoose.model('userPortfolio', Portfolio)
 
 
 

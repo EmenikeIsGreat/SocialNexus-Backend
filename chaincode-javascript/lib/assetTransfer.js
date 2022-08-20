@@ -478,8 +478,10 @@ class AssetTransfer extends Contract {
     async getPrice(ctx, assetIDs){
 
         assetIDs = JSON.parse(assetIDs)
+        return assetIDs.assetIDs[0]
         assetIDs = assetIDs.assetIDs
         
+
         let returnVal = []
         
         for(let i = 0; i < assetIDs.length; i++){
@@ -490,17 +492,12 @@ class AssetTransfer extends Contract {
             
             returnVal.push({asset:assetIDs,price:price})
 
-
-            
-
-
         
         }
 
 
 
-        return assetToPriceHash
-
+        return returnVal
 
     }
 

@@ -12,7 +12,7 @@ const AssetTracking = new mongoose.Schema({
         initialized:Boolean,
 
     
-        yearChart:[Number],
+        yearlyChart:[Number],
         monthlyChart:[Number],
         weeklyChart:[Number],
         dailyChart:[Number],

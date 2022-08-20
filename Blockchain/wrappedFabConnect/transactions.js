@@ -93,7 +93,7 @@ let testOrder4 = stringify([
 ])
 
 //transaction("Emenike", "test", "contract", "executeOrder", ["testCoin", testOrder], true)
-transaction("createUser", ['EmenikeV2'])
+//transaction("createUser", ['EmenikeV2'])
 //transaction("Emenike", "test", "contract", "deposit", ["Emenike2", "10000000000", "true"], true)
 //transaction("Emenike", "test", "contract", "initalizeAssets", ["testCoin"], true)
 

@@ -33,7 +33,7 @@ curl -X 'POST' \
 }'
 */
 
-async function query(func, args){
+module.exports = async function query(func, args){
     try{
         
         const res = await axios.post(baseURL + 'query',
@@ -67,9 +67,6 @@ async function query(func, args){
 }
 
 
-let arr = stringify({
-  assets: ['testCoin']
-})
 
 
 // arr = JSON.parse(arr).assets
@@ -81,12 +78,6 @@ let arr = stringify({
 //query("Emenike", "test", "contract", "getOrder", ["Emenike32222"])
 //query("Emenike", "test", "contract", "getUser", ["testCoin"])
 
-
-let arr2 = ["Emenike", "Arinze", "Izunna", "Adanna"]
-
-let arr3 = stringify({
-  assets: arr2
-})
 
 
 // query("getUser", ["Emenike"]).then((data)=>{
