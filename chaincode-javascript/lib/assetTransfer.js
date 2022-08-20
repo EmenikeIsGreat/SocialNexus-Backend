@@ -35,6 +35,7 @@ class AssetTransfer extends Contract {
 
     // this is only testing
     async testing(ctx, key, value){
+        value = JSON.parse(value)
         await ctx.stub.putState(key, Buffer.from(stringify(value)));
     }
 
@@ -475,22 +476,27 @@ class AssetTransfer extends Contract {
 
     }
 
+
+
+
     async getPrice(ctx, assetIDs){
 
-        assetIDs = JSON.parse(assetIDs)
-        return assetIDs.assetIDs[0]
-        assetIDs = assetIDs.assetIDs
+ 
+
+        assetIDs = Object.keys(JSON.parse(assetIDs))
         
 
+        
         let returnVal = []
         
         for(let i = 0; i < assetIDs.length; i++){
 
-
-            let asset = await this.getAsset(ctx, assetIDs[i].name);
-            let price = asset.LP.Price/asset.LP.Asset
             
-            returnVal.push({asset:assetIDs,price:price})
+            let asset = await this.getAsset(ctx, assetIDs[i]);
+            let price = asset.LP.USDSN/asset.LP.Asset
+            
+
+            returnVal.push({asset:assetIDs[i],price:price})
 
         
         }
@@ -500,35 +506,6 @@ class AssetTransfer extends Contract {
         return returnVal
 
     }
-
-    
-    async getPrice_Test(ctx, arrayData){
-
-        arrayData = JSON.parse(arrayData)
-        arrayData = arrayData.assets
-        
-        let assetToPriceHash = new hash()
-        let count = 0;
-         
-         for(let i = 0; i < arrayData.length; i++){
- 
- 
-    
-             assetToPriceHash.set(arrayData[i], count)
-             count++
- 
- 
- 
-         
-         }
- 
- 
- 
-         return assetToPriceHash
- 
- 
-     }
-
 
     async executeOrder(ctx, assetID, orders){
 

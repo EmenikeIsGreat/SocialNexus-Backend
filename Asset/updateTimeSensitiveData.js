@@ -325,28 +325,36 @@ function run(asset){
     
 }
 
-
+let initialDate2 = new Date()
+let initialYear2 = initialDate2.getFullYear()
+let initialMonth2 = initialDate2.getMonth()
+let initialDay2 = initialDate2.getDay()
+let initialHour2 = initialDate2.getHours()
+let initialMinute2 = initialDate2.getMinutes()
 
 
 async function updateAllAssets(){
-
+    
+    let currentdate = new Date();
     let assetCollection = await assets.find()
     let id = assetCollection[0].id
     let assetsList = await assets.findById(id)
 
     //let assetsList = [asset1,asset2]
     //console.log(assetsList)
-
-    for(let i = 0; i < assetsList.Assets.length; i++){
-        assetsList.Assets[i] = run(assetsList.Assets[i])
-        console.log('------------------------------------------')
+    if(currentdate.getMinutes() != initialMinute2){
+        for(let i = 0; i < assetsList.Assets.length; i++){
+            assetsList.Assets[i] = run(assetsList.Assets[i])
+            console.log('------------------------------------------')
+        }
     }
 
+
     let newDate = new Date();
-    initialMinute = newDate.getMinutes()
-    initialDay = newDate.getDay()
-    initialMonth = newDate.getMonth()
-    initialYear = newDate.getFullYear()
+    initialMinute2 = newDate.getMinutes()
+    initialDay2 = newDate.getDay()
+    initialMonth2 = newDate.getMonth()
+    initialYear2 = newDate.getFullYear()
 
     let response = await assetsList.save()
     //console.log(response)
@@ -356,6 +364,6 @@ async function updateAllAssets(){
 //updateAllAssets()
 
 
-setInterval(function(){ 
-    updateAllAssets()
+setInterval(async ()=>{ 
+    await updateAllAssets()
 }, 1000);
