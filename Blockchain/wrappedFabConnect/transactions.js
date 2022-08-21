@@ -35,7 +35,7 @@ curl -X 'POST' \
 */
 
 
-module.exports = async function transaction(func, args){
+async function transaction(func, args){
     let url = baseURL + 'transactions?fly-sync=' + true
     try{
         
@@ -97,3 +97,20 @@ let testOrder4 = stringify([
 //transaction("Emenike", "test", "contract", "deposit", ["Emenike2", "10000000000", "true"], true)
 //transaction("Emenike", "test", "contract", "initalizeAssets", ["testCoin"], true)
 
+
+//transaction('createAsset',["EmenikeAsset","Emenike"])
+//transaction('createUser',["Emenike23"])
+//transaction('deposit',["Emenike23","100000",'true'])
+
+let sampleOrderBid = stringify([{
+  orderID: "EmenikeOrderID",
+  userID: "Emenike23",
+  assetID: "testCoin",
+  orderType: "Bid",
+  usdsn: 20
+}])
+
+
+
+//transaction('userBid',["EmenikeAsset",sampleOrderBid])
+transaction('initalizeAssets',["EmenikeAsset"])

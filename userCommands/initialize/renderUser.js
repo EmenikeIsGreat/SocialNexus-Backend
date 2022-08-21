@@ -9,7 +9,7 @@ const getNotifications = require('../queries.js/getMessage')
 const getTx = require('../queries.js/getTx')
 const {getFileStream} = require('../searchableUsers.js/getPhoto')
 const axios = require('axios')
-
+const getUsersPortfolioorandBalance = require('../queries.js/getPortfolioInvestments')
 
 
   
@@ -31,7 +31,6 @@ module.exports = async function renderUser(jsonInfo){
 
 
 
-        const resp = await axios.get('http://localhost:5000/userProfile/getPhoto'+id);
   
   
 
@@ -40,18 +39,18 @@ module.exports = async function renderUser(jsonInfo){
 
         } 
 
-        let balance = await getBalance(jsonInfo)
-        let notifications = await getNotifications(renderSpecifications)
-        let transactions = await getTx(renderSpecifications)
-        //let photoData = await getFileStream("hello")
-
+        const balance = await getBalance(jsonInfo)
+        const notifications = await getNotifications(renderSpecifications)
+        const transactions = await getTx(renderSpecifications)
+        const profilePic = await axios.get('http://localhost:5000/userProfile/getPhoto'+id);
+        const portfolioInvestments = await getUsersPortfolioorandBalance({id:id,renderAll:true})
 
         let returnVal = {
             user:user,
             balance:balance,
             notifications: notifications,
             transactions:transactions,
-            profilePic: resp.data
+            profilePic: profilePic.data
         }
 
         console.log(returnVal)

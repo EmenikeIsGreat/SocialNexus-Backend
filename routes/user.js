@@ -20,6 +20,8 @@ const user = require('../schemas/User')
 const passwordCollection = require('../schemas/passwords')
 const renderUser = require('../userCommands/initialize/renderUser')
 const {searchUser, searchAsset} = require('../full-text-search/index')
+const getPortfolioInvestments = require('../userCommands/queries.js/getPortfolioInvestments')
+
 
 const router = express.Router()
 
@@ -242,6 +244,18 @@ router.get('/search', async (req, res) =>{
     else{
         res.send({potentialAssets: await searchAsset(input)})
     }
+
+    
+
+})
+
+router.get('/portfolioInvestments', async (req, res) =>{
+
+    const {id,renderAll} = req.query
+
+    let response = await getPortfolioInvestments({id:id, renderAll:renderAll})
+
+    res.send(response)
 
     
 

@@ -32,8 +32,7 @@ curl -X 'POST' \
   "strongread": true
 }'
 */
-
-module.exports = async function query(func, args){
+async function query(func, args){
     try{
         
         const res = await axios.post(baseURL + 'query',
@@ -75,14 +74,16 @@ module.exports = async function query(func, args){
 // }
 
 
-//query("Emenike", "test", "contract", "getOrder", ["Emenike32222"])
+// query( "getUser", ["Emenike"]).then((data)=>{
+//   console.log(data)
+// })
 //query("Emenike", "test", "contract", "getUser", ["testCoin"])
 
 
 
-// query("getUser", ["Emenike"]).then((data)=>{
-//   console.log(data)
-// })
+query("getUser", ["EmenikeAsset"]).then((data)=>{
+  console.log(data.result)
+})
 
 
 // query("getPrice_Test", [arr3]).then((data)=>{
@@ -101,4 +102,15 @@ module.exports = async function query(func, args){
 
 // console.log(JSON.parse(arr3).assets)
 
+// let asset = {
+//   Bidders: { 
+//     Emenike23: { Bid: 20 },
+//     Emenike24: { Bid: 21 },
+//     Emenike25: { Bid: 22 },
+//     Emenike26: { Bid: 23 }   
+//   }
+// }
 
+// for (const key in asset.Bidders){
+//   console.log(key)  
+// }

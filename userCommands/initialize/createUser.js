@@ -8,6 +8,8 @@ const url = "mongodb+srv://Emenike:Ninjaboy12345$@cluster0.lc7v34m.mongodb.net/?
 //const transaction = require('../../Blockchain/wrappedFabConnect/transactions');
 const user = require('../../schemas/User')
 const passwords = require('../../schemas/passwords')
+const User_Portfolio = require('../../schemas/userPortfolio')
+
 
 const checkIfEmailExist = require('../checks/checkEmailExist')
 const checkIfUserNameExist = require('../checks/checkUserNameExist')
@@ -75,7 +77,22 @@ module.exports = async function createUser(userJson){
         console.log(newUser.id)
         let findUser = await user.findById(userID)
         findUser.UserID = userID
-
+        await User_Portfolio.create({
+          userID:"Emenike",
+          currentPrice: 0,
+          yearlyChart:[0],
+          monthlyChart:[0],
+          weeklyChart:[0],
+          dailyChart:[0],
+          minuteChart:[0],
+      
+          stats:{
+              deltaYear:0,
+              deltaWeek:0,
+              deltaDay:0,
+              deltaMonth:0,
+          }
+      })
 
         bcrypt.genSalt(10, function (saltError, salt) {
             if (saltError) {

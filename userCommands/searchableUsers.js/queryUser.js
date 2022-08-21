@@ -2,7 +2,8 @@ const mongoose = require("mongoose");
 const user = "mongodb+srv://Emenike:Ninjaboy12345$@cluster0.lc7v34m.mongodb.net/?retryWrites=true&w=majority"
 const User = require('../../schemas/User')
 const followingUnfollowing = require('../../schemas/followerFollowing')
-const {getPhoto} = require('./getPhoto')
+
+const getUsersPortfolioorandBalance = require('../queries.js/getPortfolioInvestments')
 
 mongoose.connect(user).then(()=>{
     console.log("connected")
@@ -28,6 +29,9 @@ module.exports = async function queryUser(jsonInfo){
 
         let toIdRelationshipStatus = await followingUnfollowing.exists({userID:queriedId,followerID:id})
         let fromIdRelationshipStatus = await followingUnfollowing.exists({userID:id,followerID:queriedId})
+
+        let showInvestments = searchedUser.private?true:false
+        const portfolioInvestments = await getUsersPortfolioorandBalance({id:id,renderAll:showInvestments})
         
         let relationshipStatus = {
             following: toIdRelationshipStatus == null ? false:true,
@@ -38,7 +42,7 @@ module.exports = async function queryUser(jsonInfo){
         let photoData = await resp.data
 
         console.log({userInfo: searchedUser, relationShipStatus:relationshipStatus, profilePic: photoData})
-        return {userInfo: searchedUser, relationShipStatus:relationshipStatus}
+        return {userInfo: searchedUser, relationShipStatus:relationshipStatus, portfolioInvestments:portfolioInvestments}
 
     }
 
