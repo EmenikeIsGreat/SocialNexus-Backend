@@ -32,7 +32,7 @@ curl -X 'POST' \
   "strongread": true
 }'
 */
-async function query(func, args){
+module.exports = async function query(func, args){
     try{
         
         const res = await axios.post(baseURL + 'query',
@@ -81,9 +81,15 @@ async function query(func, args){
 
 
 
-query("getUser", ["EmenikeAsset"]).then((data)=>{
-  console.log(data.result)
-})
+// query("getUser", ["Emenike23"]).then((data)=>{
+//   console.log(data.result)
+// })
+
+
+// query("getUser", ["EmenikeAsset"]).then((data)=>{
+//   console.log(data.result)
+// })
+
 
 
 // query("getPrice_Test", [arr3]).then((data)=>{

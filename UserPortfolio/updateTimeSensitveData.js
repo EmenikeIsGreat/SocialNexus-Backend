@@ -177,6 +177,10 @@ async function calculateTotalValOfUsersPortfolio(userID){
 
         let token = Object.keys(usersBalance)[i]
 
+        if(Object.keys((usersBalance[token])) == 'Bid'){
+            continue
+        }
+
         let tokenShare = usersBalance[token].balance
 
         let positionOfAssetInPrices = nameOfAllAssets.get(token)

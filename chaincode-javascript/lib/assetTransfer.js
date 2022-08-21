@@ -304,6 +304,12 @@ class AssetTransfer extends Contract {
             asset.amountRaised = asset.amountRaised + usdsn;
             asset.fees = asset.fees + fee
 
+            let usersNewBid = {Bid:usdsn}
+
+            user[assetID] = usersNewBid
+
+    
+
             if(asset.Bidders[userID] != undefined){
                 asset.Bidders[userID].Bid = asset.Bidders[userID].Bid + usdsn;
             }
