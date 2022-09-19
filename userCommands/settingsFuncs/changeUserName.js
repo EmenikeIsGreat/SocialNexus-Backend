@@ -22,7 +22,7 @@ module.exports = async function changeUserName(jsonInfo){
         
         if(check){
             console.log("exist")
-            return false
+            return {valid:false}
         }
     
         else{
@@ -31,7 +31,7 @@ module.exports = async function changeUserName(jsonInfo){
 
             user2.userName = userName;
             await user2.save();
-            return jsonInfo
+            return {valid:true}
         }
     }
 

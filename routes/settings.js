@@ -9,6 +9,7 @@ const changeEmail = require('../userCommands/settingsFuncs/changeEmail')
 const changePhoneNumber = require('../userCommands/settingsFuncs/changePhoneNumber')
 const changePassword = require('../userCommands/settingsFuncs/changePassword')
 const changePrivacyStatus = require('../userCommands/settingsFuncs/changePrivacyStatus')
+const passwordSchema = require('../schemas/passwords')
 
 const router = express.Router()
 
@@ -87,22 +88,49 @@ router.post('/changePhoneNumber', (req, res) =>{
     // res.end()
 })
 
-router.post('/changePassword', (req, res) =>{
+router.post('/changePassword', async (req, res) =>{
 
     let jsonInfo = req.body
 
-    let resValue = changePassword(jsonInfo).then((data)=>{
-        res.end()
+    let {id, password, newPassword} = jsonInfo
+    let hashPassJson = await passwordSchema.findOne({ID:id})
+    let hashPass = hashPassJson.encryptedPassword
+
+    console.log("old Passcode: " + hashPass)
+
+    bcrypt.compare(password, hashPass, function(error, isMatch) {
+        if (error) {
+        throw error
+        } else if (!isMatch) {
+        console.log("Password doesn't match!")
+        res.send({valid:false})
+        } else {
+        console.log("Password matches!")
+
+        bcrypt.genSalt(10, function (saltError, salt) {
+            if (saltError) {
+              throw saltError
+            } else {
+              bcrypt.hash(newPassword, salt, function(hashError, hash) {
+                if (hashError) {
+                  throw hashError
+                } else {
+                    
+                    hashPassJson.encryptedPassword = hash
+                    async function saveToDatabase(){
+                        let response = await hashPassJson.save();
+                    }
+                    saveToDatabase()
+                    res.send({valid:true})
+
+                }
+              })
+            }
+          })
+
+        }
     })
-    .catch((error)=>res.send(error))
 
-
-    //res.end()
-
-
-    // testing
-    // res.send(req.body)
-    // res.end()
 })
 
 
@@ -124,6 +152,8 @@ router.post('/changePrivacyStatus', (req, res) =>{
     // res.send(req.body)
     // res.end()
 })
+
+
 
 
 

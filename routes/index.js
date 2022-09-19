@@ -1,9 +1,11 @@
 const express = require('express')
 const bodyParser = require('body-parser')
+const createUser = require('../userCommands/initialize/createUser')
+const bcrypt = require("bcryptjs")
 
 const settingsRouter = require('./settings')
 const userProfileRouter = require('./user')
-const processOrder = require('./collisions')
+const processOrder = require('./transaction')
 const renderUser = require('../userCommands/initialize/renderUser')
 
 
@@ -16,17 +18,56 @@ app.use('/settings', settingsRouter)
 app.use('/userProfile', userProfileRouter)
 app.use('/processOrder', processOrder)
 
-app.post('/renderUser',(req,res)=>{
-    let response = renderUser(req.body).then((data)=>{
-        //console.log(data)
-        res.send(data)
-        res.end()
-    }).catch((error)=>{
-        console.log(error)
-        res.end()
-    })
+
+app.post('/createUser', (req, res) =>{
+
+    let userJson = req.body
+    //console.log(userJson)
+    
+    let resValue = createUser(userJson).then((data)=>res.send(data))
+    .catch((error)=>res.send(error))
+    //res.end()
+
+
+    // testing
+    // res.send(req.body)
+    // res.end()
 })
 
+
+app.post('/signIn', async (req, res) =>{
+
+    let {email, password} = req.body
+
+
+    let potentialUser = await user.findOne({email:email})
+
+    let userID = potentialUser.id;
+    
+    let encryptedUsers = await passwordCollection.findOne({ID:userID})
+
+    encryptedUsers = encryptedUsers.encryptedPassword
+    console.log("encrypted password is " + encryptedUsers)
+
+    
+    
+    bcrypt.compare(password, encryptedUsers, async function(error, isMatch) {
+        if (error) {
+            throw error
+        } 
+        
+        else if (!isMatch) {
+            console.log("does not matched")
+            res.send({valid:false})
+        } 
+        
+        else {
+            console.log('matched')
+            res.send({valid:true, renderedUser: await renderUser(userID)})
+        }
+    })
+
+})
 
 
 

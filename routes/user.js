@@ -26,25 +26,12 @@ const getPortfolioInvestments = require('../userCommands/queries.js/getPortfolio
 const router = express.Router()
 
 
-router.post('/createUser', (req, res) =>{
-
-    let userJson = req.body
-    //console.log(userJson)
-    
-    let resValue = createUser(userJson).then((data)=>res.send(data))
-    .catch((error)=>res.send(error))
-    //res.end()
 
 
-    // testing
-    // res.send(req.body)
-    // res.end()
-})
 
+router.get('/getUserBalance', (req, res) =>{
 
-router.post('/getUserBalance', (req, res) =>{
-
-    let id = req.body
+    let {id} = req.query
     //console.log(userJson)
     
     let resValue = getUserBalance(id).then((data)=>res.send(data))
@@ -72,12 +59,12 @@ router.post('/changeBio', (req, res) =>{
     // res.end()
 })
 
-router.post('/getTx', (req, res) =>{
+router.get('/getTx', (req, res) =>{
 
-    let jsonInfo = req.body
+    let {data} = req.query
     console.log(jsonInfo)
     
-    let resValue = getTx(jsonInfo).then((data)=>res.send(data))
+    let resValue = getTx(specs).then((data)=>res.send(data))
     .catch((error)=>res.send(error))
     //res.end()
 
@@ -87,9 +74,9 @@ router.post('/getTx', (req, res) =>{
     // res.end()
 })
 
-router.post('/getAsset', (req, res) =>{
+router.get('/getAsset', (req, res) =>{
 
-    let jsonInfo = req.body
+    let {data} = req.query
     console.log(jsonInfo)
     
     let resValue = getAsset(jsonInfo).then((data)=>res.send(data))
@@ -121,12 +108,12 @@ router.post('/followUnfollow', (req, res) =>{
 })
 
 
-router.post('/queryUser', (req, res) =>{
+router.get('/queryUser', (req, res) =>{
 
-    let jsonInfo = req.body
-    console.log(jsonInfo)
+    let data = req.query
+
     
-    let resValue = queryUser(jsonInfo).then((data)=>{
+    let resValue = queryUser(data).then((data)=>{
 
         res.send(data) })
     .catch((error)=>res.send(error))
@@ -197,44 +184,9 @@ router.post('/changePhoto:id', upload.single('file'), async (req, res) =>{
 
 
 
-router.post('/signIn', async (req, res) =>{
-
-    let {email, password} = req.body
-
-
-    let potentialUser = await user.findOne({email:email})
-
-    let userID = potentialUser.id;
-    
-    let encryptedUsers = await passwordCollection.findOne({ID:userID})
-
-    encryptedUsers = encryptedUsers.encryptedPassword
-    console.log("encrypted password is " + encryptedUsers)
-
-    
-    
-    bcrypt.compare(password, encryptedUsers, async function(error, isMatch) {
-        if (error) {
-            throw error
-        } 
-        
-        else if (!isMatch) {
-            console.log("does not matched")
-            res.send({valid:false})
-        } 
-        
-        else {
-            console.log('matched')
-            res.send({valid:true, renderedUser: await renderUser(userID)})
-        }
-    })
-
-})
-
-
 router.get('/search', async (req, res) =>{
 
-    const {type, input} = req.query
+    const {type, input} = req.query.data
 
 
     if(type == "user"){

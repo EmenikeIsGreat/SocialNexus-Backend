@@ -14,6 +14,9 @@ const User_Portfolio = require('../../schemas/userPortfolio')
 const checkIfEmailExist = require('../checks/checkEmailExist')
 const checkIfUserNameExist = require('../checks/checkUserNameExist')
 const checkIfPhoneNumberExist = require('../checks/checkPhoneNumberExist')
+const renderUser = require('./renderUser')
+
+
 
 mongoose.connect(url).then((result) =>{
     console.log("connected")
@@ -117,7 +120,8 @@ module.exports = async function createUser(userJson){
 
         let createdUser = await findUser.save()
         //transaction("Emenike", "test", "contract", "createUser", [userID], true)
-        return {userCreated:createUser}
+        let response = await renderUser(userID)
+        return {userCreated:response, valid:true}
     }
 
     catch(error){

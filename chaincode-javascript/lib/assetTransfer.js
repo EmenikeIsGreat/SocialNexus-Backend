@@ -86,6 +86,11 @@ class AssetTransfer extends Contract {
         }
     }
 
+    async getBalance(ctx, userID){
+        let user = await this.getUser(ctx, userID)
+        return user.USDSH
+    }
+
     
     async createUser(ctx, UserID) {
 
@@ -481,7 +486,6 @@ class AssetTransfer extends Contract {
 
 
     }
-
 
 
 

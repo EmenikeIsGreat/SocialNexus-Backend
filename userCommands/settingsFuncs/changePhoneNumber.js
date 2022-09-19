@@ -22,7 +22,7 @@ module.exports = async function changePhoneNumber(jsonInfo){
         
         if(check){
             console.log("exist")
-            return false
+            return {valid:false}
         }
 
 
@@ -32,7 +32,7 @@ module.exports = async function changePhoneNumber(jsonInfo){
         
         let response = await user2.save();
         console.log(response)
-        return jsonInfo
+        return {valid:true}
 
     }
 

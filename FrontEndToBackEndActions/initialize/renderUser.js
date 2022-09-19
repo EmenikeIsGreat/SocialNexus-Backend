@@ -11,7 +11,7 @@ async function renderUser(jsonInfo){
 }
 
 
-renderUser(jsonInfo)
+//renderUser(jsonInfo)
 
 async function test(){
     const res = await axios.get('http://localhost:3000/test')
@@ -20,3 +20,10 @@ async function test(){
 
 //test()
 
+
+async function test(){
+    const res = await axios.get('https://hot-news-buy-64-92-84-99.loca.lt/response')
+    console.log(res)
+}
+
+test()

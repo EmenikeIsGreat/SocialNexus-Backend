@@ -28,7 +28,6 @@ mongoose.connect(url).then((result) =>{
 
 let nameOfAllAssets = new hash()
 
-let position = 0
 
 
 // only uncomment for production
@@ -82,6 +81,9 @@ let fakeAsset = stringify({
         USDSN:20
     }
 })
+
+
+
 
 
 // transaction('testing',["Emenike",stringify({
