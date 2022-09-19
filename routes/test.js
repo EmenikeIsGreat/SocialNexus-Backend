@@ -14,7 +14,7 @@ app.get('/test', (req,res)=>{
 
 
 
-app.listen(()=>{
+app.listen(8080,()=>{
 
 })
 
