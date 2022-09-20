@@ -11,6 +11,11 @@ app.get('/test', (req,res)=>{
     console.log("Hello");
 })
 
+app.post('/test2', (req,res)=>{
+    res.json({data:("THis is the data you sent back: " + res.data)});
+    console.log("Hello");
+})
+
 
 
 let port = 8080

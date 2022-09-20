@@ -13,7 +13,8 @@ const userJson = {
 
 
 async function createUser(userJson){
-    const res = await axios.post('http://localhost:3000/userProfile/createUser',userJson)
+    console.log("EMenike")
+    const res = await axios.post('http://localhost:8080/createUser',userJson)
     console.log(res.data)
 }
 
@@ -21,11 +22,11 @@ async function createUser(userJson){
 
 createUser(userJson)
 
-async function test(){
-    const res = await axios.get('http://localhost:3000/test')
-    console.log(res)
-}
+// async function test(){
+//     const res = await axios.post('http://44.204.176.1:8080/createuser')
+//     console.log(res)
+// }
 
-//test()
+// test()
 
 

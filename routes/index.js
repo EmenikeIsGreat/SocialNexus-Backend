@@ -24,9 +24,9 @@ app.post('/createUser', (req, res) =>{
     let userJson = req.body
     //console.log(userJson)
     
-    let resValue = createUser(userJson).then((data)=>res.send(data))
+    createUser(userJson).then((data)=>res.send(data))
     .catch((error)=>res.send(error))
-    //res.end()
+    res.end()
 
 
     // testing
@@ -70,9 +70,15 @@ app.post('/signIn', async (req, res) =>{
 })
 
 
+app.get("/testing",(req,res)=>{
+    res.send("Emenike F. Anigbogu");
+    console.log("Emenike");
+})
 
 
-let port = 5000
+
+
+let port = 8080
 app.listen(port, ()=>{
     console.log('listening on port: ' + port)
 })

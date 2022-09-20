@@ -9,7 +9,7 @@ mongoose.connect(user).then(()=>{
     console.log("connected")
 })
     .catch((error)=>{
-        console.log(error)
+        console.log("error");
 
     })
 
@@ -54,6 +54,15 @@ module.exports = async function queryUser(jsonInfo){
 
 
 }
+
+
+async function testing(){
+    let result = await User.find();
+    console.log(result)
+}
+
+
+//testing()
 
 //queryUser({id:'62f67c52c7ef61f24b5b1888', queriedId:'62f68a6150693c2e9d6bb4bd'})
 

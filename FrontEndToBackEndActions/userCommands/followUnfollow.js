@@ -11,7 +11,7 @@ async function followUnfollow(jsonInfo){
 }
 
 
-followUnfollow(jsonInfo)
+//followUnfollow(jsonInfo)
 
 async function test(){
     const res = await axios.get('http://localhost:3000/test')

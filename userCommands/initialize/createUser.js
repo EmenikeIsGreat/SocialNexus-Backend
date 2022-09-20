@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
 
-const bcrypt = require("bcryptjs")
 
 const url = "mongodb+srv://Emenike:Ninjaboy12345$@cluster0.lc7v34m.mongodb.net/?retryWrites=true&w=majority"
 
@@ -14,14 +13,15 @@ const User_Portfolio = require('../../schemas/userPortfolio')
 const checkIfEmailExist = require('../checks/checkEmailExist')
 const checkIfUserNameExist = require('../checks/checkUserNameExist')
 const checkIfPhoneNumberExist = require('../checks/checkPhoneNumberExist')
-const renderUser = require('./renderUser')
+const renderUser = require('./renderUser');
+;
 
 
 
-mongoose.connect(url).then((result) =>{
-    console.log("connected")
+mongoose.connect(url, { useNewUrlParser: true }).then((result) =>{
+    console.log("established")
 }).catch((error) =>{
-    console.log(error)
+    console.log("error")
 })
 
 
@@ -42,7 +42,8 @@ async function validInputs(userName, phoneNumber, email){
     return inputStatus
 }
 
-module.exports = async function createUser(userJson){
+
+async function createUser(userJson){
     
     let checkDuplicates = await validInputs(userJson.userName, userJson.phoneNumber, userJson.email)
     
@@ -97,27 +98,7 @@ module.exports = async function createUser(userJson){
           }
       })
 
-        bcrypt.genSalt(10, function (saltError, salt) {
-            if (saltError) {
-              throw saltError
-            } else {
-              bcrypt.hash(userJson.password, salt, function(hashError, hash) {
-                if (hashError) {
-                  throw hashError
-                } else {
-                    
-                    let newPassword = passwords.create({
-                        ID:userID,
-                        encryptedPassword:hash
-                    })
-                  //$2a$10$FEBywZh8u9M0Cec/0mWep.1kXrwKeiWDba6tdKvDfEBjyePJnDT7K
-                }
-              })
-            }
-          })
-
-
-
+        
         let createdUser = await findUser.save()
         //transaction("Emenike", "test", "contract", "createUser", [userID], true)
         let response = await renderUser(userID)
@@ -130,6 +111,25 @@ module.exports = async function createUser(userJson){
     }
 
 }
+
+const userJson = {
+  userName:"test1234522",
+  name:"Emenike132245",
+  phoneNumber:"fake221345",
+  email:"lol1344",
+  password:"k"
+}
+
+
+
+
+async function testing(){
+  let result = await user.find();
+  console.log(result);
+}
+
+testing();
+
 
 
 
