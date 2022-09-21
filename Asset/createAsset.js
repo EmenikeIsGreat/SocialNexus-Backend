@@ -5,12 +5,21 @@ const transaction = require('../Blockchain/wrappedFabConnect/transactions')
 const user = require('../schemas/User')
 const assets = require('../schemas/Assets')
 
-mongoose.connect(url).then((result) =>{
-    console.log("connected")
-}).catch((error) =>{
-    console.log(error)
-})
 
+const path = require('path');
+
+const coolPath = path.join(__dirname, '../.env')
+require("dotenv").config({path:coolPath})
+
+//console.log(process.env.MONGODB_URL);
+
+mongoose.connect(process.env.MONGODB_URL, { useNewUrlParser: true, useUnifiedTopology: true }).then(()=>{
+    console.log("connected")
+})
+    .catch((error)=>{
+        console.log(error);
+
+    })
 const tokenSuppyly = 10000
 function initAssetStats(userID, launchTime){
     let Asset = {

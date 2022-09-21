@@ -4,11 +4,20 @@ const assets = require('../schemas/Assets')
 const Pusher = require("pusher");
 
 
-mongoose.connect(url).then((result) =>{
+const path = require('path');
+
+const coolPath = path.join(__dirname, '../.env')
+require("dotenv").config({path:coolPath})
+
+//console.log(process.env.MONGODB_URL);
+
+mongoose.connect(process.env.MONGODB_URL, { useNewUrlParser: true, useUnifiedTopology: true }).then(()=>{
     console.log("connected")
-}).catch((error) =>{
-    console.log(error)
 })
+    .catch((error)=>{
+        console.log(error);
+
+    })
 
 
 

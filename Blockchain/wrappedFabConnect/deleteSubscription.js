@@ -11,6 +11,8 @@ let HLF_Signer = process.env.HLF_SIGNER
 let flyChannel = process.env.HLF_FLY_CHANNEL
 let auth = process.env.AUTHORIZATION
 
+
+console.log(baseURL);
 /*
 sample curl reequest
 curl -X 'POST' \
@@ -51,4 +53,4 @@ async function deleteSubscription(subID){
     }
 }
 
-deleteSubscription("sb-5e42044b-eaf5-47e6-7197-5ac47ad2818c")
+//deleteSubscription("sb-5e42044b-eaf5-47e6-7197-5ac47ad2818c")

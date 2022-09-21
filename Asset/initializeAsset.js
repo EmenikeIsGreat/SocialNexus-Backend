@@ -6,12 +6,21 @@ const asset = require('../schemas/Assets')
 const message = require('../Notification/createMessage')
 const query = require('../Blockchain/wrappedFabConnect/query')
 
-mongoose.connect(url).then((result) =>{
-    console.log("connected")
-}).catch((error) =>{
-    console.log(error)
-})
 
+const path = require('path');
+
+const coolPath = path.join(__dirname, '../.env')
+require("dotenv").config({path:coolPath})
+
+//console.log(process.env.MONGODB_URL);
+
+mongoose.connect(process.env.MONGODB_URL, { useNewUrlParser: true, useUnifiedTopology: true }).then(()=>{
+    console.log("connected")
+})
+    .catch((error)=>{
+        console.log(error);
+
+    })
 
 
 async function initializeAsset(assetID){

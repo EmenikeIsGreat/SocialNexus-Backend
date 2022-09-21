@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const mongoose_fuzzy_searching = require('mongoose-fuzzy-searching');
+//const mongoose_fuzzy_searching = require('mongoose-fuzzy-searching');
 
 const User = new mongoose.Schema({
     UserID:{
@@ -52,16 +52,16 @@ const User = new mongoose.Schema({
 )
 
 
-User.plugin(mongoose_fuzzy_searching, { fields: 
-    [
-        {
-            firstName:"firstName"
-        },
-        {
-            lastName:"lastName"
-        }
-    ] 
-});
+// User.plugin(mongoose_fuzzy_searching, { fields: 
+//     [
+//         {
+//             firstName:"firstName"
+//         },
+//         {
+//             lastName:"lastName"
+//         }
+//     ] 
+// });
 
 module.exports = mongoose.model('User', User)
 

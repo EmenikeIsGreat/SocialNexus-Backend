@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 
-const url = "mongodb+srv://Emenike:Ninjaboy12345$@cluster0.lc7v34m.mongodb.net/?retryWrites=true&w=majority"
+const url = "mongodb+srv://Emenike:Ninjaboy12345@cluster0.ehuagp5.mongodb.net/?retryWrites=true&w=majority";
 
 
 //const transaction = require('../../Blockchain/wrappedFabConnect/transactions');
@@ -14,16 +14,22 @@ const checkIfEmailExist = require('../checks/checkEmailExist')
 const checkIfUserNameExist = require('../checks/checkUserNameExist')
 const checkIfPhoneNumberExist = require('../checks/checkPhoneNumberExist')
 const renderUser = require('./renderUser');
-;
 
 
+const path = require('path');
 
-mongoose.connect(url, { useNewUrlParser: true }).then((result) =>{
-    console.log("established")
-}).catch((error) =>{
-    console.log("error")
+const coolPath = path.join(__dirname, '../.env')
+require("dotenv").config({path:coolPath})
+
+//console.log(process.env.MONGODB_URL);
+
+mongoose.connect(process.env.MONGODB_URL, { useNewUrlParser: true, useUnifiedTopology: true }).then(()=>{
+    console.log("connected")
 })
+    .catch((error)=>{
+        console.log(error);
 
+    })
 
 async function validInputs(userName, phoneNumber, email){
 
@@ -47,7 +53,7 @@ async function createUser(userJson){
     
     let checkDuplicates = await validInputs(userJson.userName, userJson.phoneNumber, userJson.email)
     
-    console.log(checkDuplicates)
+    //console.log(checkDuplicates)
     if(!checkDuplicates.valid){
         return checkDuplicates
     }
@@ -112,23 +118,23 @@ async function createUser(userJson){
 
 }
 
+
+
+
 const userJson = {
-  userName:"test1234522",
-  name:"Emenike132245",
-  phoneNumber:"fake221345",
-  email:"lol1344",
-  password:"k"
+  userName:"Emenike12",
+  name:"Emenike12",
+  phoneNumber:"Emenike12",
+  email:"Emenike12",
+  password:"Emenike12"
 }
-
-
-
 
 async function testing(){
   let result = await user.find();
   console.log(result);
 }
 
-testing();
+//testing();
 
 
 

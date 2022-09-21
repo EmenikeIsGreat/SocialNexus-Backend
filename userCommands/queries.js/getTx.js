@@ -2,11 +2,20 @@ const mongoose = require("mongoose");
 const user = "mongodb+srv://Emenike:Ninjaboy12345$@cluster0.lc7v34m.mongodb.net/?retryWrites=true&w=majority"
 const tx = require('../../schemas/transaction')
 
-mongoose.connect(user).then(()=>{
+
+
+const path = require('path');
+
+const coolPath = path.join(__dirname, '../.env')
+require("dotenv").config({path:coolPath})
+
+//console.log(process.env.MONGODB_URL);
+
+mongoose.connect(process.env.MONGODB_URL, { useNewUrlParser: true, useUnifiedTopology: true }).then(()=>{
     console.log("connected")
 })
     .catch((error)=>{
-        console.log(error)
+        console.log(error);
 
     })
 

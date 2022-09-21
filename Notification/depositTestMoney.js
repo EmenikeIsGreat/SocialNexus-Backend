@@ -11,13 +11,18 @@ const transaction = require('../Blockchain/wrappedFabConnect/transactions')
 
 
   
+const path = require('path');
 
+const coolPath = path.join(__dirname, '../.env')
+require("dotenv").config({path:coolPath})
 
-mongoose.connect(user).then(()=>{
+//console.log(process.env.MONGODB_URL);
+
+mongoose.connect(process.env.MONGODB_URL, { useNewUrlParser: true, useUnifiedTopology: true }).then(()=>{
     console.log("connected")
 })
     .catch((error)=>{
-        console.log(error)
+        console.log(error);
 
     })
 
