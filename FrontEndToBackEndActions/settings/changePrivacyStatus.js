@@ -15,7 +15,7 @@ async function changePrivacyStatus(Json){
 }
 
 
-changePrivacyStatus(Json)
+//changePrivacyStatus(Json)
 
 async function test(){
     const res = await axios.get('http://localhost:3000/test')

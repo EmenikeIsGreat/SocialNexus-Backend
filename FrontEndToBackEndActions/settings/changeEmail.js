@@ -15,7 +15,7 @@ async function changeEmail(nameJson){
 }
 
 
-changeEmail(Json)
+//changeEmail(Json)
 
 async function test(){
     const res = await axios.get('http://localhost:3000/test')

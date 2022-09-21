@@ -29,4 +29,4 @@ async function settingsRequest(command, payload){
     const res = await axios.post('http://localhost:5000/settings/test',payload)
     //console.log(process.env.ROUTE_BASE_URL)
 }
-settingsRequest('test',"hello BRO")
+//settingsRequest('test',"hello BRO")

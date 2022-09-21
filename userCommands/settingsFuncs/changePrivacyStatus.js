@@ -4,11 +4,18 @@ const user = require('../../schemas/User')
 const checkIfPhoneNumberExist = require('../checks/checkPhoneNumberExist')
 
 
-mongoose.connect(url).then(()=>{
+const path = require('path');
+
+const coolPath = path.join(__dirname, '../.env')
+require("dotenv").config({path:coolPath})
+
+//console.log(process.env.MONGODB_URL);
+
+mongoose.connect(process.env.MONGODB_URL, { useNewUrlParser: true, useUnifiedTopology: true }).then(()=>{
     console.log("connected")
 })
     .catch((error)=>{
-        console.log(error)
+        console.log(error);
 
     })
 

@@ -19,14 +19,13 @@ app.use('/userProfile', userProfileRouter)
 app.use('/processOrder', processOrder)
 
 
-app.post('/createUser', (req, res) =>{
+app.post('/createUser', async (req, res) =>{
 
     let userJson = req.body
-    //console.log(userJson)
     
-    createUser(userJson).then((data)=>res.send(data))
-    .catch((error)=>res.send(error))
-    res.end()
+    let result = await createUser(userJson);
+    console.log(result);
+    res.json(result);
 
 
     // testing

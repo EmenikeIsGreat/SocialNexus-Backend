@@ -3,15 +3,20 @@ const url = "mongodb+srv://Emenike:Ninjaboy12345$@cluster0.lc7v34m.mongodb.net/?
 const user = require('../../schemas/User')
 const checkUserNameExist = require('../checks/checkUserNameExist')
 
+const path = require('path');
 
-mongoose.connect(url).then(()=>{
+const coolPath = path.join(__dirname, '../.env')
+require("dotenv").config({path:coolPath})
+
+//console.log(process.env.MONGODB_URL);
+
+mongoose.connect(process.env.MONGODB_URL, { useNewUrlParser: true, useUnifiedTopology: true }).then(()=>{
     console.log("connected")
 })
     .catch((error)=>{
-        console.log(error)
+        console.log(error);
 
     })
-
 module.exports = async function changeUserName(jsonInfo){
 
     let {id, userName} = jsonInfo

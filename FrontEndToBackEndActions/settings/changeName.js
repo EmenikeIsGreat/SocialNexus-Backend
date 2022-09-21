@@ -16,7 +16,7 @@ async function changeName(nameJson){
 }
 
 
-changeName(nameJson)
+//changeName(nameJson)
 
 async function test(){
     const res = await axios.get('http://localhost:3000/test')

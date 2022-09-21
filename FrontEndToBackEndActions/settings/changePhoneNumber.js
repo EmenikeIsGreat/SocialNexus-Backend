@@ -15,7 +15,7 @@ async function changePhoneNumber(Json){
 }
 
 
-changePhoneNumber(Json)
+//changePhoneNumber(Json)
 
 async function test(){
     const res = await axios.get('http://localhost:3000/test')

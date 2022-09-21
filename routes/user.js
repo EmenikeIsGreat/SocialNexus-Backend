@@ -2,7 +2,6 @@
 const express = require('express')
 
 
-const createUser = require('../userCommands/initialize/createUser')
 const getUserBalance = require('../userCommands/queries.js/getUserBalance')
 const changeBio = require('../userCommands/settingsFuncs/changeBio')
 const getTx = require('../userCommands/queries.js/getTx')

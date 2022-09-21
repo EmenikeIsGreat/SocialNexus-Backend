@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
 
 
-const url = "mongodb+srv://Emenike:Ninjaboy12345@cluster0.ehuagp5.mongodb.net/?retryWrites=true&w=majority";
 
 
 //const transaction = require('../../Blockchain/wrappedFabConnect/transactions');
@@ -128,6 +127,11 @@ const userJson = {
   email:"Emenike12",
   password:"Emenike12"
 }
+
+// createUser(userJson).then((data)=>console.log(data))
+// .catch((error)=>console.log(error))
+
+
 
 async function testing(){
   let result = await user.find();

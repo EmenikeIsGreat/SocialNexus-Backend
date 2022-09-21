@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const url = "mongodb+srv://Emenike:Ninjaboy12345@cluster0.ehuagp5.mongodb.net/?retryWrites=true&w=majority";
 const User = require('../../schemas/User')
 
 const queryUser = require('../searchableUsers.js/queryUser')

@@ -1,6 +1,5 @@
 const User_Portfolio = require('../../schemas/userPortfolio')
 const mongoose = require("mongoose");
-const url = "mongodb+srv://Emenike:Ninjaboy12345$@cluster0.lc7v34m.mongodb.net/?retryWrites=true&w=majority"
 const getUserBalance = require('./getUserBalance')
 
 
