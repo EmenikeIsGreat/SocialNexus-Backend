@@ -49,7 +49,7 @@ async function validInputs(userName, phoneNumber, email){
 }
 
 
-async function createUser(userJson){
+module.exports = async function createUser(userJson){
     
     let checkDuplicates = await validInputs(userJson.userName, userJson.phoneNumber, userJson.email)
     
