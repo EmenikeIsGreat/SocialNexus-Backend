@@ -12,11 +12,12 @@ const User_Portfolio = require('../../schemas/userPortfolio')
 const checkIfEmailExist = require('../checks/checkEmailExist')
 const checkIfUserNameExist = require('../checks/checkUserNameExist')
 const checkIfPhoneNumberExist = require('../checks/checkPhoneNumberExist')
+const blockchainTx = require('../../Blockchain/wrappedFabConnect/transactions')
+
 const renderUser = require('./renderUser');
 
 
 const path = require('path');
-
 const coolPath = path.join(__dirname, '../.env')
 require("dotenv").config({path:coolPath})
 
@@ -32,12 +33,15 @@ mongoose.connect(process.env.MONGODB_URL, { useNewUrlParser: true, useUnifiedTop
 
 async function validInputs(userName, phoneNumber, email){
 
+
     let inputStatus = {
         email: await checkIfEmailExist(email),
         phoneNumber: await checkIfPhoneNumberExist(phoneNumber),
         userName: await checkIfUserNameExist(userName)
         
     }
+
+
 
     if(!(inputStatus.email && inputStatus.phoneNumber && inputStatus.userName)){
         inputStatus.valid = true;
@@ -51,13 +55,12 @@ async function validInputs(userName, phoneNumber, email){
 module.exports = async function createUser(userJson){
     
     let checkDuplicates = await validInputs(userJson.userName, userJson.phoneNumber, userJson.email)
-    
-    //console.log(checkDuplicates)
     if(!checkDuplicates.valid){
+
         return checkDuplicates
     }
-
     try{
+        // create user in user database
         let newUser = await user.create({
 
             firstName: userJson.firstName,
@@ -80,20 +83,19 @@ module.exports = async function createUser(userJson){
 
         })
 
-        console.log("did it work")
 
         let userID = newUser.id
-        console.log(newUser.id)
-        let findUser = await user.findById(userID)
-        findUser.UserID = userID
+        console.log(userID);
+        
+        // createss user portfolio
         await User_Portfolio.create({
-          userID:"Emenike",
+          userID:userID,
           currentPrice: 0,
           yearlyChart:[0],
           monthlyChart:[0],
           weeklyChart:[0],
           dailyChart:[0],
-          minuteChart:[0],
+           minuteChart:[0],
       
           stats:{
               deltaYear:0,
@@ -103,10 +105,14 @@ module.exports = async function createUser(userJson){
           }
       })
 
+
+         // create user on the blockchain
+        // once you activate the blockchain uncomment this
+        //await blockchainTx('createUser',[userID]);
         
-        let createdUser = await findUser.save()
         //transaction("Emenike", "test", "contract", "createUser", [userID], true)
-        let response = await renderUser(userID)
+        let response = await renderUser({id:userID})
+        console.log(response);
         return {userCreated:response, valid:true}
     }
 
@@ -121,20 +127,30 @@ module.exports = async function createUser(userJson){
 
 
 const userJson = {
-  userName:"Emenike12",
-  name:"Emenike12",
-  phoneNumber:"Emenike12",
-  email:"Emenike12",
-  password:"Emenike12"
+  userName:"ikbkjbrwkjvrw1",
+  name:"bwrjuovnjrwnvjorwv1",
+  phoneNumber:"fherbvkrwbvkjbrwvkjrwvih4bvih4tkhfbrkjef",
+  email:"98549835dewvhkbwkhrbvkhrwvjnfjl3ljj ru9437",
+  password:"ifuibb59k hkv wrkhv rwkhv rwkhvjf3bnkjrfkjg59gbu5gb5g9ugb54iugb54igbiu54"
 }
+
+// let {userName,email,phoneNumber} = userJson
+// validInputs(userName, phoneNumber, email).then((data)=>{
+//     console.log(data)
+// }).catch((error)=>{
+//     console.log(error)
+// })
 
 // createUser(userJson).then((data)=>console.log(data))
 // .catch((error)=>console.log(error))
 
+//createUser(userJson);
+
+
 
 
 async function testing(){
-  let result = await user.find();
+  let result = await user.create(userJson);
   console.log(result);
 }
 

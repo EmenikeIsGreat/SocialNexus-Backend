@@ -13,7 +13,6 @@ const getUsersPortfolioorandBalance = require('../queries.js/getPortfolioInvestm
 
   
 
-
 module.exports = async function renderUser(jsonInfo){
 
     let {id} = jsonInfo
@@ -31,28 +30,23 @@ module.exports = async function renderUser(jsonInfo){
 
 
   
-  
 
-        if (resp.status === 200) {
-            console.log(resp.data)
-
-        } 
-
-        const balance = await getBalance(jsonInfo)
+        //const balance = await getBalance(jsonInfo)
         const notifications = await getNotifications(renderSpecifications)
         const transactions = await getTx(renderSpecifications)
-        const profilePic = await axios.get('http://localhost:5000/userProfile/getPhoto'+id);
+        //const profilePic = await axios.get('http://localhost:5000/userProfile/getPhoto'+id);
         const portfolioInvestments = await getUsersPortfolioorandBalance({id:id,renderAll:true})
+        //const balance = await getBalance('getUser', [userID]);
 
         let returnVal = {
             user:user,
-            balance:balance,
+            //balance:balance,
             notifications: notifications,
             transactions:transactions,
-            profilePic: profilePic.data
+            //profilePic: profilePic.data
         }
 
-        console.log(returnVal)
+        //console.log(returnVal)
         
         return returnVal
     }
@@ -65,5 +59,5 @@ module.exports = async function renderUser(jsonInfo){
 
 }
 
-//renderUser({id:'62f7fdd597c2ceea6ad4595c'})
+//renderUser({id:'633cd5110f3f0c5c4825c83f'})
 

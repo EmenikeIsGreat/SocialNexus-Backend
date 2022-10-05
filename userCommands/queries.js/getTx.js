@@ -21,10 +21,19 @@ mongoose.connect(process.env.MONGODB_URL, { useNewUrlParser: true, useUnifiedTop
 module.exports = async function getTransaction(jsonInfo){
 
     let {id, amount, initialRender, date} = jsonInfo
+
+
+    doesUserExist = await tx.findById(id);
+    console.log(doesUserExist);
+    if(doesUserExist == null){
+        return null;
+    }
+
+
     try{
         if(initialRender){
             let transaction = await tx.find({'UserID':id}).sort({$natural:-1}).limit(amount)
-            //console.log(transaction)
+            console.log("trasnaction: " + transaction == 'undefined');
             
            
             let max = false
@@ -33,7 +42,16 @@ module.exports = async function getTransaction(jsonInfo){
             }
             return {
                 messages: transaction,
-                lastDate: transaction[transaction.length-1].createdAt,
+                lastDate: () => {
+                    if(transaction == 'undefined'){
+                        return false;
+                    }
+                    else{
+                        return transaction[transaction.length-1].createdAt
+                    }
+
+                },
+                
                 max:max
             }
         }
@@ -63,7 +81,7 @@ module.exports = async function getTransaction(jsonInfo){
     }
 
    catch(error){
-        console.log(error)
+        //console.log(error)
        return error
        
    }

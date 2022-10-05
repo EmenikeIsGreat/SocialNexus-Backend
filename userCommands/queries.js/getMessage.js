@@ -4,7 +4,7 @@ const message = require('../../schemas/Message')
 
 const path = require('path');
 
-const coolPath = path.join(__dirname, '../.env')
+const coolPath = path.join(__dirname, '../../.env')
 require("dotenv").config({path:coolPath})
 
 //console.log(process.env.MONGODB_URL);
@@ -16,9 +16,17 @@ mongoose.connect(process.env.MONGODB_URL, { useNewUrlParser: true, useUnifiedTop
         console.log(error);
 
     })
+
+// retrieves users messages
 module.exports = async function getMessage(jsonInfo){
 
     let {id, amount, initialRender, date} = jsonInfo
+
+    doesUserExist = await message.findById(id);
+    //console.log(doesUserExist);
+    if(doesUserExist == null){
+        return null;
+    }
 
     try{
         if(initialRender){
@@ -34,8 +42,8 @@ module.exports = async function getMessage(jsonInfo){
             let nextMessages = await message.find({"recipient":id,
             createdAt: {
                 $lte: new Date(date)
-            }
-                }).sort({$natural:-1}).limit(amount)
+            }})
+           //     }).sort({$natural:-1}).limit(amount)
     
             //console.log(nextMessages)
     
@@ -46,6 +54,7 @@ module.exports = async function getMessage(jsonInfo){
         }
     }
 
+        
    catch(error){
        return error
    }
@@ -53,5 +62,5 @@ module.exports = async function getMessage(jsonInfo){
 
 }
 
-//getMessage("Arinze",2,false,"2022-07-01T16:35:04.821Z")
+//WgetMessage("Arinze",2,false,"2022-07-01T16:35:04.821Z")
 
