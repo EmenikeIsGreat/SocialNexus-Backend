@@ -15,7 +15,8 @@ const checkIfPhoneNumberExist = require('../checks/checkPhoneNumberExist')
 const blockchainTx = require('../../Blockchain/wrappedFabConnect/transactions')
 
 const renderUser = require('./renderUser');
-
+const bcrypt = require("bcryptjs")
+const saltRounds = 10;
 
 const path = require('path');
 const coolPath = path.join(__dirname, '../.env')
@@ -82,6 +83,15 @@ module.exports = async function createUser(userJson){
             Bio:''
 
         })
+
+        bcrypt.hash(userJson.password, saltRounds, async function(err, hash) {
+            const encrypt = await passwords.create({
+                ID:userID,
+                encryptedPassword:hash
+            })
+
+            console.log("encryption: " + hash);        
+        });
 
 
         let userID = newUser.id

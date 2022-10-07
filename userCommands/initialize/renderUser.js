@@ -23,7 +23,7 @@ module.exports = async function renderUser(jsonInfo){
         
 
         let user = await User.findById(id)
-        
+        console.log("this is the user " + user);
         // temporary
         jsonInfo.id = "Emenike"
 

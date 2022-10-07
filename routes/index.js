@@ -7,6 +7,8 @@ const settingsRouter = require('./settings')
 const userProfileRouter = require('./user')
 const processOrder = require('./transaction')
 const renderUser = require('../userCommands/initialize/renderUser')
+const user = require('../schemas/User')
+const passwordCollection = require('../schemas/passwords')
 
 
 const app = express()
@@ -40,7 +42,6 @@ app.post('/signIn', async (req, res) =>{
 
 
     let potentialUser = await user.findOne({email:email})
-
     let userID = potentialUser.id;
     
     let encryptedUsers = await passwordCollection.findOne({ID:userID})
@@ -62,7 +63,7 @@ app.post('/signIn', async (req, res) =>{
         
         else {
             console.log('matched')
-            res.send({valid:true, renderedUser: await renderUser(userID)})
+            res.send({valid:true, renderedUser: await renderUser({id:userID})})
         }
     })
 

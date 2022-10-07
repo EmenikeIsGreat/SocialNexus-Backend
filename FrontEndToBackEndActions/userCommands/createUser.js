@@ -20,18 +20,16 @@ async function createUser(userJson){
     console.log(res.data)
 }
 
-createUser(userJson);
+//createUser(userJson);
 
 
 //createUser(userJson)
 
-// async function test(){
-//     const res = await axios.post('http://34.226.249.233:8080/createUser',{
-//         data:userJson
-//     })
-//     console.log(res.data)
-// }
+async function test(){
+    const res = await axios.post('http://34.226.249.233:8080/createUser',userJson)
+    console.log(res.data)
+}
 
-// test()
+//test()
 
 
