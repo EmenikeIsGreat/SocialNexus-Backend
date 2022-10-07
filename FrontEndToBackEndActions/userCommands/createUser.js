@@ -20,7 +20,7 @@ async function createUser(userJson){
     console.log(res.data)
 }
 
-//createUser(userJson);
+createUser(userJson);
 
 
 //createUser(userJson)
