@@ -71,6 +71,7 @@ app.post('/signIn', async (req, res) =>{
 
 
 app.get("/testing",(req,res)=>{
+    console.log("testing")
     res.send("Emenike F. Anigbogu");
     console.log("Emenike");
 })
