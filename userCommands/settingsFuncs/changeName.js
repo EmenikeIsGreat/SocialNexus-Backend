@@ -32,6 +32,7 @@ module.exports = async function changeName(jsonInfo){
         
         let response = await user2.save();
         console.log(response)
+        jsonInfo.valid = true;
         return jsonInfo
 
     }
