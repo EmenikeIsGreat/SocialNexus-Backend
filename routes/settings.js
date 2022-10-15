@@ -89,7 +89,7 @@ router.post('/changePhoneNumber', (req, res) =>{
 })
 
 router.post('/changePassword', async (req, res) =>{
-
+    console.log(req.body + "----------------");
     let jsonInfo = req.body
 
     let {id, password, newPassword} = jsonInfo
