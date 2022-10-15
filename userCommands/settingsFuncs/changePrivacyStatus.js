@@ -30,7 +30,7 @@ module.exports = async function changePrivacyStatus(jsonInfo){
         
         let response = await user2.save();
         console.log(response)
-        return jsonInfo
+        return {valid:true}
 
     }
 

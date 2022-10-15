@@ -10,6 +10,7 @@ const changePhoneNumber = require('../userCommands/settingsFuncs/changePhoneNumb
 const changePassword = require('../userCommands/settingsFuncs/changePassword')
 const changePrivacyStatus = require('../userCommands/settingsFuncs/changePrivacyStatus')
 const passwordSchema = require('../schemas/passwords')
+const bcrypt = require("bcryptjs")
 
 const router = express.Router()
 
