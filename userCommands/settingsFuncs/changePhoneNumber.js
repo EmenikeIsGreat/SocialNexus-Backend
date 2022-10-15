@@ -1,6 +1,7 @@
 const url = "mongodb+srv://Emenike:Ninjaboy12345$@cluster0.lc7v34m.mongodb.net/?retryWrites=true&w=majority"
 const user = require('../../schemas/User')
 const checkIfPhoneNumberExist = require('../checks/checkPhoneNumberExist')
+const mongoose = require("mongoose");
 
 
 const path = require('path');
