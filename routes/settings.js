@@ -84,7 +84,7 @@ router.post('/changePhoneNumber', (req, res) =>{
 
 
     // testing
-    // res.send(req.body)
+    // res.send(sreq.body)
     // res.end()
 })
 
@@ -100,7 +100,8 @@ router.post('/changePassword', async (req, res) =>{
 
     bcrypt.compare(password, hashPass, function(error, isMatch) {
         if (error) {
-        throw error
+        console.log(error);
+
         } else if (!isMatch) {
         console.log("Password doesn't match!")
         res.send({valid:false})
