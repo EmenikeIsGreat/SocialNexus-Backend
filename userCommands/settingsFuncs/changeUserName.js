@@ -36,7 +36,7 @@ module.exports = async function changeUserName(jsonInfo){
 
             user2.userName = userName;
             await user2.save();
-            return {valid:true}
+            return {userName: userName,  valid:true, }
         }
     }
 
