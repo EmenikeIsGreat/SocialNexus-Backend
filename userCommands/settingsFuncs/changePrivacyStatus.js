@@ -42,5 +42,5 @@ module.exports = async function changePrivacyStatus(jsonInfo){
 
 }
 
-changePrivacyStatus({id:'62c0eadc47ec21fd9e585023', privacyStatus:true})
+//changePrivacyStatus({id:'62c0eadc47ec21fd9e585023', privacyStatus:true})
 
