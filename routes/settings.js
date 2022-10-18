@@ -138,15 +138,14 @@ router.post('/changePassword', async (req, res) =>{
 })
 
 
-router.post('/changePrivacyStatus', (req, res) =>{
+router.post('/changePrivacyStatus', async (req, res) =>{
 
     let jsonInfo = req.body
 
-    let resValue = changePrivacyStatus(jsonInfo).then((data)=>{
-        res.send(data)
-        res.end()
-    })
-    .catch((error)=>res.send(error))
+    let resValue = await changePrivacyStatus(jsonInfo);
+
+    res.send(resValue)
+    res.end()
 
 
     //res.end()
