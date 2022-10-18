@@ -28,8 +28,7 @@ module.exports = async function changePrivacyStatus(jsonInfo){
 
         user2.privacy = privacyStatus;
         
-        let response = await user2.save();
-        console.log(response)
+        await user2.save();
         return {valid:true}
 
     }
