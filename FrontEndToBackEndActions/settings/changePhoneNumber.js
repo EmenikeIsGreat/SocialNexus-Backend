@@ -3,19 +3,19 @@ const axios = require('axios')
 
 
 const Json = {
-    id:'62c0eadc47ec21fd9e585023',
-    phoneNumber:"617"
+    id:'634e06bf2bdbdf13361d940a',
+    phoneNumber:"Emenike"
 }
 
 
 
 async function changePhoneNumber(Json){
-    const res = await axios.post('http://localhost:3000/settings/changePhoneNumber',Json)
+    const res = await axios.post('http://localhost:8080/settings/changePhoneNumber',Json)
     console.log(res.data)
 }
 
 
-//changePhoneNumber(Json)
+changePhoneNumber(Json)
 
 async function test(){
     const res = await axios.get('http://localhost:3000/test')

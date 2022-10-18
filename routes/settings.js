@@ -93,10 +93,11 @@ router.post('/changePassword', async (req, res) =>{
     let jsonInfo = req.body
 
     let {id, password, newPassword} = jsonInfo
+
     let hashPassJson = await passwordSchema.findOne({ID:id})
-    console.log(hashPassJson);
+
+    console.log(hashPassJson + " encrypted");
     let hashPass = hashPassJson.encryptedPassword
-        console.log(hashPass);
 
     console.log("old Passcode: " + hashPass)
 

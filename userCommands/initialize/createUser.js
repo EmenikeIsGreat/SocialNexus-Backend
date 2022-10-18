@@ -159,7 +159,7 @@ const userJson = {
 
 
 async function testing(){
-  let result = await user.create(userJson);
+  let result = await user.findOne({id:"634e06bf2bdbdf13361d940a"});
   console.log(result);
 }
 
