@@ -51,8 +51,6 @@ async function validInputs(userName, phoneNumber, email){
     inputStatus.valid = false
     return inputStatus
 }
-
-
 module.exports = async function createUser(userJson){
     
     let checkDuplicates = await validInputs(userJson.userName, userJson.phoneNumber, userJson.email)
@@ -85,6 +83,7 @@ module.exports = async function createUser(userJson){
         })
 
         bcrypt.hash(userJson.password, saltRounds, async function(err, hash) {
+            console.log("running");
             const encrypt = await passwords.create({
                 ID:userID,
                 encryptedPassword:hash
@@ -137,11 +136,11 @@ module.exports = async function createUser(userJson){
 
 
 const userJson = {
-  userName:"ikbkjbrwkjvrw1",
-  name:"bwrjuovnjrwnvjorwv1",
-  phoneNumber:"fherbvkrwbvkjbrwvkjrwvih4bvih4tkhfbrkjef",
-  email:"98549835dewvhkbwkhrbvkhrwvjnfjl3ljj ru9437",
-  password:"ifuibb59k hkv wrkhv rwkhv rwkhvjf3bnkjrfkjg59gbu5gb5g9ugb54iugb54igbiu54"
+    userName:"user1",     
+    name:"user1",
+    phoneNumber:"phoneno",
+    email:"user1",
+    password:"socialnexus"
 }
 
 // let {userName,email,phoneNumber} = userJson
@@ -164,7 +163,7 @@ async function testing(){
   console.log(result);
 }
 
-testing();
+//testing();
 
 
 
