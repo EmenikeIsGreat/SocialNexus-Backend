@@ -8,7 +8,7 @@ const path = require('path');
 const coolPath = path.join(__dirname, '../.env')
 require("dotenv").config({path:coolPath})
 
-//console.log(process.env.MONGODB_URL);
+
 
 mongoose.connect(process.env.MONGODB_URL, { useNewUrlParser: true, useUnifiedTopology: true }).then(()=>{
     console.log("connected")
@@ -17,7 +17,7 @@ mongoose.connect(process.env.MONGODB_URL, { useNewUrlParser: true, useUnifiedTop
         console.log(error);
 
     })
-// only doing notifcations
+
 
 module.exports = async function createMessage(sender, recipient, body){
     try{

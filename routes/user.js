@@ -2,24 +2,20 @@
 const express = require('express')
 
 
-const getUserBalance = require('../userCommands/queries.js/getUserBalance')
-const changeBio = require('../userCommands/settingsFuncs/changeBio')
-const getTx = require('../userCommands/queries.js/getTx')
-const getAsset = require('../userCommands/assetFuncs/getAsset')
-const followUnfollow = require('../userCommands/searchableUsers.js/followUnfollow')
-const queryUser = require('../userCommands/searchableUsers.js/queryUser')
+const getUserBalance = require('../UserRelatedFunctions/get/getUserBalance')
+const changeBio = require('../UserRelatedFunctions/settings/changeBio')
+const getTx = require('../UserRelatedFunctions/get/getTx')
+const getAsset = require('../UserRelatedFunctions/assetFuncs/getAsset')
+const followUnfollow = require('../UserRelatedFunctions/profileCommands/followUnfollow')
+const queryUser = require('../UserRelatedFunctions/profileCommands/renderQueriedUser')
 const multer  = require('multer');
 const os = require('os')
 const upload = multer({ dest: os.tmpdir()});
-const {changePhoto} = require('../userCommands/searchableUsers.js/changePhoto')
-const {getFileStream} = require('../userCommands/searchableUsers.js/getPhoto')
-const {deletePhoto} = require('../userCommands/searchableUsers.js/getPhoto')
-const bcrypt = require("bcryptjs")
-const user = require('../schemas/User')
-const passwordCollection = require('../schemas/passwords')
-const renderUser = require('../userCommands/initialize/renderUser')
+const {changePhoto} = require('../UserRelatedFunctions/profileCommands/changePhoto')
+const {getFileStream} = require('../UserRelatedFunctions/profileCommands/getPhoto')
+const {deletePhoto} = require('../UserRelatedFunctions/profileCommands/getPhoto')
 const {searchUser, searchAsset} = require('../full-text-search/index')
-const getPortfolioInvestments = require('../userCommands/queries.js/getPortfolioInvestments')
+const getPortfolioInvestments = require('../UserRelatedFunctions/get/getPortfolioInvestments')
 
 
 const router = express.Router()
@@ -31,7 +27,7 @@ const router = express.Router()
 router.get('/getUserBalance', (req, res) =>{
 
     let {id} = req.query
-    //console.log(userJson)
+
     
     let resValue = getUserBalance(id).then((data)=>res.send(data))
     .catch((error)=>res.send(error))
@@ -46,16 +42,12 @@ router.get('/getUserBalance', (req, res) =>{
 router.post('/changeBio', (req, res) =>{
 
     let jsonInfo = req.body
-    //console.log(userJson)
+  
     
     let resValue = changeBio(jsonInfo).then((data)=>res.send(data))
     .catch((error)=>res.send(error))
-    //res.end()
 
 
-    // testing
-    // res.send(req.body)
-    // res.end()
 })
 
 router.get('/getTx', (req, res) =>{
@@ -65,27 +57,15 @@ router.get('/getTx', (req, res) =>{
     
     let resValue = getTx(specs).then((data)=>res.send(data))
     .catch((error)=>res.send(error))
-    //res.end()
 
-
-    // testing
-    // res.send(req.body)
-    // res.end()
 })
 
 router.get('/getAsset', (req, res) =>{
 
-    let {data} = req.query
-    console.log(jsonInfo)
-    
-    let resValue = getAsset(jsonInfo).then((data)=>res.send(data))
+    let {name} = req.query
+    let resValue = getAsset(name).then((data)=>res.send(data))
     .catch((error)=>res.send(error))
-    //res.end()
 
-
-    // testing
-    // res.send(req.body)
-    // res.end()
 })
 
 
@@ -98,12 +78,7 @@ router.post('/followUnfollow', (req, res) =>{
 
         res.send(data) })
     .catch((error)=>res.send(error))
-    //res.end()
 
-
-    // testing
-    // res.send(req.body)
-    // res.end()
 })
 
 
@@ -116,12 +91,7 @@ router.get('/queryUser', (req, res) =>{
 
         res.send(data) })
     .catch((error)=>res.send(error))
-    //res.end()
 
-
-    // testing
-    // res.send(req.body)
-    // res.end()
 })
 
 
@@ -153,10 +123,7 @@ router.get('/deletePhoto:id', async (req, res) =>{
 
     readStream.pipe(res)
     
-    //res.send(readStream.data)
 
-    // console.log(title);
-    // console.log(file);
 
 })
 
@@ -171,14 +138,11 @@ router.post('/changePhoto:id', upload.single('file'), async (req, res) =>{
     const file = req.file;  
     
     
-    //console.log(title)
-
     let response = await changePhoto(file, req.params.id)
-    //console.log(response)
-    // console.log(title);
-    // console.log(file);
+
 
     res.send(response)
+    res.end();
 })
 
 
@@ -212,32 +176,6 @@ router.get('/portfolioInvestments', async (req, res) =>{
 
 })
 
-
-
-
-
-
-/*
-
-
-
-
-
-
-deposit post
-
-withdraw post
-
-share post
-
-getTransactions
-
-check order status get 
-
-get notifications get 
-
-
-*/
 
 
 module.exports = router

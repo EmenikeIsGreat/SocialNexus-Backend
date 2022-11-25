@@ -4,7 +4,7 @@ const FormData = require('form-data');
 const Path = require('path');
 
 
-id = "Whatever"
+
 
 const upload = async (id) => {
     try {
@@ -24,7 +24,7 @@ const upload = async (id) => {
 
 
 
-      const resp = await axios.post('http://localhost:5000/userProfile/changePhoto'+id, form,
+      const resp = await axios.post('http://35.172.193.5:8080/userProfile/changePhoto'+id, form,
       { headers: {'Content-Type': 'multipart/form-data'}});
 
       if (resp.status === 200) {

@@ -4,11 +4,8 @@ const mongoose = require('mongoose');
 
 
 const AssetTracking = new mongoose.Schema({
-    
-    Assets:[{
         name:String,
         creator:String,
-        launchTime: Number,
         initialized:Boolean,
 
     
@@ -33,9 +30,7 @@ const AssetTracking = new mongoose.Schema({
             deltaMonth:Object,
             volumeAcrossFiveDays:[Number],
             withinMinuteData:[Number]
-        },
-     
-    }   ]
+        }
 
 },
     

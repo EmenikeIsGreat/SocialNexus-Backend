@@ -7,6 +7,8 @@ const User = require('../schemas/User');
 const ExternalTx = require('../schemas/ExternalTransactions')
 const updateStatistics = require('../Asset/updateStatistics')
 const tx = require('../schemas/transaction')
+const createMessage = require('../Notification/createMessage')
+
 
 
 async function message(UserID, payload){
@@ -93,20 +95,11 @@ let sampleExternalEvent = {
     }
 }
 
-async function simulateTxProcessing(event){
+async function TxProcessing(event){
 
 
         switch (event.Type){
             case "Order":
-
-
-                // let tx = await orders.create({
-                //     Type: event.Transaction.Type,
-                //     UserID: event.UserID,
-                //     OrderID: event.Transaction.orderID,
-                //     Transaction: event.Transaction,
-                // })
-
                 
                 let transaction1 = await tx.create({
                     Type: event.Transaction.Type,
@@ -121,19 +114,11 @@ async function simulateTxProcessing(event){
 
 
             
-                await message(event.UserID, event.Transaction)
+                await createMessage("SocialNexus",event.UserID,event.Transaction)
                 break
 
             case "RecievedAssetFromInit":
   
-
-                // let tx3 = await orders.create({
-                //     Type: event.Transaction.Type,
-                //     UserID: event.UserID,
-                //     OrderID: event.Transaction.orderID,
-                //     Transaction: event.Transaction,
-                // })
-
                 let transaction2 = await tx.create({
                     Type: event.Transaction.Type,
                     UserID: event.UserID,
@@ -143,17 +128,11 @@ async function simulateTxProcessing(event){
 
 
             
-                await message(event.UserID, event.Transaction)
+                await createMessage("SocialNexus",event.UserID,event.Transaction)
                 break
             
             case "Bid":
-                // let tx1 = await bids.create({
-                //     UserID: event.UserID,
-                //     BidID: event.Transaction.BidID,
-                //     Transaction: event.Transaction
-            
-                // })
-
+ 
                 let transaction3 = await tx.create({
                     Type: event.Transaction.Type,
                     UserID: event.UserID,
@@ -162,17 +141,12 @@ async function simulateTxProcessing(event){
                 })
           
         
-                await message(event.UserID, event.Transaction)
+                await createMessage("SocialNexus",event.UserID,event.Transaction)
                 break
             
-            // deposits, withdraws, transfers
+
            
             case "External":
-                // let tx2 = await ExternalTx.create({
-                //     UserID: event.UserID,
-                //     Transaction: event.Transaction
-                // })
-
 
                 let transaction4 = await tx.create({
                     Type: event.Transaction.Type,
@@ -184,9 +158,10 @@ async function simulateTxProcessing(event){
                 await message(event.UserID, event.Transaction) 
                 break 
 
-            case "CreateUser":
-                await message(event.UserID, "user has been created on the Blockchain") 
-                break;
+            
+                case "CreateUser":
+                    await createMessage("SocialNexus",event.UserID,"created")
+                    break;
             
             
             case "CreateAsset":
@@ -198,7 +173,8 @@ async function simulateTxProcessing(event){
                 }
                 await AssetCreate.save();
                 let messages = event.AssetID + " has been created"
-                await message(event.UserID, messages)
+                await createMessage("SocialNexus",event.UserID,messages)
+
                 break;
         
 
@@ -209,5 +185,4 @@ async function simulateTxProcessing(event){
 
 }
 
-simulateTxProcessing(sampleExternalEvent)
 

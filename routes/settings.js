@@ -1,8 +1,5 @@
 const express = require('express')
-const bodyParser = require('body-parser')
 
-
-const userCollection = require('../schemas/User')
 const changeName = require('../userCommands/settingsFuncs/changeName')
 const changeUserName = require('../userCommands/settingsFuncs/changeUserName')
 const changeEmail = require('../userCommands/settingsFuncs/changeEmail')
@@ -12,8 +9,6 @@ const passwordSchema = require('../schemas/passwords')
 const bcrypt = require("bcryptjs")
 
 const router = express.Router()
-
-
 
 
 router.post('/changeName', (req, res) =>{
@@ -44,12 +39,7 @@ router.post('/changeUserName', (req, res) =>{
         res.end()
     })
     .catch((error)=>res.send(error))
-    //res.end()
 
-
-    // testing
-    // res.send(req.body)
-    // res.end()
 })
 
 router.post('/changeEmail', (req, res) =>{
@@ -61,12 +51,7 @@ router.post('/changeEmail', (req, res) =>{
         res.end()
     })
     .catch((error)=>res.send(error))
-    //res.end()
 
-
-    // testing
-    // res.send(req.body)
-    // res.end()
 })
 
 router.post('/changePhoneNumber', (req, res) =>{
@@ -80,12 +65,6 @@ router.post('/changePhoneNumber', (req, res) =>{
     .catch((error)=>res.send(error))
 
 
-    //res.end()
-
-
-    // testing
-    // res.send(sreq.body)
-    // res.end()
 })
 
 router.post('/changePassword', async (req, res) =>{
@@ -147,13 +126,6 @@ router.post('/changePrivacyStatus', async (req, res) =>{
     res.send(resValue)
     res.end()
 
-
-    //res.end()
-
-
-    // testing
-    // res.send(req.body)
-    // res.end()
 })
 
 

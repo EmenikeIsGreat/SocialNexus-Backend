@@ -44,7 +44,9 @@ const User = new mongoose.Schema({
 
     Bio:String,
 
-    profilePic:String
+    profilePic:String,
+
+    hasProfilePic: Boolean
 
     },
 

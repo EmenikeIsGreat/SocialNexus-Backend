@@ -3,6 +3,7 @@ const stringify  = require('json-stringify-deterministic');
 const path = require('path');
 
 
+
 const coolPath = path.join(__dirname, '../../.env')
 require("dotenv").config({path:coolPath})
 
@@ -92,10 +93,15 @@ let testOrder4 = stringify([
   }
 ])
 
-//transaction("Emenike", "test", "contract", "executeOrder", ["testCoin", testOrder], true)
-//transaction("createUser", ['EmenikeV2'])
-//transaction("Emenike", "test", "contract", "deposit", ["Emenike2", "10000000000", "true"], true)
-//transaction("Emenike", "test", "contract", "initalizeAssets", ["testCoin"], true)
+
+
+
+/*
+
+when invoking a function that requires json data you should stringify it first and send it 
+
+*/
+
 
 
 //transaction('createAsset',["EmenikeAsset","Emenike"])
