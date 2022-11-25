@@ -5,7 +5,7 @@ const stringify  = require('json-stringify-deterministic');
 const transaction = require('../Blockchain/wrappedFabConnect/transactions')
 const hash = require('hash')
 const conversion = require('../userCommands/assetFuncs/conversion')
-
+const eventHandler = require('../events/eventHandler')
 
 
 //let myHash = new hash()
@@ -139,6 +139,12 @@ router.get('/conversion', async (req,res) =>{
     let response = await conversion(assetID, txStatus, amount)
     res.send(response)
     
+})
+
+
+// need to check on this to see if it works
+router.post('/HandleEvent', async (req,res) =>{
+    await eventHandler(req.body)
 })
 
 

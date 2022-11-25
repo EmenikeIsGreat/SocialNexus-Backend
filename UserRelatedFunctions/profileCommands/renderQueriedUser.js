@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
 const User = require('../../schemas/User')
 const followingUnfollowing = require('../../schemas/followerFollowing')
-
 const getUsersPortfolioorandBalance = require('../get/getPortfolioInvestments')
 
 const path = require('path');
@@ -26,7 +25,6 @@ module.exports = async function queryUser(jsonInfo){
         let searchedUser = await User.findById(queriedId)
 
 
-        
         searchedUser.phoneNumber = null
         searchedUser.email = null
 
@@ -43,10 +41,7 @@ module.exports = async function queryUser(jsonInfo){
             followingUser: fromIdRelationshipStatus == null ? false:true,
             mutual: (toIdRelationshipStatus && fromIdRelationshipStatus) ? true:false
         }
-        const resp = await axios.get('http://localhost:5000/userProfile/getPhoto'+id);
-        let photoData = await resp.data
 
-        console.log({userInfo: searchedUser, relationShipStatus:relationshipStatus, profilePic: photoData})
         return {userInfo: searchedUser, relationShipStatus:relationshipStatus, portfolioInvestments:portfolioInvestments}
 
     }

@@ -1,30 +1,10 @@
-const mongoose = require("mongoose");
-const user = "mongodb+srv://Emenike:Ninjaboy12345$@cluster0.lc7v34m.mongodb.net/?retryWrites=true&w=majority"
-const orders = require('../schemas/Orders')
-const bids = require('../schemas/Bids.js')
-const Message = require('../schemas/Message')
-const User = require('../schemas/User');
-const ExternalTx = require('../schemas/ExternalTransactions')
-const updateStatistics = require('../Asset/updateStatistics')
 const tx = require('../schemas/transaction')
 const createMessage = require('../Notification/createMessage')
 
 
 
-async function message(UserID, payload){
-    try{
-       let message = await Message.create({
-            sender: "SocialNexus",
-            recipient: UserID,
-            body: payload
-        })
-        console.log("message Sent")
-    }
+// these are sample events
 
-    catch(error){
-        console.log(error);
-    }
-}
 
 let sampleAssetEvent = {
     UserID:"62b750b69e2542d58f9721c6",
@@ -95,10 +75,13 @@ let sampleExternalEvent = {
     }
 }
 
-async function TxProcessing(event){
+module.exports = async function TxProcessing(event){
 
 
         switch (event.Type){
+
+
+            // this is when a buy or sell order has been made
             case "Order":
                 
                 let transaction1 = await tx.create({
@@ -116,7 +99,9 @@ async function TxProcessing(event){
             
                 await createMessage("SocialNexus",event.UserID,event.Transaction)
                 break
+            
 
+            // this is when asset is initalized
             case "RecievedAssetFromInit":
   
                 let transaction2 = await tx.create({
@@ -131,6 +116,8 @@ async function TxProcessing(event){
                 await createMessage("SocialNexus",event.UserID,event.Transaction)
                 break
             
+
+            // this is for when a user makes a bid
             case "Bid":
  
                 let transaction3 = await tx.create({
@@ -145,7 +132,7 @@ async function TxProcessing(event){
                 break
             
 
-           
+            // this is for deposit and withdraw
             case "External":
 
                 let transaction4 = await tx.create({
@@ -158,31 +145,11 @@ async function TxProcessing(event){
                 await message(event.UserID, event.Transaction) 
                 break 
 
-            
-                case "CreateUser":
-                    await createMessage("SocialNexus",event.UserID,"created")
-                    break;
-            
-            
-            case "CreateAsset":
-                let AssetCreate = await User.findById(event.UserID);
-            
-                AssetCreate.Asset = {
-                    AssetID: event.AssetID,
-                    InitStatus: false
-                }
-                await AssetCreate.save();
-                let messages = event.AssetID + " has been created"
-                await createMessage("SocialNexus",event.UserID,messages)
-
-                break;
-        
-
-
+    
             default:
                 console.log("no events match")
         }
 
 }
 
-
+//TxProcessing(sampleAssetEvent)

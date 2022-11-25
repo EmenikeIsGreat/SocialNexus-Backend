@@ -1,9 +1,18 @@
+/*
+
+this watches the messages databse and sends notifcation to user in real time about their messages
+
+*/
+
+
 const {MongoClient} = require('mongodb')
 const Pusher = require("pusher");
-const url = "mongodb+srv://Emenike:Ninjaboy12345$@cluster0.lc7v34m.mongodb.net/?retryWrites=true&w=majority"
+const path = require('path');
 
+const coolPath = path.join(__dirname, '../.env')
+require("dotenv").config({path:coolPath})
 
-const client = new MongoClient(url)
+const client = new MongoClient(process.env.MONGODB_URL)
 
 
 const pusher = new Pusher({
@@ -31,9 +40,9 @@ async function pushTransactionEvents(){
 
 
         while(await changeStreamIterator.hasNext()){
-            // while the change strea is avalible
+
             const next = await changeStreamIterator.next();
-            //console.log(next)
+
 
             pusher.trigger("testing", next.fullDocument.recipient, {
             message: next.fullDocument.body
@@ -49,5 +58,4 @@ async function pushTransactionEvents(){
 
 //pushTransactionEvents()
 
-console.log('-------------------------');
 
