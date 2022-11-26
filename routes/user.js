@@ -16,7 +16,7 @@ const {getFileStream} = require('../UserRelatedFunctions/profileCommands/getPhot
 const {deletePhoto} = require('../UserRelatedFunctions/profileCommands/getPhoto')
 const {searchUser, searchAsset} = require('../full-text-search/index')
 const getPortfolioInvestments = require('../UserRelatedFunctions/get/getPortfolioInvestments')
-
+const userSchema = require('../schemas/User')
 
 const router = express.Router()
 
@@ -95,34 +95,30 @@ router.get('/queryUser', (req, res) =>{
 })
 
 
-
-router.get('/getPhoto:id', async (req, res) =>{
-
-
-
-    let readStream = getFileStream(req.params.id)
-    
-
-
-    readStream.pipe(res)
-    
-    //res.send(readStream.data)
-
-    // console.log(title);
-    // console.log(file);
-
-})
-
 router.get('/deletePhoto:id', async (req, res) =>{
 
 
+    let user = userSchema.findById(req.params.id)
 
-    let readStream = deletePhoto(req.params.id)
-    
+    if(user.hasProfilePic){
+        let readStream = deletePhoto(req.params.id)
+        user.hasProfilePic = false;
+        await user.save();
+        res.send({
+            hadPhoto:true,
+            removedPhoto:true
+        })
+        res.end()
+    }
 
+    else{
+        res.send({
+            hadPhoto:false,
+            removedPhoto:false
+        })
 
-    readStream.pipe(res)
-    
+        res.end()
+    }
 
 
 })

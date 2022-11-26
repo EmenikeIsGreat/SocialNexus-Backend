@@ -34,7 +34,7 @@ const User = new mongoose.Schema({
         required: true
     },
 
-    photoURL: String,
+    hasProfilePhoto: Boolean,
 
     following: Number,
 
@@ -43,8 +43,6 @@ const User = new mongoose.Schema({
     privacy:Boolean,
 
     Bio:String,
-
-    profilePic:String,
 
     hasProfilePic: Boolean
 
