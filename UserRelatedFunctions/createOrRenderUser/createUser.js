@@ -51,7 +51,7 @@ async function validInputs(userName, phoneNumber, email){
     inputStatus.valid = false
     return inputStatus
 }
-module.exports = async function createUser(userJson){
+async function createUser(userJson){
     
     let checkDuplicates = await validInputs(userJson.userName, userJson.phoneNumber, userJson.email)
     if(!checkDuplicates.valid){
@@ -86,10 +86,10 @@ module.exports = async function createUser(userJson){
 
         bcrypt.hash(userJson.password, saltRounds, async function(err, hash) {
             
-            // const encrypt = await passwords.create({
-            //     ID:newUser.id,
-            //     encryptedPassword:hash
-            // })
+            const encrypt = await passwords.create({
+                user:newUser.id,
+                encryptedPassword:hash
+            })
 
             console.log("encryption: " + hash);        
         });
@@ -155,7 +155,7 @@ const userJson = {
 // createUser(userJson).then((data)=>console.log(data))
 // .catch((error)=>console.log(error))
 
-//createUser(userJson);
+createUser(userJson);
 
 
 
