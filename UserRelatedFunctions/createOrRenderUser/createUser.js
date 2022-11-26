@@ -9,9 +9,9 @@ const passwords = require('../../schemas/passwords')
 const User_Portfolio = require('../../schemas/userPortfolio')
 
 
-const checkIfEmailExist = require('../checks/checkEmailExist')
-const checkIfUserNameExist = require('../checks/checkUserNameExist')
-const checkIfPhoneNumberExist = require('../checks/checkPhoneNumberExist')
+const checkIfEmailExist = require('../doesExist/checkEmailExist')
+const checkIfUserNameExist = require('../doesExist/checkUserNameExist')
+const checkIfPhoneNumberExist = require('../doesExist/checkPhoneNumberExist')
 const blockchainTx = require('../../Blockchain/wrappedFabConnect/transactions')
 
 const renderUser = require('./renderClient');
