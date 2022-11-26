@@ -6,7 +6,6 @@ const queryUser = require('../profileCommands/renderQueriedUser')
 const getBalance = require('../get/getUserBalance')
 const getNotifications = require('../get/getMessage')
 const getTx = require('../get/getTx')
-const {getFileStream} = require('../profileCommands/getPhoto')
 const axios = require('axios')
 const getUsersPortfolioorandBalance = require('../get/getPortfolioInvestments')
 
