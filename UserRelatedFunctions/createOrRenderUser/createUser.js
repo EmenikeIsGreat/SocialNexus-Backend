@@ -51,7 +51,7 @@ async function validInputs(userName, phoneNumber, email){
     inputStatus.valid = false
     return inputStatus
 }
-async function createUser(userJson){
+module.exports = async function createUser(userJson){
     
     let checkDuplicates = await validInputs(userJson.userName, userJson.phoneNumber, userJson.email)
     if(!checkDuplicates.valid){
