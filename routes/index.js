@@ -1,12 +1,12 @@
 const express = require('express')
 const bodyParser = require('body-parser')
-const createUser = require('../userCommands/initialize/createUser')
+const createUser = require('../UserRelatedFunctions/createOrRenderUser/createUser')
 const bcrypt = require("bcryptjs")
 
 const settingsRouter = require('./settings')
 const userProfileRouter = require('./user')
 const processOrder = require('./transaction')
-const renderUser = require('../userCommands/initialize/renderUser')
+const renderUser = require('../UserRelatedFunctions/createOrRenderUser/renderClient')
 const user = require('../schemas/User')
 const passwordCollection = require('../schemas/passwords')
 
