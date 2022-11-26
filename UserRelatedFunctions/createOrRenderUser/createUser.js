@@ -130,7 +130,6 @@ module.exports = async function createUser(userJson){
 
     catch(error){
         console.log(error)
-        return error
     }
 
 }
