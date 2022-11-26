@@ -4,7 +4,7 @@ const router = express.Router()
 const stringify  = require('json-stringify-deterministic');
 const transaction = require('../Blockchain/wrappedFabConnect/transactions')
 const hash = require('hash')
-const conversion = require('../userCommands/assetFuncs/conversion')
+const conversion = require('../AssetFunctions/conversion')
 const eventHandler = require('../events/eventHandler')
 
 
