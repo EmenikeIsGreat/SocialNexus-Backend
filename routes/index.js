@@ -44,6 +44,7 @@ app.post('/signIn', async (req, res) =>{
     console.log("the email to sign in is " + email);
 
     let potentialUser = await user.findOne({email:email})
+    console.log(req.body)
     console.log(potentialUser)
     let userID = potentialUser.id;
     
