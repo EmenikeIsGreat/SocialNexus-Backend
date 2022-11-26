@@ -26,7 +26,7 @@ app.post('/createUser', async (req, res) =>{
     let userJson = req.body
     let result = await createUser(userJson);
     console.log("----------------")
-    console.log(result)
+    console.log("result is " + result)
     console.log("----------------")
 
     res.json(result);
