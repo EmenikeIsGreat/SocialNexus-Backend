@@ -46,7 +46,7 @@ app.post('/signIn', async (req, res) =>{
     let potentialUser = await user.findOne({email:email})
     let userID = potentialUser.id;
     
-    let encryptedUsers = await passwordCollection.findOne({ID:userID})
+    let encryptedUsers = await passwordCollection.findOne({user:userID})
 
     encryptedUsers = encryptedUsers.encryptedPassword
     console.log("encrypted password is " + encryptedUsers)
