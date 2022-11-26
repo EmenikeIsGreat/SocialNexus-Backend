@@ -1,10 +1,10 @@
 const express = require('express')
 
-const changeName = require('../userCommands/settingsFuncs/changeName')
-const changeUserName = require('../userCommands/settingsFuncs/changeUserName')
-const changeEmail = require('../userCommands/settingsFuncs/changeEmail')
-const changePhoneNumber = require('../userCommands/settingsFuncs/changePhoneNumber')
-const changePrivacyStatus = require('../userCommands/settingsFuncs/changePrivacyStatus')
+const changeName = require('../UserRelatedFunctions/settings/changeName')
+const changeUserName = require('../UserRelatedFunctions/settings/changeUserName')
+const changeEmail = require('../UserRelatedFunctions/settings/changeEmail')
+const changePhoneNumber = require('../UserRelatedFunctions/settings/changePhoneNumber')
+const changePrivacyStatus = require('../UserRelatedFunctions/settings/changePrivacyStatus')
 const passwordSchema = require('../schemas/passwords')
 const bcrypt = require("bcryptjs")
 
