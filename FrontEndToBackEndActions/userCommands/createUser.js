@@ -3,11 +3,11 @@ const bcrypt = require("bcryptjs")
 
 
 const userJson = {
-    userName:"firuegvirbviu",
-    name:"33ofjnrjvnkejrver",
-    phoneNumber:"3jbnljornvlojernve3",
-    email:"3onvoernvoejrnvljer3",
-    password:"3four3hfoi34rnfo4r"
+    userName:"f",
+    name:"r",
+    phoneNumber:"deg",
+    email:"geg",
+    password:"heg"
 }
 
 
