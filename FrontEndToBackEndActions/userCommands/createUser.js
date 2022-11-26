@@ -16,11 +16,11 @@ const userJson = {
 
 async function createUser(userJson){
     console.log("Emenike")
-    const res = await axios.post('http://54.90.222.207:8080/createUser',userJson)
+    const res = await axios.post('http://35.172.193.5:8080/createUser',userJson)
     console.log(res.data)
 }
 
-//createUser(userJson);
+createUser(userJson);
 
 
 //createUser(userJson)
