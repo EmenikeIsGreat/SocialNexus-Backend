@@ -24,15 +24,17 @@ app.use('/processOrder', processOrder)
 app.post('/createUser', async (req, res) =>{
 
     let userJson = req.body
-    console.log("Emenike is the goat")
     let result = await createUser(userJson);
-    console.log(result);
+    console.log("----------------")
+    console.log(result)
+    console.log("----------------")
+
     res.json(result);
+    res.end();
 
 
     // testing
     // res.send(req.body)
-    // res.end()
 })
 
 
