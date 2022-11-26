@@ -86,10 +86,10 @@ module.exports = async function createUser(userJson){
 
         bcrypt.hash(userJson.password, saltRounds, async function(err, hash) {
             
-            const encrypt = await passwords.create({
-                ID:newUser.id,
-                encryptedPassword:hash
-            })
+            // const encrypt = await passwords.create({
+            //     ID:newUser.id,
+            //     encryptedPassword:hash
+            // })
 
             console.log("encryption: " + hash);        
         });
