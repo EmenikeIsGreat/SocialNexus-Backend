@@ -20,6 +20,8 @@ module.exports = async function changeBio(jsonInfo){
     
     let {id, newBio} = jsonInfo
 
+    console.log(id + " " + newBio)
+
     try{
 
         let user2 = await user.findById(id)
