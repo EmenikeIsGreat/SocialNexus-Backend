@@ -20,7 +20,7 @@ module.exports = async function changeBio(jsonInfo){
     
     let {id, newBio} = jsonInfo
 
-    console.log(id + " " + newBio)
+    console.log(jsonInfo)
 
     try{
 

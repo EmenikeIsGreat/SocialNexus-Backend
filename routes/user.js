@@ -42,12 +42,11 @@ router.post('/changeBio', (req, res) =>{
 
     let jsonInfo = req.body
   
-    
     let resValue = changeBio(jsonInfo).then((data)=>res.send(data))
     .catch((error)=>res.send(error))
 
-
 })
+
 
 router.get('/getTx', (req, res) =>{
 
