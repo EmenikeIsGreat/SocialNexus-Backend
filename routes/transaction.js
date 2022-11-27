@@ -155,6 +155,8 @@ router.post('/HandleEvent', async (req,res) =>{
 })
 
 router.post('/ExternalAccountTransaction', async (req,res) =>{
+    console.log("test")
+    console.log(res.body)
     let {id,amount,withdraw} = res.body
     ExternalAccountTransaction(id, amount, withdraw).then((data)=>{
         res.send(data)
