@@ -147,6 +147,7 @@ router.post('/HandleEvent', async (req,res) =>{
     console.log(req.body[0].payload.Type)
     console.log(req.body[0].payload.Transaction)
     await eventHandler(req.body)
+    res.end()
 })
 
 
