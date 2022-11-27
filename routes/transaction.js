@@ -144,8 +144,12 @@ router.get('/conversion', async (req,res) =>{
 
 // need to check on this to see if it works
 router.post('/HandleEvent', async (req,res) =>{
+    console.log(req.body)
+    console.log("----------------");
     console.log(req.body[0].payload.Type)
+    console.log("----------------");
     console.log(req.body[0].payload.Transaction)
+    console.log("----------------");
     await eventHandler(req.body)
     res.end()
 })

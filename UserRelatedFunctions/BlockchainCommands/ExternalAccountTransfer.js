@@ -6,6 +6,8 @@ async function ExternalAccountTransaction(id,amount,withdraw){
     
     amount = stringify(amount)
 
+    console.log(parseFloat(amount) + 10000)
+
     if(withdraw){
         withdraw = true
     }
@@ -21,9 +23,9 @@ async function ExternalAccountTransaction(id,amount,withdraw){
 
     else{
 
-        let trasnaction = await tx("withdraw",["see",id,amount,"true"])
+        let trasnaction = await tx("withdraw",[id,amount,"false"])
         return trasnaction
     }
 }
 
-ExternalAccountTransaction("Emenike",0.001,true)
+ExternalAccountTransaction("SocialNexus",10000000,true)
