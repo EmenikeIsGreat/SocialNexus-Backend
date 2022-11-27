@@ -75,13 +75,13 @@ let sampleExternalEvent = {
     }
 }
 
-module.exports = async function TxProcessing(event){
+module.exports = async function TxProcessing(events){
 
+    for(i = 0; i < events.legnth ; i++){
+        let event = events[i].payload
 
         switch (event.Type){
 
-
-            // this is when a buy or sell order has been made
             case "Order":
                 
                 let transaction1 = await tx.create({
@@ -149,6 +149,10 @@ module.exports = async function TxProcessing(event){
             default:
                 console.log("no events match")
         }
+
+
+    }
+        
 
 }
 
