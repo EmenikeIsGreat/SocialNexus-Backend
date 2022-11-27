@@ -168,7 +168,6 @@ router.get('/portfolioInvestments', async (req, res) =>{
     res.send(response)
 
     
-
 })
 
 

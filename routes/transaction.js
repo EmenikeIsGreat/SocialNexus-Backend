@@ -6,7 +6,7 @@ const transaction = require('../Blockchain/wrappedFabConnect/transactions')
 const hash = require('hash')
 const conversion = require('../AssetFunctions/conversion')
 const eventHandler = require('../events/eventHandler')
-
+const ExternalAccountTransaction = require('../UserRelatedFunctions/BlockchainCommands/ExternalAccountTransfer')
 
 //let myHash = new hash()
 
@@ -151,6 +151,17 @@ router.post('/HandleEvent', async (req,res) =>{
     console.log(req.body[0].payload.Transaction)
     console.log("----------------");
     await eventHandler(req.body)
+    res.end()
+})
+
+router.post('/ExternalAccountTransaction', async (req,res) =>{
+    let {id,amount,withdraw} = res.body
+    ExternalAccountTransaction(id, amount, withdraw).then((data)=>{
+        res.send(data)
+    }).catch((err)=>{
+        res.send(err)
+    }) 
+
     res.end()
 })
 

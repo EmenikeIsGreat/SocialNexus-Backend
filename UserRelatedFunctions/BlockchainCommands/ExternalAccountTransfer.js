@@ -23,9 +23,9 @@ async function ExternalAccountTransaction(id,amount,withdraw){
 
     else{
 
-        let trasnaction = await tx("withdraw",[id,amount,"false"])
+        let trasnaction = await tx("withdraw",[id,amount,"true"])
         return trasnaction
     }
 }
 
-ExternalAccountTransaction("SocialNexus",10000000,true)
+//ExternalAccountTransaction("Emenike",10000000000000,true)
