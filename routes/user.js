@@ -94,7 +94,7 @@ router.get('/queryUser', (req, res) =>{
 })
 
 
-router.get('/deletePhoto:id', async (req, res) =>{
+router.get('/deletePhoto', async (req, res) =>{
 
     console.log(req.params.id)
     let user = await userSchema.findById(req.params.id)
