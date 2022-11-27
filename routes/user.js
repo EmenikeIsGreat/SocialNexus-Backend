@@ -96,6 +96,7 @@ router.get('/queryUser', (req, res) =>{
 
 router.get('/deletePhoto:id', async (req, res) =>{
 
+    console.log(req.params)
     let user = await userSchema.findById(req.params.id)
     console.log(user)
     if(user.hasProfilePic){
