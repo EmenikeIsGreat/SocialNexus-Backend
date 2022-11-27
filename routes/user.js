@@ -41,6 +41,8 @@ router.get('/getUserBalance', (req, res) =>{
 router.post('/changeBio', (req, res) =>{
 
     let jsonInfo = req.body
+    
+    console.log(jsonInfo)
   
     let resValue = changeBio(jsonInfo).then((data)=>res.send(data))
     .catch((error)=>res.send(error))
