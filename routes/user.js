@@ -97,10 +97,9 @@ router.get('/queryUser', (req, res) =>{
 router.get('/deletePhoto', async (req, res) =>{
     let user = await userSchema.findById(req.query.id)
 
-    console.log(user.hasProfilePic);
     if(user.hasProfilePic){
         console.log("has photo")
-        deletePhoto(req.params.id)
+        await deletePhoto(req.query.id)
         user.hasProfilePic = false;
         await user.save();
         res.send({
