@@ -18,8 +18,10 @@ const secretAccessKey = process.env.AWS_SECRET_KEY
 
 
 
+// if your bucket is public you need to remove default 
+// policy from the IAM becasuse it will give you access denied
+
 async function deletePhoto(key){
-  console.log("YOOOOOOOO")
     const s3 = new S3({
         region,
         accessKeyId,

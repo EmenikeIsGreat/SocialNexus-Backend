@@ -93,7 +93,7 @@ class AssetTransfer extends Contract {
 
     
     async createUser(ctx, UserID) {
-
+        //testing remove later
         let balanceObj = {
             USDSH : {
                 balance : 0

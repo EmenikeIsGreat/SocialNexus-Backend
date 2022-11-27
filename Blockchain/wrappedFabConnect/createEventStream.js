@@ -61,5 +61,5 @@ async function createEventStream(eventStreamName, webHookUrl){
     }
 }
 
-createEventStream("name", "http://3.83.122.246:3000/event")
+createEventStream("name", "http://35.172.193.5:8080/processOrder/HandleEvent")
 
