@@ -122,7 +122,7 @@ router.post('/changePrivacyStatus', async (req, res) =>{
     let jsonInfo = req.body
 
     let resValue = await changePrivacyStatus(jsonInfo);
-
+    
     res.send(resValue)
     res.end()
 

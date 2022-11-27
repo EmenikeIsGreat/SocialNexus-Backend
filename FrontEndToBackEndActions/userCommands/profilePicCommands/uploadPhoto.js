@@ -37,6 +37,7 @@ const upload = async (id) => {
       }
     }
   
+let id = "6382725ccf26091d21536496"
 upload(id).then(resp => console.log(resp));
 
 
