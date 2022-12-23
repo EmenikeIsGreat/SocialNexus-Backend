@@ -19,11 +19,10 @@ io.on('connection', socket => {
   });
 });
 
-http.listen(8080, () => {
+http.listen(3000, () => {
   console.log('listening on *:3000');
 });
 
 const sendMessage = (message) => {
   io.emit('message', message);
 }
-
