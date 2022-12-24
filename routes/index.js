@@ -9,7 +9,9 @@ const processOrder = require('./transaction')
 const renderUser = require('../UserRelatedFunctions/createOrRenderUser/renderClient')
 const user = require('../schemas/User')
 const passwordCollection = require('../schemas/passwords')
-
+const http = require('http');
+const socket = require("socket.io")
+const httpServer = http.createServer();
 
 const app = express()
 
@@ -70,7 +72,21 @@ app.post('/signIn', async (req, res) =>{
 })
 
 
+
+const Server = require("socket.io")
+const io = new Server.Server(httpServer, {
+});
+
+
+module.exports = function emitEvent(topic,message){
+   io.sockets.emit(topic, message);
+}
+
 let port = 8080
+
+httpServer.listen(port);
+
+
 app.listen(port, ()=>{
     console.log('listening on port: ' + port)
 })
