@@ -40,7 +40,7 @@ async function pushTransactionEvents(){
             message: next.fullDocument.body
             });
 
-            pushNotification(next.fullDocument.recipient,"notification",next.fullDocument.body)
+            pushNotification(next.fullDocument.recipient,next.fullDocument.body)
         }
 
     }
