@@ -8,7 +8,7 @@ this watches the messages databse and sends notifcation to user in real time abo
 const {MongoClient} = require('mongodb')
 const Pusher = require("pusher");
 const path = require('path');
-const pushNotification = require('./pushNotification')
+const emit = require('./pushNotification')
 
 const coolPath = path.join(__dirname, '../.env')
 require("dotenv").config({path:coolPath})
@@ -35,12 +35,7 @@ async function pushTransactionEvents(){
 
             const next = await changeStreamIterator.next();
 
-
-            pusher.trigger("testing", next.fullDocument.recipient, {
-            message: next.fullDocument.body
-            });
-
-            pushNotification(next.fullDocument.recipient,next.fullDocument.body)
+            emit(next.fullDocument.recipient,next.fullDocument.body)
         }
 
     }
