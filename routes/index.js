@@ -85,7 +85,10 @@ module.exports = function emitEvent(topic,message){
 let routePort = 8080
 let socketPort = 8081
 
-httpServer.listen(socketPort);
+
+httpServer.listen(socketPort,()=>{
+    console.log('listening on port: ' + socketPort)
+});
 
 
 app.listen(routePort, ()=>{
