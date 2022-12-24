@@ -10,7 +10,7 @@ const io = new Server.Server(httpServer, {
 });
 
 
-function emitEvent(topic,message){
+module.exports = function emitEvent(topic,message){
    io.sockets.emit(topic, message);
 }
 
