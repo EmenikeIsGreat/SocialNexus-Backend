@@ -8,7 +8,7 @@ this watches the messages databse and sends notifcation to user in real time abo
 const {MongoClient} = require('mongodb')
 const Pusher = require("pusher");
 const path = require('path');
-const emit = require('../routes/eventEmitter')
+const emit = require('./eventEmitter')
 
 const coolPath = path.join(__dirname, '../.env')
 require("dotenv").config({path:coolPath})

@@ -9,9 +9,7 @@ const processOrder = require('./transaction')
 const renderUser = require('../UserRelatedFunctions/createOrRenderUser/renderClient')
 const user = require('../schemas/User')
 const passwordCollection = require('../schemas/passwords')
-const http = require('http');
-const socket = require("socket.io")
-const httpServer = http.createServer();
+
 
 const app = express()
 
@@ -19,7 +17,7 @@ app.use(bodyParser.json())
 
 
 app.use('/settings', settingsRouter)
-app.use('/userProfile', userProfileRouter)
+app.use('/user', userProfileRouter)
 app.use('/processOrder', processOrder)
 
 
@@ -72,23 +70,7 @@ app.post('/signIn', async (req, res) =>{
 })
 
 
-
-const Server = require("socket.io")
-const io = new Server.Server(httpServer, {
-});
-
-
-module.exports = function emitEvent(topic,message){
-   io.sockets.emit(topic, message);
-}
-
-let routePort = 8080
-let socketPort = 8081
-
-
-httpServer.listen(socketPort,()=>{
-    console.log('listening on port: ' + socketPort)
-});
+let routePort = 8080;
 
 
 app.listen(routePort, ()=>{

@@ -62,8 +62,8 @@ router.get('/getTx', (req, res) =>{
 
 router.get('/getAsset', (req, res) =>{
 
-    let {name} = req.query
-    let resValue = getAsset(name).then((data)=>res.send(data))
+    let {asset} = req.params
+    let resValue = getAsset(asset).then((data)=>res.send(data))
     .catch((error)=>res.send(error))
 
 })
@@ -169,6 +169,10 @@ router.get('/portfolioInvestments', async (req, res) =>{
 
     
 })
+
+
+
+
 
 
 
