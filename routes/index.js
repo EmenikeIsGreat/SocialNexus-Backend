@@ -82,13 +82,14 @@ module.exports = function emitEvent(topic,message){
    io.sockets.emit(topic, message);
 }
 
-let port = 8080
+let routePort = 8080
+let socketPort = 8081
 
-httpServer.listen(port);
+httpServer.listen(socketPort);
 
 
-app.listen(port, ()=>{
-    console.log('listening on port: ' + port)
+app.listen(routePort, ()=>{
+    console.log('listening on port: ' + routePort)
 })
 
 

@@ -321,6 +321,7 @@ async function updateAllAssets(){
             //console.log(doc)
             let update = await run(doc)
             console.log(update)
+            // emit the event of the updated asset
             let response = await update.save()
           }
 
