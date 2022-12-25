@@ -62,8 +62,7 @@ router.get('/getTx', (req, res) =>{
 
 router.get('/getAsset', (req, res) =>{
 
-    let {asset} = req.params
-    console.log(req.query)
+    let {asset} = req.query
 
     let resValue = getAsset(asset).then((data)=>{
         res.send(data)
