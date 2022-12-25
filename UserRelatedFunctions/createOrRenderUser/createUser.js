@@ -139,7 +139,7 @@ module.exports = async function createUser(userJson){
 
 const userJson = {
     userName:"user1",     
-    name:"user1",
+    name:"Arinze",
     phoneNumber:"phoneno",
     email:"user1",
     password:"socialnexus"

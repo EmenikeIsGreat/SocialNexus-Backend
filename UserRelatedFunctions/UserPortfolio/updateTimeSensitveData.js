@@ -27,7 +27,7 @@ mongoose.connect(process.env.MONGODB_URL, { useNewUrlParser: true, useUnifiedTop
 
 let prices;
 //prices = getAllPrices().then((data)=>console.log(data['ArinzeAsset']))
-prices = { ArinzeAsset: 0.2 }
+//prices = { ArinzeAsset: 0.2 }
 
 
 async function calculateTotalValOfUsersPortfolio(userID){
@@ -71,12 +71,12 @@ async function calculateTotalValOfUsersPortfolio(userID){
 
        
     }
-    console.log(totalAssetEvalInUSD)
+
     return totalAssetEvalInUSD
 }
 
 
-//calculateTotalValOfUsersPortfolio("Emenike")
+//calculateTotalValOfUsersPortfolio("63a8c5d2e47fb161d4472337")
 
 
 
@@ -89,14 +89,14 @@ function modifyChartDataArray(array, valuation, limit){
 
     if(array.length < limit){
         array.push(valuation)
-        console.log('less than')
+        //console.log('less than')
     }
 
     else{
         array.shift()
         array.push(valuation)
 
-        console.log('greater than')
+        //console.log('greater than')
     }
 
     return array
@@ -125,6 +125,7 @@ function updateChartData(portfolio, valuation, timeFrame){
         case 'minute':
 
             portfolio.minuteChart = modifyChartDataArray(portfolio.minuteChart, valuation, 60)
+            break
 
         default:
             console.log("no options")
@@ -209,7 +210,8 @@ function run(portfolio, valuation){
     }
 
     if(currentdate.getMinutes() != initialMinute){
-        // run updateUsersPortofilio functin
+        
+        console.log("this needs to run")
         updateChartData(portfolio,valuation,'minute')
 
     }
@@ -299,12 +301,12 @@ async function updateAllUsersPortfolio(){
 
 let currentdate = new Date();
 
-/*
+
 setInterval(async ()=>{
     await updateAllUsersPortfolio()
 
 }, 1000)
-*/
+
 
 
 
