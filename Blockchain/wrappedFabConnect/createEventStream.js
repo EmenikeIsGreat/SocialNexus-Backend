@@ -50,6 +50,8 @@ async function createEventStream(eventStreamName, webHookUrl){
                 }   
         }
         );
+
+        
         console.log("success")
         console.log(res.data)
         return res.data
