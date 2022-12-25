@@ -38,5 +38,5 @@ module.exports = async function getAsset(name){
 
 }
 
-//getAsset("Crazy")
+//getAsset("30")
 
