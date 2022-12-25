@@ -63,9 +63,9 @@ router.get('/getTx', (req, res) =>{
 router.get('/getAsset', (req, res) =>{
 
     let {asset} = req.params
+    console.log(req.params)
 
     let resValue = getAsset(asset).then((data)=>{
-        console.log(req.params)
         res.send(data)
     })
     .catch((error)=>res.send(error))
