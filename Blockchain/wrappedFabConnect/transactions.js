@@ -118,6 +118,6 @@ let sampleOrderBid = stringify([{
 }])
 
 
-
+//transaction('createAsset',["Emenike","SocialNexusV2"])
 //transaction('userBid',["EmenikeAsset",sampleOrderBid])
 //transaction('initalizeAssets',["EmenikeAsset"])

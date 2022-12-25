@@ -23,7 +23,7 @@ mongoose.connect(process.env.MONGODB_URL, { useNewUrlParser: true, useUnifiedTop
 
     })
 
-module.exports = async function createAsset(userID,name){
+async function createAsset(userID,name){
 
     try{
 
@@ -77,7 +77,7 @@ module.exports = async function createAsset(userID,name){
 
 }
 
-//createAsset('Testing',"Crazy")
+//createAsset('Testing',"ArinzeAsset")
 
 
 

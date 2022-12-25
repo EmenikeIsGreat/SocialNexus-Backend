@@ -194,7 +194,10 @@ class AssetTransfer extends Contract {
             
                 UserBalance:userJson
             }
-            await ctx.stub.setEvent('event', Buffer.from(stringify(externalEvent)))
+
+            if(userID != "SocialNexus"){
+                await ctx.stub.setEvent('event', Buffer.from(stringify(externalEvent)))
+            }
             await ctx.stub.putState(userID, Buffer.from(stringify(userJson)));
             return
         }
@@ -207,7 +210,7 @@ class AssetTransfer extends Contract {
 
     }
 
-    async withdraw(ctx, txID, userID, amount, modify){
+    async withdraw(ctx, userID, amount, modify){
 
         amount = parseFloat(amount)
         let fee = amount*this.withDepoFee;
@@ -222,17 +225,30 @@ class AssetTransfer extends Contract {
             }
         
         }
+        
 
         let userJson = await this.getUser(ctx, userID);    
 
         let bal = await this.hasBalance(ctx, userID, amount)
+        
 
-        if(!bal){
-            let val = {
-                action: "withdraw",
-                errorCode: 1
-            }
-            await this.saveTxID(txID,val)
+        userJson.USDSH.balance = userJson.USDSH.balance + (amount - fee)
+        let externalEvent = {
+            UserID:userID,
+            Type: "External",
+            
+            Transaction:{
+                External: "withdraw",
+                USDSHAmount: amount,
+                fee: fee,
+                valid: false
+            },
+        
+            UserBalance:userJson
+        }
+
+        if(!bal && modify == false){
+            await ctx.stub.setEvent('event', Buffer.from(stringify(externalEvent)))
             return
         }
 
@@ -241,20 +257,8 @@ class AssetTransfer extends Contract {
 
         if(modify){
 
-            userJson.USDSH.balance = userJson.USDSH.balance + (amount - fee)
-            let externalEvent = {
-                UserID:userID,
-                Type: "External",
-                
-                Transaction:{
-                    External: "withdraw",
-                    USDSHAmount: amount,
-                    fee: fee
-                },
-            
-                UserBalance:userJson
-            }
-    
+
+            externalEvent.Transaction.valid = true
             await this.deposit(ctx, "SocialNexus", fee, true)
             await ctx.stub.setEvent('event', Buffer.from(stringify(externalEvent)))
             await ctx.stub.putState(userID, Buffer.from(stringify(userJson)));
@@ -492,18 +496,17 @@ class AssetTransfer extends Contract {
     async getPrice(ctx, assetIDs){
 
  
-
-        assetIDs = Object.keys(JSON.parse(assetIDs))
         
-
-        
+        assetIDs = JSON.parse(assetIDs);
+  
+    
         let returnVal = []
         
         for(let i = 0; i < assetIDs.length; i++){
 
             
             let asset = await this.getAsset(ctx, assetIDs[i]);
-            let price = asset.LP.USDSN/asset.LP.Asset
+            let price = asset.LP.USDSH/asset.LP.Asset
             
 
             returnVal.push({asset:assetIDs[i],price:price})

@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
 const assets = require('../schemas/Assets')
-const Pusher = require("pusher");
-const emit = require('../events/eventEmitter')
+
 
 const path = require('path');
 
@@ -321,8 +320,7 @@ async function updateAllAssets(){
             //console.log(doc)
             let update = await run(doc)
             
-            // every time the asset is updated it emits and event
-            emit(update.name,update)
+
             console.log(update)
             // emit the event of the updated asset
             let response = await update.save()
