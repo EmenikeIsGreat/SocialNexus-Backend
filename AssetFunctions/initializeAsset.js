@@ -35,7 +35,7 @@ async function initializeAsset(assetID){
         //blockchain transaction that intialize asset on the blockchain
         
         
-        transaction("initalizeAssets", [assetID], true).then(async (data)=>{
+        transaction("initalizeAssets", [assetID]).then(async (data)=>{
 
 
             // the reason why this is in the callback is because we only want to query the asset after it has been intialized and this is

@@ -40,6 +40,7 @@ module.exports = async function renderUser(jsonInfo){
             notifications: notifications,
             transactions:transactions,
             //profilePic: profilePic.data
+            valid:true
         }
 
         //console.log(returnVal)

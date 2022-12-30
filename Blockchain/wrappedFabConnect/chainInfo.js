@@ -20,7 +20,7 @@ curl -X 'GET' \
 */
 
 
-async function chainInfo(dataAmount){
+module.exports = async function chainInfo(dataAmount){
     let url = baseURL + 'chaininfo?fly-channel=' + flyChannel + '&fly-signer=' + HLF_Signer
     //https://u0vs2fxu5n-u0kxbxafrm-peer.us0-aws-ws.kaleido.io/
     //https://u0vs2fxu5n-u0kxbxafrm-connect.us0-aws-ws.kaleido.io/chaininfo?fly-channel=test&fly-signer=Emenike
@@ -52,7 +52,7 @@ async function chainInfo(dataAmount){
     }
 }
 
-chainInfo("all")
+//chainInfo("all")
 
 //module.exports = chainInfo()
 

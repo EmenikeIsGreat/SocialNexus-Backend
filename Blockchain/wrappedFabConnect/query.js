@@ -68,6 +68,7 @@ module.exports = async function query(func, args){
 
 
 
+
 // arr = JSON.parse(arr).assets
 // for(let i = 0; i < arr.length; i++){
 //   console.log(arr[i])

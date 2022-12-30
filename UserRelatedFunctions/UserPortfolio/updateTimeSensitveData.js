@@ -305,7 +305,7 @@ let currentdate = new Date();
 setInterval(async ()=>{
     await updateAllUsersPortfolio()
 
-}, 1000)
+}, 5000)
 
 
 

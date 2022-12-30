@@ -6,15 +6,7 @@ module.exports = async function ExternalAccountTransaction(id,amount,withdraw){
     
     amount = stringify(amount)
 
-    console.log(parseFloat(amount) + 10000)
-
-    if(withdraw){
-        withdraw = true
-    }
-
-    else{
-        withdraw = false
-    }
+    //console.log(parseFloat(amount) + 10000)
 
     if(!withdraw){
         let trasnaction = await tx('deposit',[id,amount,"true"])

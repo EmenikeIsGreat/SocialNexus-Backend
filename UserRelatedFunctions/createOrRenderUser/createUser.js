@@ -51,6 +51,7 @@ async function validInputs(userName, phoneNumber, email){
     inputStatus.valid = false
     return inputStatus
 }
+
 module.exports = async function createUser(userJson){
     
     let checkDuplicates = await validInputs(userJson.userName, userJson.phoneNumber, userJson.email)
@@ -91,7 +92,7 @@ module.exports = async function createUser(userJson){
                 encryptedPassword:hash
             })
 
-            console.log("encryption: " + hash);        
+            //console.log("encryption: " + hash);        
         });
 
 
@@ -122,7 +123,7 @@ module.exports = async function createUser(userJson){
         // once you activate the blockchain uncomment this
         //await blockchainTx('createUser',[userID]);
         
-        //transaction("Emenike", "test", "contract", "createUser", [userID], true)
+        transaction("createUser", [userID])
         let response = await renderUser({id:userID})
         console.log(response);
         return {userCreated:response, valid:true}
@@ -155,7 +156,7 @@ const userJson = {
 // createUser(userJson).then((data)=>console.log(data))
 // .catch((error)=>console.log(error))
 
-//createUser(userJson);
+createUser(userJson);
 
 
 

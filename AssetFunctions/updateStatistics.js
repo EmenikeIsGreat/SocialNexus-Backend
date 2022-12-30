@@ -68,7 +68,7 @@ module.exports = async function updateStatistics(assetID, price, shares){
 
 // let id1 = '62f02bafad3c3033cee62fd8'
 let id2 = '638115ac704ba6add839d56c'
-updateStatistics(id2,101,22)
+//updateStatistics(id2,101,22)
 
 
 

@@ -63,7 +63,7 @@ app.post('/signIn', async (req, res) =>{
         
         else {
             console.log('matched')
-            res.send({valid:true, renderedUser: await renderUser({id:userID})})
+            res.send(await renderUser({id:userID}))
         }
     })
 
