@@ -9,6 +9,7 @@ const processOrder = require('./transaction')
 const renderUser = require('../UserRelatedFunctions/createOrRenderUser/renderClient')
 const user = require('../schemas/User')
 const passwordCollection = require('../schemas/passwords')
+const stringify = require('json-stringify-deterministic');
 
 
 const app = express()
@@ -26,7 +27,7 @@ app.post('/createUser', async (req, res) =>{
     let userJson = req.body
     let result = await createUser(userJson);
     console.log("----------------")
-    console.log("result is " + result)
+    console.log("result is " + stringify(result))
     console.log("----------------")
 
     res.json(result);
