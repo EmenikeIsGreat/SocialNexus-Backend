@@ -45,7 +45,7 @@ module.exports = async function renderUser(jsonInfo){
 
         //console.log(returnVal)
         
-        return {response:returnVal, valid:true}
+        return returnVal;
     }
 
    catch(error){
