@@ -126,7 +126,7 @@ module.exports = async function createUser(userJson){
         transaction("createUser", [userID])
         let response = await renderUser({id:userID})
         console.log(response);
-        return {userCreated:response, valid:true}
+        return {response:response, valid:true}
     }
 
     catch(error){
@@ -156,7 +156,7 @@ const userJson = {
 // createUser(userJson).then((data)=>console.log(data))
 // .catch((error)=>console.log(error))
 
-createUser(userJson);
+//createUser(userJson);
 
 
 
