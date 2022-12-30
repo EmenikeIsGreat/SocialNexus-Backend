@@ -139,12 +139,14 @@ module.exports = async function createUser(userJson){
 
 
 const userJson = {
-    userName:"user1",     
-    name:"Arinze",
-    phoneNumber:"phoneno",
-    email:"user1",
+    userName:"user1kvjkjv kefjv",     
+    name:"Ariekv ekjvnze",
+    phoneNumber:"phovkjefbvnjoernvfeneno",
+    email:"usevkjenfjovnfeojkvr1",
     password:"socialnexus"
 }
+
+//createUser(userJson)
 
 // let {userName,email,phoneNumber} = userJson
 // validInputs(userName, phoneNumber, email).then((data)=>{
