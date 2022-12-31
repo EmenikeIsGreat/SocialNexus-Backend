@@ -73,46 +73,53 @@ router.post('/changePassword', async (req, res) =>{
 
     let {id, password, newPassword} = jsonInfo
 
-    let hashPassJson = await passwordSchema.findOne({user:id})
+    try{
+        let hashPassJson = await passwordSchema.findOne({user:id})
+        bcrypt.compare(password, hashPass, function(error, isMatch) {
+            if (error) {
+            console.log(error);
+    
+            } else if (!isMatch) {
+            console.log("Password doesn't match!")
+            res.send({valid:false})
+            } else {
+            console.log("Password matches!")
+    
+            bcrypt.genSalt(10, function (saltError, salt) {
+                if (saltError) {
+                  throw saltError
+                } else {
+                  bcrypt.hash(newPassword, salt, function(hashError, hash) {
+                    if (hashError) {
+                      throw hashError
+                    } else {
+                        
+                        hashPassJson.encryptedPassword = hash
+                        async function saveToDatabase(){
+                            let response = await hashPassJson.save();
+                        }
+                        saveToDatabase()
+                        res.send({valid:true})
+    
+                    }
+                  })
+                }
+              })
+    
+            }
+        })
+    }
 
+    catch(error){
+        res.send({valid:false})
+    }
     console.log(hashPassJson + " encrypted");
     let hashPass = hashPassJson.encryptedPassword
 
     console.log("old Passcode: " + hashPass)
 
-    bcrypt.compare(password, hashPass, function(error, isMatch) {
-        if (error) {
-        console.log(error);
+    
 
-        } else if (!isMatch) {
-        console.log("Password doesn't match!")
-        res.send({valid:false})
-        } else {
-        console.log("Password matches!")
-
-        bcrypt.genSalt(10, function (saltError, salt) {
-            if (saltError) {
-              throw saltError
-            } else {
-              bcrypt.hash(newPassword, salt, function(hashError, hash) {
-                if (hashError) {
-                  throw hashError
-                } else {
-                    
-                    hashPassJson.encryptedPassword = hash
-                    async function saveToDatabase(){
-                        let response = await hashPassJson.save();
-                    }
-                    saveToDatabase()
-                    res.send({valid:true})
-
-                }
-              })
-            }
-          })
-
-        }
-    })
 
 })
 
