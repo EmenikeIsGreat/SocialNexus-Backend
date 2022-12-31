@@ -22,6 +22,8 @@ mongoose.connect(process.env.MONGODB_URL, { useNewUrlParser: true, useUnifiedTop
 module.exports = async function changePhoneNumber(jsonInfo){
     
     let {id, phoneNumber} = jsonInfo
+    console.log("prinitng jsonInfo")
+    console.log(jsonInfo);
 
     try{
 
