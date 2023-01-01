@@ -111,6 +111,7 @@ router.post('/changePassword', async (req, res) =>{
     }
 
     catch(error){
+        console.log("server error: " + error);
         res.send({valid:false})
     }
 
