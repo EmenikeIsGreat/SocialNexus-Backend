@@ -113,12 +113,6 @@ router.post('/changePassword', async (req, res) =>{
     catch(error){
         res.send({valid:false})
     }
-    console.log(hashPassJson + " encrypted");
-    let hashPass = hashPassJson.encryptedPassword
-
-    console.log("old Passcode: " + hashPass)
-
-    
 
 
 })
