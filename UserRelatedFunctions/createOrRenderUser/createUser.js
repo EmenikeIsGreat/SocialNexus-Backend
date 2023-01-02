@@ -57,7 +57,7 @@ module.exports = async function createUser(userJson){
     let checkDuplicates = await validInputs(userJson.userName, userJson.phoneNumber, userJson.email)
     if(!checkDuplicates.valid){
 
-        return checkDuplicates
+        return {valid:false}
     }
     try{
         // create user in user database
