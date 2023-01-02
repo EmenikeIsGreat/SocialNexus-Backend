@@ -73,8 +73,13 @@ router.post('/changePassword', async (req, res) =>{
 
     let {id, password, newPassword} = jsonInfo
 
+    let hashPassJson = await passwordSchema.findOne({user:id})
+
+    console.log(hashPassJson + " encrypted");
+    let hashPass = hashPassJson.encryptedPassword
+
+    console.log("old Passcode: " + hashPass)
     try{
-        let hashPassJson = await passwordSchema.findOne({user:id})
         bcrypt.compare(password, hashPass, function(error, isMatch) {
             if (error) {
             console.log(error);
@@ -108,10 +113,12 @@ router.post('/changePassword', async (req, res) =>{
     
             }
         })
+
+        
     }
 
     catch(error){
-        console.log("server error: " + error);
+        console.log("error: " + error)
         res.send({valid:false})
     }
 
