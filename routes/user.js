@@ -61,7 +61,7 @@ router.get('/getTx', (req, res) =>{
 })
 
 router.get('/getAsset', (req, res) =>{
-
+    console.log("running get asset commmand")
     let {asset} = req.query
 
     let resValue = getAsset(asset).then((data)=>{
