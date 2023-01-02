@@ -125,8 +125,9 @@ module.exports = async function createUser(userJson){
         
         //transaction("createUser", [userID])
         let response = await renderUser({id:userID})
+        response.valid = true
         console.log(response);
-        return {response:response, valid:true}
+        return response;
     }
 
     catch(error){
