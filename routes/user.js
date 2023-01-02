@@ -10,7 +10,7 @@ const followUnfollow = require('../UserRelatedFunctions/profileCommands/followUn
 const queryUser = require('../UserRelatedFunctions/profileCommands/renderQueriedUser')
 const multer  = require('multer');
 const os = require('os')
-const upload = multer({ dest: os.tmpdir()});
+const upload = multer({ dest: 'uploads/'});
 const {changePhoto} = require('../UserRelatedFunctions/profileCommands/changePhoto')
 const {deletePhoto} = require('../UserRelatedFunctions/profileCommands/deletePhoto')
 const {searchUser, searchAsset} = require('../full-text-search/index')
@@ -126,8 +126,7 @@ router.get('/deletePhoto', async (req, res) =>{
 })
 
 
-router.post('/changePhoto:id', upload.single('file'), async (req, res) =>{
-    console.log("ergiverivbeiuvbi4wbviy4tbeuhivbiu4htbvuh4bvihb4rhebvh4wbvhb4vhb4tvhbt4hvb4hvb4hvbr4hvb4rhvb4rjhvbrjhvbwjrhvbjhrvbwjhrvbwrhvbrhjvbjrhvb4hvbrhvbrhjvbjhvbruhvb4uhvbrtuhvbertuvhbtreuhvbrhvberhvbewjrhvbwehrvbwthvbev")
+router.post('/changePhoto:id', upload.single('profile'), async (req, res) =>{
     console.log("changing photo")
     console.log(req.params.id)
 
