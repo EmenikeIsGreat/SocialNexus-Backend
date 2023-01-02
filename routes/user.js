@@ -127,7 +127,7 @@ router.get('/deletePhoto', async (req, res) =>{
 
 
 router.post('/changePhoto:id', upload.single('file'), async (req, res) =>{
-    
+    console.log("ergiverivbeiuvbi4wbviy4tbeuhivbiu4htbvuh4bvihb4rhebvh4wbvhb4vhb4tvhbt4hvb4hvb4hvbr4hvb4rhvb4rjhvbrjhvbwjrhvbjhrvbwjhrvbwrhvbrhjvbjrhvb4hvbrhvbrhjvbjhvbruhvb4uhvbrtuhvbertuvhbtreuhvbrhvberhvbewjrhvbwehrvbwthvbev")
     console.log("changing photo")
     console.log(req.params.id)
 
