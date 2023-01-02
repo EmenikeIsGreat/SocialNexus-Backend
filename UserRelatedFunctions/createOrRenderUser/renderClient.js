@@ -10,40 +10,40 @@ const axios = require('axios')
 const getUsersPortfolioorandBalance = require('../get/getPortfolioInvestments')
 
 
+
   
 
 module.exports = async function renderUser(jsonInfo){
 
-    let {id} = jsonInfo
+    let {id,self} = jsonInfo
     try{
 
         let renderSpecifications = {id:id, amount:100, initialRender:true, date: null}
 
         
-
+        console.log(id)
         let user = await User.findById(id)
-        console.log("this is the user " + user);
-
-        jsonInfo.id = "Emenike"
-
 
 
 
         const notifications = await getNotifications(renderSpecifications)
-        //const transactions = await getTx(renderSpecifications)
+        const transactions = await getTx(renderSpecifications)
         const portfolioInvestments = await getUsersPortfolioorandBalance({id:id,renderAll:true})
         //const balance = await getBalance('getUser', [userID]);
 
+        balance = self ? await getBalance(id):null
+
         let returnVal = {
             user:user,
-            //balance:balance,
+            balance:balance,
             notifications: notifications,
-            //transactions:transactions,
+            transactions:transactions,
             //profilePic: profilePic.data
-            valid:true
+            valid:true,
+            portfolioInvestments: portfolioInvestments
         }
 
-        //console.log(returnVal)
+        console.log(returnVal)
         
         return returnVal;
     }
@@ -55,5 +55,5 @@ module.exports = async function renderUser(jsonInfo){
 
 
 }
-//renderUser({id:'633cd5110f3f0c5c4825c83f'})
+//renderUser({id:'63b21a14752dd63883a58170',self:false})
 

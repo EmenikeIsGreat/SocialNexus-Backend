@@ -18,25 +18,12 @@ mongoose.connect(process.env.MONGODB_URL, { useNewUrlParser: true, useUnifiedTop
 
     })
 
-module.exports = async function getUsersPortfolioOrAndBalance(request){
+module.exports = async function getUsersPortfolio(request){
     let {id, renderAll} = request
 
     const response = await User_Portfolio.find({userID:id})
-    if(renderAll){
-        const balance = await getUserBalance({id:id})
-        
-        const finalJson = {response: response, balance:balance, all:true}
-        
-        //console.log(finalJson)
-        return finalJson
-    }
+    return response
 
-    else{        
-        const finalJson = {response: response, all:false}
-        
-        //console.log(finalJson)
-        return finalJson
-    }
 
 }
 
