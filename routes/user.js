@@ -128,7 +128,9 @@ router.get('/deletePhoto', async (req, res) =>{
 
 router.post('/changePhoto:id', upload.single('file'), async (req, res) =>{
     
+    console.log("changing photo")
     console.log(req.params.id)
+
 
     
     const title = req.body.title;
