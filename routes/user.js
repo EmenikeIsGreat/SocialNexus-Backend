@@ -1,6 +1,7 @@
 
 const express = require('express')
 
+const stringify =  require('json-stringify-deterministic')
 
 const getUserBalance = require('../UserRelatedFunctions/get/getUserBalance')
 const changeBio = require('../UserRelatedFunctions/settings/changeBio')
@@ -16,7 +17,7 @@ const {deletePhoto} = require('../UserRelatedFunctions/profileCommands/deletePho
 const {searchUser, searchAsset} = require('../full-text-search/index')
 const getPortfolioInvestments = require('../UserRelatedFunctions/get/getPortfolioInvestments')
 const userSchema = require('../schemas/User')
-
+const getMessages = require("../UserRelatedFunctions/get/getMessage") 
 const router = express.Router()
 
 
@@ -176,6 +177,17 @@ router.get('/portfolioInvestments', async (req, res) =>{
 
     
 })
+
+
+router.get('/getMessages',async (req,res)=>{
+    console.log("check 1 " + stringify(req.query))
+    let response = await getMessages(req.query);
+    console.log("---------------")
+    console.log(response)
+    res.send(response);
+})
+
+
 
 
 

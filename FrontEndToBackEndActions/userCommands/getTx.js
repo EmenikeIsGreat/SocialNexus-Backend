@@ -2,18 +2,18 @@
 const axios = require('axios')
 
 
-let jsonInfo = {id:'62b750b69e2542d58f9721c6', amount:100, intialRender:true, date:null}
+let json = {id:"63b349f21aa5830d1301421e",amount:2,initialRender:true,date:"2023-01-03T03:55:19.597Z"}
 
-async function getTx(jsonInfo){
-    const res = await axios.post('http://localhost:3000/userProfile/getTx',jsonInfo)
+async function getTx(json){
+    const res = await axios.get('http://localhost:8080/user/getMessages',{params:json})
     console.log(res.data)
 }
 
 
-getTx(jsonInfo)
+getTx(json)
 
 async function test(){
-    const res = await axios.get('http://localhost:3000/test')
+    const res = await axios.get('http://localhost:8080/test')
     console.log(res)
 }
 

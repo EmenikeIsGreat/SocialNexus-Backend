@@ -35,7 +35,11 @@ module.exports = async function createMessage(sender, recipient, body){
     }
 }
 
-//createMessage("Emenike","62f7fdd597c2ceea6ad4595c","test")
+
+// for(i = 0; i < 1000; i++){
+//     createMessage("Emenike","63b349f21aa5830d1301421e","test")
+// }
+//createMessage("Emenike","63b349f21aa5830d1301421e","test")
 
 
 
