@@ -51,15 +51,7 @@ router.post('/changeBio', (req, res) =>{
 })
 
 
-router.get('/getTx', (req, res) =>{
 
-    let {data} = req.query
-    console.log(jsonInfo)
-    
-    let resValue = getTx(specs).then((data)=>res.send(data))
-    .catch((error)=>res.send(error))
-
-})
 
 router.get('/getAsset', (req, res) =>{
     console.log("running get asset commmand")
@@ -185,6 +177,16 @@ router.get('/getMessages',async (req,res)=>{
     console.log("---------------")
     console.log(response)
     res.send(response);
+})
+
+router.get('/getTx', async (req, res) =>{
+
+    let {data} = req.query
+    console.log(jsonInfo)
+    
+    let resValue = getTx(specs).then((data)=>res.send(data))
+    .catch((error)=>res.send(error))
+
 })
 
 

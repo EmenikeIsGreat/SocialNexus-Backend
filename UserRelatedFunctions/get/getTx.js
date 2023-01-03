@@ -5,7 +5,7 @@ const tx = require('../../schemas/transaction')
 
 const path = require('path');
 
-const coolPath = path.join(__dirname, '../.env')
+const coolPath = path.join(__dirname, '../../.env')
 require("dotenv").config({path:coolPath})
 
 //console.log(process.env.MONGODB_URL);
@@ -23,7 +23,7 @@ module.exports = async function getTransaction(jsonInfo){
     let {id, amount, initialRender, date} = jsonInfo
 
 
-    doesUserExist = await tx.findById(id);
+    doesUserExist = await tx.findById({'UserID':id});
     console.log(doesUserExist);
     if(doesUserExist == null){
         return null;
@@ -40,7 +40,8 @@ module.exports = async function getTransaction(jsonInfo){
             if(transaction.length < amount){
                 max = true
             }
-            return {
+
+            let output = {
                 messages: transaction,
                 lastDate: () => {
                     if(transaction == 'undefined'){
@@ -54,6 +55,7 @@ module.exports = async function getTransaction(jsonInfo){
                 
                 max:max
             }
+            return output
         }
     
         else{
@@ -71,12 +73,12 @@ module.exports = async function getTransaction(jsonInfo){
             if(nextTransaction.length < amount){
                 max = true
             }
-    
-            return {
+            let output = {
                 messages: nextTransaction,
                 lastDate: nextTransaction[nextTransaction.length-1].createdAt,
                 max:max
             }
+            return output
         }
     }
 
@@ -92,7 +94,7 @@ module.exports = async function getTransaction(jsonInfo){
 //getTransaction({id: '62f7fdd597c2ceea6ad4595c',amount: 100,intialRender: true,date: "2022-07-02T17:12:54.407Z"}).then((data)=> console.log(data))
 
 async function test1(){
-    let order = await tx.find({'UserID':'62b750b69e2542d58f9721c6'}).sort({$natural:-1}).limit(100)
+    let order = await tx.find({'UserID':'62b750b69e2542d58f9721c6'}).sort({$natural:-1}).limit(1)
 
     console.log(order)
 }
