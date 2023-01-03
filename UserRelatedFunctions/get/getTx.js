@@ -24,7 +24,9 @@ module.exports = async function getTransaction(jsonInfo){
     amount = parseInt(amount)
 
     doesUserExist = await tx.find({'UserID':id});
-    console.log(doesUserExist + ": user does exist")
+    console.lig("-----o---------o------")
+    console.log(doesUserExist)
+    console.lig("-----o---------o------")
     if(doesUserExist == null){
         console.log("executed")
         return null;
