@@ -181,11 +181,11 @@ router.get('/getMessages',async (req,res)=>{
 
 router.get('/getTx', async (req, res) =>{
 
-    let {data} = req.query
-    console.log(jsonInfo)
-    
-    let resValue = getTx(specs).then((data)=>res.send(data))
-    .catch((error)=>res.send(error))
+    console.log("check 1 " + stringify(req.query))
+    let response = await getTx(req.query);
+    console.log("---------------")
+    console.log(response)
+    res.send(response);
 
 })
 

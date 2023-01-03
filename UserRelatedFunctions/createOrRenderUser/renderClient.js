@@ -26,8 +26,8 @@ module.exports = async function renderUser(jsonInfo){
 
 
 
-        const notifications = await getNotifications(renderSpecifications)
-        const transactions = await getTx(renderSpecifications)
+        //const notifications = await getNotifications(renderSpecifications)
+        //const transactions = await getTx(renderSpecifications)
         const portfolioInvestments = await getUsersPortfolioorandBalance({id:id,renderAll:true})
         //const balance = await getBalance('getUser', [userID]);
 
@@ -36,8 +36,8 @@ module.exports = async function renderUser(jsonInfo){
         let returnVal = {
             user:user,
             balance:balance,
-            notifications: notifications,
-            transactions:transactions,
+            //notifications: notifications,
+            //transactions:transactions,
             //profilePic: profilePic.data
             valid:true,
             portfolioInvestments: portfolioInvestments
