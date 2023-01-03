@@ -25,7 +25,8 @@ module.exports = async function getMessage(jsonInfo){
     console.log("type is " + typeof(id))
     doesUserExist = await message.find({'recipient':id});
     //console.log(doesUserExist);
-    if(doesUserExist == null){
+    if(doesUserExist.length == 0){
+        console.log("THE USER IS NOT FOUND. CANNOT GET TRANSACTIONS")
         return null;
     }
 
