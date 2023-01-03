@@ -21,17 +21,19 @@ mongoose.connect(process.env.MONGODB_URL, { useNewUrlParser: true, useUnifiedTop
 module.exports = async function getTransaction(jsonInfo){
 
     let {id, amount, initialRender, date} = jsonInfo
+    amount = parseInt(amount)
 
+    doesUserExist = await tx.find({'UserID':id});
 
-    doesUserExist = await tx.findById({'UserID':id});
-    console.log(doesUserExist);
     if(doesUserExist == null){
+        console.log("executed")
         return null;
     }
 
 
     try{
         if(initialRender){
+            console.log("Emenike")
             let transaction = await tx.find({'UserID':id}).sort({$natural:-1}).limit(amount)
             console.log("trasnaction: " + transaction == 'undefined');
             
@@ -40,21 +42,22 @@ module.exports = async function getTransaction(jsonInfo){
             if(transaction.length < amount){
                 max = true
             }
+            let lastDate = () => {
+                if(transaction == 'undefined'){
+                    return false;
+                }
+                else{
+                    return transaction[transaction.length-1].createdAt
+                }
 
+            }
             let output = {
-                messages: transaction,
-                lastDate: () => {
-                    if(transaction == 'undefined'){
-                        return false;
-                    }
-                    else{
-                        return transaction[transaction.length-1].createdAt
-                    }
-
-                },
+                transactions: transaction,
+                lastDate:lastDate(),
                 
                 max:max
             }
+            //console.log(output)
             return output
         }
     
@@ -74,10 +77,11 @@ module.exports = async function getTransaction(jsonInfo){
                 max = true
             }
             let output = {
-                messages: nextTransaction,
+                transactions: nextTransaction,
                 lastDate: nextTransaction[nextTransaction.length-1].createdAt,
                 max:max
             }
+            //console.log(output)
             return output
         }
     }
@@ -91,7 +95,7 @@ module.exports = async function getTransaction(jsonInfo){
 
 }
 
-//getTransaction({id: '62f7fdd597c2ceea6ad4595c',amount: 100,intialRender: true,date: "2022-07-02T17:12:54.407Z"}).then((data)=> console.log(data))
+//getTransaction({id: '62b750b69e2542d58f9721c6',amount: 100,initialRender: false,date: "2022-08-13T20:01:25.546Z"})
 
 async function test1(){
     let order = await tx.find({'UserID':'62b750b69e2542d58f9721c6'}).sort({$natural:-1}).limit(1)

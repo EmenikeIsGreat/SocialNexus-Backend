@@ -22,7 +22,7 @@ module.exports = async function getMessage(jsonInfo){
 
     let {id, amount, initialRender, date} = jsonInfo
     amount = parseInt(amount)
-    console.log("type is " + date)
+    console.log("type is " + typeof(id))
     doesUserExist = await message.find({'recipient':id});
     //console.log(doesUserExist);
     if(doesUserExist == null){
