@@ -20,4 +20,4 @@ module.exports = async function ExternalAccountTransaction(id,amount,withdraw){
     }
 }
 
-//ExternalAccountTransaction("Emenike",10000000000000,true)
+// /ExternalAccountTransaction("Emenike",10000000000000,true)
