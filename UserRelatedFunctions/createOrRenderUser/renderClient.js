@@ -41,7 +41,6 @@ module.exports = async function renderUser(jsonInfo){
             portfolioInvestments: portfolioInvestments
         }
 
-        console.log(returnVal)
         
         return returnVal;
     }
