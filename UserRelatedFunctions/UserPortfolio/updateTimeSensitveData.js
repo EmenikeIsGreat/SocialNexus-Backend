@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const User_Portfolio = require('../../schemas/userPortfolio')
 const Asset = require('../../schemas/Assets')
 const query = require('../../Blockchain/wrappedFabConnect/query')
-
+const calculateTotalValOfUsersPortfolio = require('./portfolioEvaluation')
 const stringify = require('json-stringify-deterministic');
 
 
@@ -31,6 +31,7 @@ let prices;
 
 
 async function calculateTotalValOfUsersPortfolio(userID){
+
 
     let usersBalance = await query('getUser', [userID])
     usersBalance = usersBalance.result

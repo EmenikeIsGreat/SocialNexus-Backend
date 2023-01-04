@@ -122,3 +122,7 @@ module.exports = async function query(func, args){
 // for (const key in asset.Bidders){
 //   console.log(key)  
 // }
+
+// query("getAsset", ["ArinzeAsset"]).then((data)=>{
+//   console.log(data)
+// })

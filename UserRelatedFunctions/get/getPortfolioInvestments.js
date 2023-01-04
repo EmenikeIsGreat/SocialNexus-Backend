@@ -1,9 +1,11 @@
-const User_Portfolio = require('../../schemas/userPortfolio')
+const Assets = require('../../schemas/Assets')
 const mongoose = require("mongoose");
 const getUserBalance = require('./getUserBalance')
-
+const chainQuery = require("../../Blockchain/wrappedFabConnect/query")
+const portfolioEvaluation = require('../UserPortfolio/portfolioEvaluation')
 
 const path = require('path');
+const { text } = require('express');
 
 const coolPath = path.join(__dirname, '../.env')
 require("dotenv").config({path:coolPath})
@@ -18,13 +20,37 @@ mongoose.connect(process.env.MONGODB_URL, { useNewUrlParser: true, useUnifiedTop
 
     })
 
-module.exports = async function getUsersPortfolio(request){
-    let {id, renderAll} = request
+module.exports = async function getUsersPortfolio(id){
 
-    const response = await User_Portfolio.find({userID:id})
-    return response
+    const evluation = await portfolioEvaluation(id)
+    
+    const userBalances = (await chainQuery("getUser",[id])).result
+    console.log(userBalances);
+    console.log("---------------")
+    const assetKeys = Object.keys(userBalances)
+
+    for(i = 0; i < assetKeys.length; i++){
+        if(assetKeys[i] == "USDSH"){
+            continue;
+        }
+        let assetName = assetKeys[i];
+        let assetJSON = (await Assets.find({name:assetName}))[0]
+        
+        let deltas = {
+            deltaDay:assetJSON.stats.deltaDay,
+            deltaWeek:assetJSON.stats.deltaWeek,
+            deltaMonth:assetJSON.stats.deltaMonth
+        }
+
+        userBalances[assetName].deltas = deltas;
+    }
+    userBalances.evluation = evluation;
+    console.log(userBalances)
+
+
+    return userBalances
 
 
 }
 
-//getUsersPortfoliOorAndBalance({id:'Emenike', renderAll:true})
+//getUsersPortfolio('Emenike')
