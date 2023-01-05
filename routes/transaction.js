@@ -38,11 +38,11 @@ router.post('/empty',(req,res) =>{
     if(req.body.permissionToEmpty){
         // dump the array
 
-        BuySellBuySellOrderHash.forEach(function iterator (value, key) {
+        BuySellOrderHash.forEach(function iterator (value, key) {
                         // use test to see if it works then execute order
             //signer, channel, contract, func, args, sync
             //transaction("Emenike", "test", "contract", "testing",[key, stringify(value)], false)
-            BuySellBuySellOrderHash.del(key)
+            BuySellOrderHash.del(key)
         })
 
         BidOrderHash.forEach(function iterator (value, key) {
@@ -89,6 +89,7 @@ router.post('/empty',(req,res) =>{
 
 router.post('/addOrder', (req,res) =>{
     let order = req.body
+    console.log("------------recieved Order------------")
     console.log(order)
     if(order.orderType == "Bid"){
     
