@@ -1,6 +1,7 @@
 require('dotenv').config()
 const path = require('path');
 
+const mongoose = require("mongoose");
 
 const coolPath = path.join(__dirname, '../../.env')
 require("dotenv").config({path:coolPath})
@@ -8,7 +9,14 @@ require("dotenv").config({path:coolPath})
 console.log(coolPath)
 const fs = require('fs')
 const S3 = require('aws-sdk/clients/s3')
+const User = require('../../schemas/User')
+mongoose.connect(process.env.MONGODB_URL, { useNewUrlParser: true, useUnifiedTopology: true }).then(()=>{
+  console.log("connected")
+})
+  .catch((error)=>{
+      console.log(error);
 
+  })
 
 
 // // uploads a file to s3
@@ -101,15 +109,21 @@ const s3 = new S3({
 })
 
 // uploads a file to s3
-function changePhoto(file, id) {
-  const fileStream = fs.createReadStream(file.path)
+module.exports = async function changePhoto(id) {
+  //const fileStream = fs.createReadStream(file.path)
+  let user = await User.findById(id)
+  user.hasProfilePic = true;
+  let response = await user.save();
+  // const uploadParams = {
+  //   Bucket: bucketName,
+  //   Body: fileStream,
+  //   Key: id
+  // }
 
-  const uploadParams = {
-    Bucket: bucketName,
-    Body: fileStream,
-    Key: id
-  }
-
-  return s3.upload(uploadParams).promise()
+  // return s3.upload(uploadParams).promise()
 }
-exports.changePhoto = changePhoto
+
+
+//changePhoto("63b349f21aa5830d1301421e")
+
+//exports.changePhoto = changePhoto

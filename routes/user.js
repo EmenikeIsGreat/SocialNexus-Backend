@@ -123,8 +123,10 @@ router.get('/deletePhoto', async (req, res) =>{
 
 router.post('/changePhoto', upload.single('profile'), async (req, res) =>{
     console.log("changing photo")
-    // console.log("this is the ID 1" + req.params.id)
+    
     console.log("this is the ID 2" + req.query.id)
+
+
 
 
     
@@ -134,6 +136,7 @@ router.post('/changePhoto', upload.single('profile'), async (req, res) =>{
     
     
     let response = await changePhoto(file, req.query.id)
+    
 
 
     res.send(response)
