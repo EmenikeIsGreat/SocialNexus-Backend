@@ -109,21 +109,21 @@ const s3 = new S3({
 })
 
 // uploads a file to s3
-module.exports = async function changePhoto(id) {
-  //const fileStream = fs.createReadStream(file.path)
+module.exports = async function changePhoto(file,id) {
+  const fileStream = fs.createReadStream(file.path)
   let user = await User.findById(id)
   user.hasProfilePic = true;
   let response = await user.save();
-  // const uploadParams = {
-  //   Bucket: bucketName,
-  //   Body: fileStream,
-  //   Key: id
-  // }
+  const uploadParams = {
+    Bucket: bucketName,
+    Body: fileStream,
+    Key: id
+  }
 
-  // return s3.upload(uploadParams).promise()
+  return s3.upload(uploadParams).promise()
 }
 
 
 //changePhoto("63b349f21aa5830d1301421e")
 
-//exports.changePhoto = changePhoto
+exports.changePhoto = changePhoto
