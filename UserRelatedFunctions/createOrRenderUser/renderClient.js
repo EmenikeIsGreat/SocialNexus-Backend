@@ -28,7 +28,7 @@ module.exports = async function renderUser(jsonInfo){
 
         const notifications = await getNotifications(renderSpecifications)
         const transactions = await getTx(renderSpecifications)
-        const portfolioInvestments = await getUsersPortfolioorandBalance(id)
+        //const portfolioInvestments = await getUsersPortfolioorandBalance(id)
         //const balance = await getBalance('getUser', [userID]);
 
         balance = self ? await getBalance(id):null
@@ -38,7 +38,7 @@ module.exports = async function renderUser(jsonInfo){
             notifications: notifications,
             transactions:transactions,
             valid:true,
-            portfolioInvestments: portfolioInvestments
+            //portfolioInvestments: portfolioInvestments
         }
 
         
