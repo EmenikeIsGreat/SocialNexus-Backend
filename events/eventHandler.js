@@ -77,10 +77,10 @@ let sampleExternalEvent = {
 }
 
 module.exports = async function TxProcessing(events){
-
+    console.log("now processing trasnactions")
     for(i = 0; i < events.legnth ; i++){
         let event = events[i].payload
-        console.log("the event Type is " + event.Type );
+
         switch (event.Type){
             
             case "Order":
