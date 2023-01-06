@@ -2,9 +2,9 @@ const query = require('../../Blockchain/wrappedFabConnect/query')
 
 
 module.exports = async function getUserBalance(id){
-    console.log(id)
+    console.log(typeof(id))
+    console.log("----------")
     let balance = await query("getBalance", [id])
-    console.log(balance)
     //get users portfolio from data base
     //construct a forloop that iterates through the portfolio and update the asset balance with the addition of the deltas
     //set that equal to balance and send it
