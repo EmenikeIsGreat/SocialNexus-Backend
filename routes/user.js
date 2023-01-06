@@ -46,6 +46,7 @@ router.post('/changeBio', async (req, res) =>{
     console.log(jsonInfo)
   
     let resValue = await changeBio(jsonInfo);
+    console.log(resValue)
     res.send(resValue)
     res.end()
 })

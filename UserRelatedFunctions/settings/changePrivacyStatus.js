@@ -35,7 +35,7 @@ module.exports = async function changePrivacyStatus(jsonInfo){
 
    catch(error){
        console.log(error)
-       return error
+       return {valid:false}
    }
 
 
