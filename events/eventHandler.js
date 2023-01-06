@@ -1,6 +1,6 @@
 const tx = require('../schemas/transaction')
 const createMessage = require('../Notification/createMessage')
-//const updateFrontEnd = require('../events/eventEmitter')
+const updateFrontEnd = require('../events/eventEmitter')
 
 
 
