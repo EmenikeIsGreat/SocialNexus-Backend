@@ -40,7 +40,7 @@ module.exports = async function renderUser(jsonInfo){
             //portfolioInvestments: portfolioInvestments
         }
 
-        
+        console.log(returnVal)
         return returnVal;
     }
 
@@ -51,5 +51,5 @@ module.exports = async function renderUser(jsonInfo){
 
 
 }
-//renderUser({id:'62b750b69e2542d58f9721c6',self:false})
+//renderUser({id:'63b790f4871e180d114f80c6',self:true})
 

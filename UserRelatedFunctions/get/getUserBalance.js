@@ -1,8 +1,8 @@
 const query = require('../../Blockchain/wrappedFabConnect/query')
 
 
-module.exports = async function getUserBalance(userID){
-    let {id} = userID
+module.exports = async function getUserBalance(id){
+    console.log(id)
     let balance = await query("getBalance", [id])
 
     //get users portfolio from data base
