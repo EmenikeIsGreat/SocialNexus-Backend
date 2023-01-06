@@ -12,9 +12,9 @@ const getUsersPortfolioorandBalance = require('../get/getPortfolioInvestments')
 
 
   
-
 module.exports = async function renderUser(jsonInfo){
-
+    console.log(jsonInfo)
+    console.log('---------------')
     let {id,self} = jsonInfo
     try{
 
@@ -40,7 +40,7 @@ module.exports = async function renderUser(jsonInfo){
             //portfolioInvestments: portfolioInvestments
         }
 
-        console.log(returnVal)
+        //console.log(returnVal)
         return returnVal;
     }
 
