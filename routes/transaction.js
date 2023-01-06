@@ -146,7 +146,7 @@ router.get('/conversion', async (req,res) =>{
 router.post('/HandleEvent', async (req,res) =>{
 
     console.log("-------------PROCESSING BLOCKCHAIN EVENTS--------------")
-    //await eventHandler(req.body)
+    await eventHandler(req.body)
     res.end()
 })
 

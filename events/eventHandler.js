@@ -137,7 +137,7 @@ module.exports = async function TxProcessing(events){
 
             // this is for deposit and withdraw
             case "External":
-
+                console.log("processing external transactions")
                 let transaction4 = await tx.create({
                     Type: event.Transaction.Type,
                     UserID: event.UserID,
