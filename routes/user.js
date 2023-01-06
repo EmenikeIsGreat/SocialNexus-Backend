@@ -176,6 +176,7 @@ router.get('/portfolioInvestments', async (req, res) =>{
 
 router.get('/getMessages',async (req,res)=>{
     console.log("check 1 " + stringify(req.query))
+    req.query.initialRender = false;
     let response = await getMessages(req.query);
     console.log("---------------")
     console.log(response)

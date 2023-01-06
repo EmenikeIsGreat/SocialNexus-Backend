@@ -105,7 +105,7 @@ when invoking a function that requires json data you should stringify it first a
 
 
 //transaction('createAsset',["EmenikeAsset","Emenike"])
-//transaction('createUser',["63b790f4871e180d114f80c6"])
+//transaction('createUser',["63b79170871e180d114f80c9"])
 //transaction('deposit',["SocialNexus",100,false])
 //transaction('deposit',["Emenike23","100000",'true'])
 

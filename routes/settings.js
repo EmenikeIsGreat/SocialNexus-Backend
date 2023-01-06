@@ -11,22 +11,17 @@ const bcrypt = require("bcryptjs")
 const router = express.Router()
 
 
-router.post('/changeName', (req, res) =>{
+router.post('/changeName', async (req, res) =>{
 
+    console.log("------changingName------")
     let jsonInfo = req.body
     
-    let resValue = changeName(jsonInfo).then((data)=>{
-        console.log(data)
-        res.send(data)
-        res.end()
-    })
-    .catch((error)=>res.send(error))
-    //res.end()
+    let resValue = await changeName(jsonInfo)
+    console.log(resValue)
+    
 
-
-    // testing
-    // res.send(req.body)
-    // res.end()
+    res.send(resValue)
+    res.end()
 })
 
 router.post('/changeUserName', (req, res) =>{
