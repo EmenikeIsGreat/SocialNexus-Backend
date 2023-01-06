@@ -79,7 +79,7 @@ module.exports = async function createUser(userJson){
 
             privacy: false,
 
-            Bio:'',
+            Bio:'no bio yet',
 
             hasProfilePic: false
 

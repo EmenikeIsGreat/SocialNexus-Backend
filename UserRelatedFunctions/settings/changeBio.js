@@ -4,7 +4,7 @@ const user = require('../../schemas/User')
 
 const path = require('path');
 
-const coolPath = path.join(__dirname, '../.env')
+const coolPath = path.join(__dirname, '../../.env')
 require("dotenv").config({path:coolPath})
 
 //console.log(process.env.MONGODB_URL);
@@ -31,6 +31,7 @@ module.exports = async function changeBio(jsonInfo){
 
         
         let response = await user2.save();
+        
 
         return {valid:true}
 
@@ -44,5 +45,5 @@ module.exports = async function changeBio(jsonInfo){
 
 }
 
-//changeBio({id: '62f7fdd597c2ceea6ad4595c', newBio:"Test Bio"})
+//changeBio({id: '63b79170871e180d114f80c9', newBio:"Test Bio"})
 
