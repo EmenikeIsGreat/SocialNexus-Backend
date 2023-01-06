@@ -78,7 +78,7 @@ let sampleExternalEvent = {
 
 module.exports = async function TxProcessing(events){
     console.log("now processing trasnactions")
-    console.log("the length of events is " + events.legnth)
+    console.log("events look liek this " + events)
     for(i = 0; i < events.legnth ; i++){
         let event = events[i].payload
         console.log(event);
