@@ -11,8 +11,9 @@ const io = new Server.Server(httpServer, {
 
 
 module.exports = function emitEvent(topic,message){
+   console.log("emitting the event")
    let response = io.sockets.emit(topic, message);
-   console.log(response)
+   //console.log(response)
 }
 
 httpServer.listen(8081);   
