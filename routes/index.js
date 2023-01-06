@@ -66,7 +66,7 @@ app.post('/signIn', async (req, res) =>{
         else {
             console.log('matched')
             // change false to true when in production
-            res.send(await renderUser({id:userID,self:false}))
+            res.send(await renderUser({id:userID,self:true}))
         }
     })
 
