@@ -29,7 +29,7 @@ module.exports = async function renderUser(jsonInfo){
         const notifications = await getNotifications(renderSpecifications)
         const transactions = await getTx(renderSpecifications)
         //const portfolioInvestments = await getUsersPortfolioorandBalance(id)
-        //const balance = await getBalance('getUser', [userID]);
+        const balance = await getBalance('getUser', [id]);
 
         balance = self ? await getBalance(id):null
         let returnVal = {
