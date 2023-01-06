@@ -33,7 +33,7 @@ module.exports = async function renderUser(jsonInfo){
 
         let returnVal = {
             user:user,
-            //balance:balance,
+            balance:balance,
             notifications: notifications,
             transactions:transactions,
             valid:true,
