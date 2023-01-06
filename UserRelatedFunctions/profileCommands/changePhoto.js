@@ -126,4 +126,3 @@ module.exports = async function changePhoto(file,id) {
 
 //changePhoto("63b349f21aa5830d1301421e")
 
-exports.changePhoto = changePhoto
