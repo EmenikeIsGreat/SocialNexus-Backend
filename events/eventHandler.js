@@ -80,9 +80,9 @@ module.exports = async function TxProcessing(events){
 
     for(i = 0; i < events.legnth ; i++){
         let event = events[i].payload
-
+        console.log("the event Type is " + event.Type );
         switch (event.Type){
-
+            
             case "Order":
                 
                 let transaction1 = await tx.create({
