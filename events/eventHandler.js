@@ -149,7 +149,7 @@ module.exports = async function TxProcessing(events){
                 })
                 console.log("hitting")
                 updateFrontEnd(event.Transaction.Type + " - " + event.UserID,event)
-                await message(event.UserID, event.Transaction) 
+                await createMessage(event.UserID, event.Transaction) 
                 break 
 
     
