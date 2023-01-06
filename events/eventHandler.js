@@ -1,6 +1,6 @@
 const tx = require('../schemas/transaction')
 const createMessage = require('../Notification/createMessage')
-const updateFrontEnd = require('../events/eventEmitter')
+//const updateFrontEnd = require('../events/eventEmitter')
 
 
 
@@ -99,7 +99,7 @@ module.exports = async function TxProcessing(events){
 
             
                 await createMessage("SocialNexus",event.UserID,event.Transaction)
-                updateFrontEnd(event.Transaction.Type + " - " + event.UserID,event)
+                //updateFrontEnd(event.Transaction.Type + " - " + event.UserID,event)
                 break
             
 
@@ -114,7 +114,7 @@ module.exports = async function TxProcessing(events){
                 })
 
 
-                updateFrontEnd(event.Transaction.Type + " - " + event.UserID,event)
+                //updateFrontEnd(event.Transaction.Type + " - " + event.UserID,event)
                 await createMessage("SocialNexus",event.UserID,event.Transaction)
                 break
             
@@ -129,7 +129,7 @@ module.exports = async function TxProcessing(events){
                     Transaction: event.Transaction,
                 })
           
-                updateFrontEnd(event.Transaction.Type + " - " + event.UserID,event)
+                //updateFrontEnd(event.Transaction.Type + " - " + event.UserID,event)
                 await createMessage("SocialNexus",event.UserID,event.Transaction)
                 break
             
@@ -144,7 +144,7 @@ module.exports = async function TxProcessing(events){
                     Transaction: event.Transaction,
                 })
                 console.log("hitting")
-                updateFrontEnd(event.Transaction.Type + " - " + event.UserID,event)
+                //updateFrontEnd(event.Transaction.Type + " - " + event.UserID,event)
                 await message(event.UserID, event.Transaction) 
                 break 
 
