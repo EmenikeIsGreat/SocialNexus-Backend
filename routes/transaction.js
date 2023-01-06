@@ -143,25 +143,25 @@ router.get('/conversion', async (req,res) =>{
 
 
 // need to check on this to see if it works
-router.post('/HandleEvent', async (req,res) =>{
+// router.post('/HandleEvent', async (req,res) =>{
 
-    console.log("-------------PROCESSING BLOCKCHAIN EVENTS--------------")
-    //await eventHandler(req.body)
-    res.end()
-})
+//     console.log("-------------PROCESSING BLOCKCHAIN EVENTS--------------")
+//     //await eventHandler(req.body)
+//     res.end()
+// })
 
-router.post('/ExternalAccountTransaction', async (req,res) =>{
-    console.log("test")
-    console.log(req.body)
-    let {id,amount,withdraw} = req.body.ExternalAccountTransaction
-    await ExternalAccountTransaction(id, amount, withdraw).then((data)=>{
-        res.send(data)
-    }).catch((err)=>{
-        res.send(err)
-    }) 
+// router.post('/ExternalAccountTransaction', async (req,res) =>{
+//     console.log("test")
+//     console.log(req.body)
+//     let {id,amount,withdraw} = req.body.ExternalAccountTransaction
+//     await ExternalAccountTransaction(id, amount, withdraw).then((data)=>{
+//         res.send(data)
+//     }).catch((err)=>{
+//         res.send(err)
+//     }) 
 
-    res.end()
-})
+//     res.end()
+// })
 
 
 
