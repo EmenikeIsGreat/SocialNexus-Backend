@@ -66,4 +66,4 @@ async function createSubscription(name, stream, startingBlock){
     }
 }
 
-createSubscription("SocialNexusEvents", "es-d2dd9424-2b0d-48f7-547e-ab979e5dff82", "0")
+createSubscription("SocialNexusEvents", "es-ca041234-df1a-493a-6a91-16ceb0204606", "0")

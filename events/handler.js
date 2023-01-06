@@ -35,7 +35,6 @@ async function pushTransactionEvents(){
 
             const next = await changeStreamIterator.next();
 
-            emit(next.fullDocument.recipient,next.fullDocument.body)
         }
 
     }
@@ -45,6 +44,8 @@ async function pushTransactionEvents(){
     }
 }
 
+
+emit("testing","Hello Emenike")
 //pushTransactionEvents()
 
 

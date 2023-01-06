@@ -52,5 +52,5 @@ async function deleteEventStream(stream){
     }
 }
 
-deleteEventStream("es-8b4993fc-fc30-4e98-724d-e395b9aa99a1")
+deleteEventStream("es-d2dd9424-2b0d-48f7-547e-ab979e5dff82")
 

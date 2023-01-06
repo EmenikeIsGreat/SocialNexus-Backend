@@ -7,7 +7,6 @@ const hash = require('hash')
 const conversion = require('../AssetFunctions/conversion')
 const eventHandler = require('../events/eventHandler')
 const ExternalAccountTransaction = require('../UserRelatedFunctions/BlockchainCommands/ExternalAccountTransfer')
-
 //let myHash = new hash()
 
 
