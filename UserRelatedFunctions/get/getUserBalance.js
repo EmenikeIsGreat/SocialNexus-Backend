@@ -8,11 +8,11 @@ module.exports = async function getUserBalance(userID){
     //get users portfolio from data base
     //construct a forloop that iterates through the portfolio and update the asset balance with the addition of the deltas
     //set that equal to balance and send it
-    console.log(balance)
-    return balance
+    console.log(balance.result.balance)
+    return balance.result.balance
 }
 
-//getUserBalance({id:"Arinze"})
+//getUserBalance({id:"63b790f4871e180d114f80c6"})
 
 // query( "getUser", ["Emenike"]).then((data)=>{
 //   console.log(data)

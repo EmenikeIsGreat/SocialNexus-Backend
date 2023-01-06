@@ -29,9 +29,8 @@ module.exports = async function renderUser(jsonInfo){
         const notifications = await getNotifications(renderSpecifications)
         const transactions = await getTx(renderSpecifications)
         //const portfolioInvestments = await getUsersPortfolioorandBalance(id)
-        const balance = await getBalance('getUser', [id]);
+        const balance = self ? await getBalance(id):null
 
-        balance = self ? await getBalance(id):null
         let returnVal = {
             user:user,
             //balance:balance,
