@@ -31,14 +31,14 @@ module.exports = async function changeBio(jsonInfo){
 
         
         let response = await user2.save();
-        console.log(response)
-        return jsonInfo
+
+        return {valid:true}
 
     }
 
    catch(error){
        console.log(error)
-       return error
+       return {valid:false}
    }
 
 

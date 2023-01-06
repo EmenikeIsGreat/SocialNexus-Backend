@@ -39,15 +39,15 @@ router.get('/getUserBalance', (req, res) =>{
     // res.end()
 })
 
-router.post('/changeBio', (req, res) =>{
+router.post('/changeBio', async (req, res) =>{
 
     let jsonInfo = req.body
     
     console.log(jsonInfo)
   
-    let resValue = changeBio(jsonInfo).then((data)=>res.send(data))
-    .catch((error)=>res.send(error))
-
+    let resValue = await changeBio(jsonInfo);
+    res.send(resValue)
+    res.end()
 })
 
 

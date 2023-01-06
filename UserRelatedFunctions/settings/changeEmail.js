@@ -24,10 +24,10 @@ module.exports = async function changeEmail(jsonInfo){
     console.log(jsonInfo)
     try{
         let check = await checkIfEmailExist(email)
-        
+        console.log("this is " + check)
         if(check){
             console.log("exist")
-            return false
+            return {valid:false}
         }
     
         else{
@@ -36,17 +36,17 @@ module.exports = async function changeEmail(jsonInfo){
 
             user2.email = email;
             await user2.save();
-            return jsonInfo
+            return {valid:true}
         }
     }
 
    catch(error){
        console.log(error)
-       return error
+       return {valid:false}
    }
 
 
 }
 
-//changeEmail({userID: '62c0eadc47ec21fd9e585023', email: 'EmenikeCool100000000000000000000000000000'})
+//changeEmail({id: '63b78e1bdd67b40ce5bac98d', email: 'EmenikeCool1000000000pijnrofngorngon00000000000000000000'})
 
