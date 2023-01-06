@@ -80,7 +80,7 @@ module.exports = async function TxProcessing(events){
     console.log("now processing trasnactions")
     for(i = 0; i < events.legnth ; i++){
         let event = events[i].payload
-        //console.log(event);
+        console.log(event);
 
         switch (event.Type){
             
