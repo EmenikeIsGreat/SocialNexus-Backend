@@ -143,12 +143,12 @@ router.get('/conversion', async (req,res) =>{
 
 
 // need to check on this to see if it works
-// router.post('/HandleEvent', async (req,res) =>{
+router.post('/HandleEvent', async (req,res) =>{
 
-//     console.log("-------------PROCESSING BLOCKCHAIN EVENTS--------------")
-//     //await eventHandler(req.body)
-//     res.end()
-// })
+    console.log("-------------PROCESSING BLOCKCHAIN EVENTS--------------")
+    //await eventHandler(req.body)
+    res.end()
+})
 
 // router.post('/ExternalAccountTransaction', async (req,res) =>{
 //     console.log("test")
