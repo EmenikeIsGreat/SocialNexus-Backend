@@ -3,8 +3,7 @@ const createMessage = require('../Notification/createMessage')
 const updateFrontEnd = require('../events/eventEmitter')
 
 
-
-// these are sample events
+// this code is responsible for taking events from the blockchain and sending them as  notifcications to the user
 
 
 let sampleAssetEvent = {
@@ -102,7 +101,7 @@ module.exports = async function TxProcessing(events){
 
             
                 await createMessage("SocialNexus",event.UserID,event.Transaction)
-                //updateFrontEnd(event.Transaction.Type + " - " + event.UserID,event)
+                updateFrontEnd(event.Transaction.Type + " - " + event.UserID,event)
                 break
             
 
@@ -117,7 +116,7 @@ module.exports = async function TxProcessing(events){
                 })
 
 
-                //updateFrontEnd(event.Transaction.Type + " - " + event.UserID,event)
+                updateFrontEnd(event.Transaction.Type + " - " + event.UserID,event)
                 await createMessage("SocialNexus",event.UserID,event.Transaction)
                 break
             
@@ -132,7 +131,7 @@ module.exports = async function TxProcessing(events){
                     Transaction: event.Transaction,
                 })
           
-                //updateFrontEnd(event.Transaction.Type + " - " + event.UserID,event)
+                updateFrontEnd(event.Transaction.Type + " - " + event.UserID,event)
                 await createMessage("SocialNexus",event.UserID,event.Transaction)
                 break
             
