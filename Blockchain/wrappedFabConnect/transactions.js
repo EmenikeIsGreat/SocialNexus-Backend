@@ -36,7 +36,7 @@ curl -X 'POST' \
 */
 
 
-module.exports = async function transaction(func, args){
+async function transaction(func, args){
     let url = baseURL + 'transactions?fly-sync=' + true
     try{
         
@@ -106,9 +106,9 @@ when invoking a function that requires json data you should stringify it first a
 
 //transaction('createAsset',["EmenikeAsset","Emenike"])
 
-// for(i = 0; i < 1; i++){
-//   transaction('deposit',["63b79170871e180d114f80c9","694201",'true'])
-// }
+for(i = 0; i < 1; i++){
+  transaction('deposit',["63b79170871e180d114f80c9","694201",'true'])
+}
 
 
 //transaction('createUser',["63b79170871e180d114f80c9"])
