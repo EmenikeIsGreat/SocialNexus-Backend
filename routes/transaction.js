@@ -154,8 +154,8 @@ router.post('/ExternalAccountTransaction', async (req,res) =>{
     console.log("-------diagnosing--------")
     console.log(req.body)
     console.log("-------diagnosing--------")
-    let {id,amount,withdraw} = req.body.ExternalAccountTransaction
-    let response = await ExternalAccountTransaction(id, amount, withdraw)
+    let {id,amount,deposit} = req.body.ExternalAccountTransaction
+    let response = await ExternalAccountTransaction(id, amount, deposit)
     res.send(response)
     res.end()
 })

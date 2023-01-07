@@ -2,7 +2,7 @@ const http = require('http');
 const socket = require("socket.io")
 const httpServer = http.createServer();
 
-
+// temits notifcations to the frontEnd. Takes in a topi/address and a message to send
 
 const Server = require("socket.io")
 

@@ -2,13 +2,13 @@ const tx = require('../../Blockchain/wrappedFabConnect/transactions')
 const stringify  = require('json-stringify-deterministic');
 
 
-module.exports = async function ExternalAccountTransaction(id,amount,withdraw){   
+module.exports = async function ExternalAccountTransaction(id,amount,deposit){   
     
     amount = stringify(amount)
 
     //console.log(parseFloat(amount) + 10000)
 
-    if(!withdraw){
+    if(deposit){
         let trasnaction = await tx('deposit',[id,amount,"true"])
         return trasnaction
     }

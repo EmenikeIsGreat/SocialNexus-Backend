@@ -1,7 +1,7 @@
 /*
 
 this watches the messages databse and sends notifcation to user in real time about their messages
-
+// depecrate it is useless
 */
 
 
