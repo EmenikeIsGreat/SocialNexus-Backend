@@ -88,8 +88,16 @@ class AssetTransfer extends Contract {
 
     async get(ctx, id){
         let value = await ctx.stub.getState(id);
-        let valueJson = JSON.parse(value);
-        return valueJson
+        if (!value || value.length === 0) {
+            return {
+                value:null
+            }
+          }
+        else{
+            let valueJson = JSON.parse(value);
+            return valueJson
+        }
+
     }
 
     async getUser(ctx, UserID){

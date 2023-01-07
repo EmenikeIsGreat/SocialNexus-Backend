@@ -75,7 +75,7 @@ module.exports = async function query(func, args){
 // }
 
 
-// query( "getUser", ["Emenike23"]).then((data)=>{
+// query( "get", ["Emenicjefjvkefvke23"]).then((data)=>{
 //   console.log(data)
 // })
 //query("Emenike", "test", "contract", "getUser", ["testCoin"])
