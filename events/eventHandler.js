@@ -101,7 +101,6 @@ module.exports = async function TxProcessing(events){
 
             
                 await createMessage("SocialNexus",event.UserID,event.Transaction)
-                updateFrontEnd(event.Transaction.Type + " - " + event.UserID,event)
                 break
             
 
@@ -117,7 +116,6 @@ module.exports = async function TxProcessing(events){
 
 
                 updateFrontEnd(event.Transaction.Type + " - " + event.UserID,event)
-                await createMessage("SocialNexus",event.UserID,event.Transaction)
                 break
             
 
@@ -132,7 +130,6 @@ module.exports = async function TxProcessing(events){
                 })
           
                 updateFrontEnd(event.Transaction.Type + " - " + event.UserID,event)
-                await createMessage("SocialNexus",event.UserID,event.Transaction)
                 break
             
 
@@ -146,8 +143,6 @@ module.exports = async function TxProcessing(events){
                     Transaction: event.Transaction,
                 })
                 console.log("hitting")
-                updateFrontEnd(event.Transaction.Type + " - " + event.UserID,event)
-                updateFrontEnd("testing",event)
                 await createMessage(event.UserID, event.Transaction) 
                 break 
 

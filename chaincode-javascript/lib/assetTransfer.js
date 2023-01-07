@@ -86,6 +86,18 @@ class AssetTransfer extends Contract {
         }
     }
 
+    async get(ctx, id){
+        let value = await ctx.stub.getState(id);
+        let valueJson = JSON.parse(value);
+        return valueJson
+    }
+
+    async getUser(ctx, UserID){
+        let userPreJson = await ctx.stub.getState(UserID);
+        let userJson = JSON.parse(userPreJson);
+        return userJson
+    }
+
     async getBalance(ctx, userID){
         let user = await this.getUser(ctx, userID)
         return user.USDSH
@@ -135,11 +147,7 @@ class AssetTransfer extends Contract {
 
     }
 
-    async getUser(ctx, UserID){
-        let userPreJson = await ctx.stub.getState(UserID);
-        let userJson = JSON.parse(userPreJson);
-        return userJson
-    }
+
 
 
     async getAsset(ctx, AssetID){
@@ -163,7 +171,7 @@ class AssetTransfer extends Contract {
         }
     }
   
-    async deposit(ctx, userID, amount, modify){
+    async deposit(ctx, txID, userID,amount, modify){
 
         amount = parseFloat(amount);
         if(typeof modify === 'string'){
@@ -192,12 +200,13 @@ class AssetTransfer extends Contract {
                     fee: fee
                 },
             
-                UserBalance:userJson
+                UserBalance:userJson.USDSH
             }
 
-            if(userID != "SocialNexus"){
-                await ctx.stub.setEvent('event', Buffer.from(stringify(externalEvent)))
+            if(userID == "SocialNexus"){
+                return
             }
+            await ctx.stub.putState(txID, Buffer.from(stringify(externalEvent)));
             await ctx.stub.putState(userID, Buffer.from(stringify(userJson)));
             return
         }
@@ -210,7 +219,8 @@ class AssetTransfer extends Contract {
 
     }
 
-    async withdraw(ctx, userID, amount, modify){
+
+    async withdraw(ctx, txID, userID, amount, modify){
 
         amount = parseFloat(amount)
         let fee = amount*this.withDepoFee;
@@ -232,7 +242,8 @@ class AssetTransfer extends Contract {
         let bal = await this.hasBalance(ctx, userID, amount)
         
 
-        userJson.USDSH.balance = userJson.USDSH.balance + (amount - fee)
+        userJson.USDSH.balance = userJson.USDSH.balance - (amount - fee)
+        
         let externalEvent = {
             UserID:userID,
             Type: "External",
@@ -242,32 +253,29 @@ class AssetTransfer extends Contract {
                 USDSHAmount: amount,
                 fee: fee,
                 valid: false
-            },
-        
-            UserBalance:userJson
+            }
         }
 
-        if(!bal && modify == false){
-            await ctx.stub.setEvent('event', Buffer.from(stringify(externalEvent)))
-            return
-        }
-
-        let user = await this.getUser(ctx, userID);
-
-
-        if(modify){
-
-
-            externalEvent.Transaction.valid = true
-            await this.deposit(ctx, "SocialNexus", fee, true)
-            await ctx.stub.setEvent('event', Buffer.from(stringify(externalEvent)))
-            await ctx.stub.putState(userID, Buffer.from(stringify(userJson)));
-            return
-        }
-        
-        else{
+        if(!modify){
             userJson.USDSH.balance = userJson.USDSH.balance - amount
             return userJson
+        }
+
+        else{
+            if(!bal){
+                await ctx.stub.putState(txID, Buffer.from(stringify(externalEvent)));
+                return
+            }
+
+            else{
+                externalEvent.UserBalance = userJson.USDSH
+                externalEvent.Transaction.valid = true
+                //await this.deposit(ctx, "SocialNexus", fee, true)
+                await ctx.stub.setEvent('event', Buffer.from(stringify(externalEvent)))
+                await ctx.stub.putState(txID, Buffer.from(stringify(externalEvent)));
+                await ctx.stub.putState(userID, Buffer.from(stringify(userJson)));
+                return
+            }
         }
 
     }

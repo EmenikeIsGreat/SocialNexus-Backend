@@ -111,9 +111,9 @@ when invoking a function that requires json data you should stringify it first a
 // }
 
 
-//transaction('createUser',["63b79170871e180d114f80c9"])
-//transaction('deposit',["SocialNexus",100,false])
-//transaction('deposit',["Emenike23","100000",'true'])
+//transaction('createUser',["EmenikeTXFROMID"])
+//transaction('deposit2',["EmenikeTXFROMID","SocialNexus","100","false"])
+//transaction('withdraw',["EmenikeTXFROMID","Emenike23","105000",'true'])
 
 let sampleOrderBid = stringify([{
   orderID: "EmenikeOrderID",

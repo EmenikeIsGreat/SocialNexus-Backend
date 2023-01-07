@@ -7,6 +7,7 @@ const hash = require('hash')
 const conversion = require('../AssetFunctions/conversion')
 const eventHandler = require('../events/eventHandler')
 const ExternalAccountTransaction = require('../UserRelatedFunctions/BlockchainCommands/ExternalAccountTransfer')
+const getTxFromID = require('../UserRelatedFunctions/get/getTxFromID')
 //let myHash = new hash()
 
 
@@ -159,6 +160,16 @@ router.post('/ExternalAccountTransaction', async (req,res) =>{
     res.send(response)
     res.end()
 })
+
+router.get('/getTxFromID', async (req,res) =>{
+
+    let {id} = req.body
+    let response = await getTxFromID(id)
+    console.log(response)
+    res.send(response)
+    res.end()
+})
+
 
 
 
