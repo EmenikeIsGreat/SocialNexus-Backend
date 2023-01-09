@@ -9,4 +9,4 @@ module.exports = async function getTxFromID(id){
 
 
 }
-//getTxFromID("EmenikeTXFROMID")
+//getTxFromID("sample")

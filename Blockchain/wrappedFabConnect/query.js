@@ -123,6 +123,10 @@ module.exports = async function query(func, args){
 //   console.log(key)  
 // }
 
-// query("getAsset", ["ArinzeAsset"]).then((data)=>{
+// query("getUser", ["Emenike"]).then((data)=>{
+//   console.log(data)
+// })
+
+// query("getTotalFees", []).then((data)=>{
 //   console.log(data)
 // })

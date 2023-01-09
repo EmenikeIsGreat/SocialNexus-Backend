@@ -104,16 +104,20 @@ when invoking a function that requires json data you should stringify it first a
 
 
 
-//transaction('createAsset',["EmenikeAsset","Emenike"])
+// transaction('createUser',["SocialNexusExternalTxFees"])
+// transaction('createUser',["SocialNexus"])
+//transaction('createUser',["Emenike"])
 
 // for(i = 0; i < 1; i++){
-//   transaction('deposit',["63b79170871e180d114f80c9","694201",'true'])
+//   transaction('withdraw',["sample","Emenike","100",'true'])
 // }
 
 
 //transaction('createUser',["EmenikeTXFROMID"])
-//transaction('deposit2',["EmenikeTXFROMID","SocialNexus","100","false"])
+//transaction('deposit',["EmenikeTXFROMID","Emenike","1000000","true"])
 //transaction('withdraw',["EmenikeTXFROMID","Emenike23","105000",'true'])
+
+
 
 let sampleOrderBid = stringify([{
   orderID: "EmenikeOrderID",
@@ -122,6 +126,36 @@ let sampleOrderBid = stringify([{
   orderType: "Bid",
   usdsn: 20
 }])
+
+
+let SampleDepositWithdrawOrder = [
+  {
+    id:"Emenike",
+    txID:"testing1",
+    deposit:true,
+    amount:200,
+    modify:true
+  },
+  {
+    id:"Arinze",
+    txID:"testing2",
+    deposit:false,
+    amount:200,
+    modify:true
+  },
+  {
+    id:"Izunna",
+    txID:"testing3",
+    deposit:false,
+    amount:200,
+    modify:true
+  }
+
+]
+
+//console.log(JSON.parse(SampleDepositWithdrawOrder)[0])
+
+//transaction('initialize',["0","0","0"])
 
 
 

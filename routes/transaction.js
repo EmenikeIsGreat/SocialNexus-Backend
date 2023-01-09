@@ -32,7 +32,10 @@ myHash.forEach(function iterator (value, key) {
 
 let BuySellOrderHash = new hash()
 let BidOrderHash = new hash()
+let ExternalTxList = []
+let collect = false
 
+// can not add deposit and add order that edits two states with the same key
 router.post('/empty',(req,res) =>{
 
     if(req.body.permissionToEmpty){
@@ -50,9 +53,11 @@ router.post('/empty',(req,res) =>{
             //signer, channel, contract, func, args, sync
             //transaction("Emenike", "test", "contract", "testing",[key, stringify(value)], false)
             BidOrderHash.del(key)
-})
+        })
 
-        
+        // set collect equal to 2
+        //transaction("ExternalTx",[stringify(ExternalTx),collect])
+        //set collect  = false
 
         res.send("orders sent")
 
@@ -151,12 +156,14 @@ router.post('/HandleEvent', async (req,res) =>{
     res.end()
 })
 
-router.post('/ExternalAccountTransaction', async (req,res) =>{
+router.post('/AddExternalTx', async (req,res) =>{
+
     console.log("-------diagnosing--------")
     console.log(req.body)
     console.log("-------diagnosing--------")
     let {id,amount,deposit} = req.body
-    let response = await ExternalAccountTransaction(id, amount, deposit)
+    ExternalTxList.push(req.body)
+    //let response = await ExternalAccountTransaction(id, amount, deposit)
     res.send(response)
     res.end()
 })

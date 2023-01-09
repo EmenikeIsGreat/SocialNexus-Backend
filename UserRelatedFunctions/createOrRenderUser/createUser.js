@@ -12,7 +12,7 @@ const User_Portfolio = require('../../schemas/userPortfolio')
 const checkIfEmailExist = require('../doesExist/checkEmailExist')
 const checkIfUserNameExist = require('../doesExist/checkUserNameExist')
 const checkIfPhoneNumberExist = require('../doesExist/checkPhoneNumberExist')
-const blockchainTx = require('../../Blockchain/wrappedFabConnect/transactions')
+const transaction = require('../../Blockchain/wrappedFabConnect/transactions')
 
 const renderUser = require('./renderClient');
 const bcrypt = require("bcryptjs")
@@ -123,7 +123,7 @@ module.exports = async function createUser(userJson){
         // once you activate the blockchain uncomment this
         //await blockchainTx('createUser',[userID]);
         
-        //transaction("createUser", [userID])
+        transaction("createUser", [userID])
         let response = await renderUser({id:userID})
         response.valid = true
         console.log(response);

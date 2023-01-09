@@ -23,31 +23,22 @@ error codes
 class AssetTransfer extends Contract {
 
     orderFee = 0;
-    withDepoFee = 0;
+    withDepoFee = 0.15;
     transferFee = 0;
+    totalCollectedFees = 0;
 
 
-    async setOrderFee(ctx, amount, feeType){
+    async setOrderFee(amount){
         this.orderFee = amount;
-        let message = feeType + ": has been changed to " + amount;
-    }
-
-
-    // this is only testing
-    async testing(ctx, key, value){
-        value = JSON.parse(value)
-        await ctx.stub.putState(key, Buffer.from(stringify(value)));
     }
 
         
-    async setTransferFee(ctx, amount, feeType){
+    async setTransferFee(amount){
         this.transferFee = amount;
-        let message = feeType + ": has been changed to " + amount;
     }
 
-    async setWithDepoFee(ctx, amount, feeType){
+    async setIOFee(amount){
         this.withDepoFee = amount;
-        let message = feeType + ": has been changed to " + amount;
     }
 
     async InitContract(ctx, orderFee, withDepoFee, transferFee){
@@ -178,11 +169,25 @@ class AssetTransfer extends Contract {
             return true
         }
     }
+
+    incrementCollectedFees(amount){
+        this.totalCollectedFees += amount;
+    }
+
+    getTotalFees(){
+        return this.totalCollectedFees
+    }
+
+    async collectFees(){
+        let SocialNexus = JSON.parse(await this.getUser(ctx, "SocialNexus"));
+        SocialNexus.USDSH.balance += this.transferFee;
+        this.transferFee = 0;
+    }
   
     async deposit(ctx, txID, userID,amount, modify){
 
         amount = parseFloat(amount);
-        if(typeof modify === 'string'){
+        if(typeof(modify) === 'string'){
             if(modify == "true"){
                 modify = true
             }
@@ -214,9 +219,9 @@ class AssetTransfer extends Contract {
             if(userID == "SocialNexus"){
                 return
             }
+            this.incrementCollectedFees(fee)
             await ctx.stub.putState(txID, Buffer.from(stringify(externalEvent)));
             await ctx.stub.putState(userID, Buffer.from(stringify(userJson)));
-            return
         }
 
         else{
@@ -276,6 +281,7 @@ class AssetTransfer extends Contract {
             }
 
             else{
+                this.incrementCollectedFees(fee)
                 externalEvent.UserBalance = userJson.USDSH
                 externalEvent.Transaction.valid = true
                 //await this.deposit(ctx, "SocialNexus", fee, true)
@@ -364,6 +370,7 @@ class AssetTransfer extends Contract {
                 UserBalance: user
             }
             
+            this.incrementCollectedFees(fee)
             await ctx.stub.setEvent('event', Buffer.from(stringify(bidEvent)));
 
         }
@@ -637,6 +644,9 @@ class AssetTransfer extends Contract {
                 
                 }
 
+                this.incrementCollectedFees(SH_Cut)
+
+
 
             }
 
@@ -693,6 +703,8 @@ class AssetTransfer extends Contract {
             
                 }
 
+                this.incrementCollectedFees(SH_Cut)
+
             }
            
             await ctx.stub.putState(userID, Buffer.from(stringify(user)));
@@ -705,4 +717,4 @@ class AssetTransfer extends Contract {
     }
 }
 
-module.exports = AssetTransfer;
+module.exports = AssetTransfer
