@@ -18,14 +18,14 @@ mongoose.connect(process.env.MONGODB_URL, { useNewUrlParser: true, useUnifiedTop
 
     })
 
-module.exports = async function getTransaction(jsonInfo){
+async function getTransaction(jsonInfo){
 
     let {id, amount, initialRender, date} = jsonInfo
     amount = parseInt(amount)
 
-    let doesUserExist = await tx.find({'UserID':id});
-    console.log(doesUserExist)
-    if(doesUserExist.length == 0){
+    let doesUserExist = await tx.exists({'UserID':id});
+    //console.log(doesUserExist)
+    if(!doesUserExist){
         console.log("THE USER IS NOT FOUND. CANNOT GET TRANSACTIONS")
         return null;
     }
@@ -96,10 +96,10 @@ module.exports = async function getTransaction(jsonInfo){
 
 }
 
-//getTransaction({id: '62b750b69e2542d58f9721c6',amount: 100,initialRender: false,date: "2022-08-13T20:01:25.546Z"})
+getTransaction({id: '63b79170871e180d114f80c9',amount: 100,initialRender: true,date: "2022-08-13T20:01:25.546Z"})
 
 async function test1(){
-    let order = await tx.find({'UserID':'62b750b69e2542d58f9721c6'}).sort({$natural:-1}).limit(1)
+    let order = await tx.find({'UserID':'63b79170871e180d114f80c9'}).sort({$natural:-1}).limit(1)
 
     console.log(order)
 }
