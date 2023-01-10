@@ -18,7 +18,7 @@ module.exports = async function renderUser(jsonInfo){
     let {id,self} = jsonInfo
     try{
 
-        let renderSpecifications = {id:id, amount:15, initialRender:true, date: null}
+        let renderSpecifications = {id:id, amount:100, initialRender:true, date: null}
 
         
         console.log(id)
@@ -29,7 +29,7 @@ module.exports = async function renderUser(jsonInfo){
 
         const notifications = await getNotifications(renderSpecifications)
         const transactions = await getTx(renderSpecifications)
-        //console.log(transactions);
+        console.log(transactions);
         //const portfolioInvestments = await getUsersPortfolioorandBalance(id)
         const balance = self ? await getBalance(id):null
 
