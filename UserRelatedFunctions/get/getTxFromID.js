@@ -8,4 +8,4 @@ module.exports = async function getTxFromID(id){
 
 
 }
-//getTxFromID("sample")
+//getTxFromID("faketransid")
