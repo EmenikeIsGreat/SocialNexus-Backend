@@ -60,7 +60,7 @@ module.exports = async function transaction(func, args){
         }
         );
         console.log("success")
-        console.log(res.data)
+        //console.log(res.data)
         return res.data
     }
     catch(error){

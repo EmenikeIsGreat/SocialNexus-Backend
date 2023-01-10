@@ -220,6 +220,7 @@ class AssetTransfer extends Contract {
                 return
             }
             this.incrementCollectedFees(fee)
+            await ctx.stub.setEvent('event', Buffer.from(stringify(externalEvent)))
             await ctx.stub.putState(txID, Buffer.from(stringify(externalEvent)));
             await ctx.stub.putState(userID, Buffer.from(stringify(userJson)));
         }
