@@ -137,7 +137,7 @@ module.exports = async function TxProcessing(events){
                 console.log("processing external transactions")
                 let transaction4 = await tx.create({
                     External:true,
-                    Type: event.Transaction.Type,
+                    Type: event.Transaction.External,
                     UserID: event.UserID,
                     OrderID: event.Transaction.orderID,
                     Transaction: event.Transaction,
