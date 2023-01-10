@@ -18,7 +18,7 @@ mongoose.connect(process.env.MONGODB_URL, { useNewUrlParser: true, useUnifiedTop
 
     })
 
-async function getTransaction(jsonInfo){
+module.exports = async function getTransaction(jsonInfo){
 
     let {id, amount, initialRender, date} = jsonInfo
     amount = parseInt(amount)
