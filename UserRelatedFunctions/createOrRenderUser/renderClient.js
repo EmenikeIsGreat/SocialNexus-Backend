@@ -25,6 +25,7 @@ module.exports = async function renderUser(jsonInfo){
         let user = await User.findById(id)
 
 
+        
 
         const notifications = await getNotifications(renderSpecifications)
         const transactions = await getTx(renderSpecifications)

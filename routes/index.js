@@ -52,6 +52,7 @@ app.post('/signIn', async (req, res) =>{
     encryptedUsers = encryptedUsers.encryptedPassword
     
     
+    
     bcrypt.compare(password, encryptedUsers, async function(error, isMatch) {
         if (error) {
             console.log(error);

@@ -23,7 +23,7 @@ module.exports = async function getTransaction(jsonInfo){
     let {id, amount, initialRender, date} = jsonInfo
     amount = parseInt(amount)
 
-    doesUserExist = await tx.find({'UserID':id});
+    let doesUserExist = await tx.find({'UserID':id});
 
     if(doesUserExist.length == 0){
         console.log("THE USER IS NOT FOUND. CANNOT GET TRANSACTIONS")
@@ -70,6 +70,7 @@ module.exports = async function getTransaction(jsonInfo){
                 }).sort({$natural:-1}).limit(amount)
     
             //console.log(nextTransaction)
+
 
 
             let max = false
