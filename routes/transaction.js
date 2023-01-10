@@ -170,13 +170,14 @@ router.post('/AddExternalTx', async (req,res) =>{
 
 router.get('/getTxFromID', async (req,res) =>{
 
-    console.log("checkpoint")
-    let {id} = req.body
+
+    let {id} = req.query
     let response = await getTxFromID(id)
     console.log("This is the tx id")
     console.log(response)
-    //res.send(response)
-    res.send({sample:"test"})
+    
+    res.send(response)
+   
     res.end()
 })
 
