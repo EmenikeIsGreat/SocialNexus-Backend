@@ -21,9 +21,12 @@ mongoose.connect(process.env.MONGODB_URL, { useNewUrlParser: true, useUnifiedTop
 module.exports = async function getTransaction(jsonInfo){
 
     let {id, amount, initialRender, date} = jsonInfo
+    console.log("gettign userID: " + id)
     amount = parseInt(amount)
 
     let doesUserExist = await tx.exists({'UserID':id});
+    let user = await tx.find({'UserID':id});
+    console.log(doesUserExist + " foundStatus")
     //console.log(doesUserExist)
     if(!doesUserExist){
         console.log("THE USER IS NOT FOUND. CANNOT GET TRANSACTIONS")
@@ -33,7 +36,6 @@ module.exports = async function getTransaction(jsonInfo){
 
     try{
         if(initialRender){
-            console.log("Emenike")
             let transaction = await tx.find({'UserID':id}).sort({$natural:-1}).limit(amount)
             console.log("trasnaction: " + transaction == 'undefined');
             

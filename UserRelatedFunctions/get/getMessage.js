@@ -21,6 +21,7 @@ mongoose.connect(process.env.MONGODB_URL, { useNewUrlParser: true, useUnifiedTop
 module.exports = async function getMessage(jsonInfo){
 
     let {id, amount, initialRender, date} = jsonInfo
+
     amount = parseInt(amount)
     console.log("type is " + typeof(id))
     let doesUserExist = await message.exists({'recipient':id});
