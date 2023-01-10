@@ -161,9 +161,9 @@ router.post('/AddExternalTx', async (req,res) =>{
     console.log("-------Processing Order--------")
     console.log(req.body)
     console.log("-------Processing Order--------")
-    let {id,amount,deposit} = req.body
+    let {txid,id,amount,deposit} = req.body
     ExternalTxList.push(req.body)
-    //let response = await ExternalAccountTransaction(id, amount, deposit)
+    let response = await ExternalAccountTransaction(txid, id, amount, deposit)
     res.send(response)
     res.end()
 })
