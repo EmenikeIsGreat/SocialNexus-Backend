@@ -30,7 +30,7 @@ module.exports = async function getTransaction(jsonInfo){
     //console.log(doesUserExist)
     if(!doesUserExist){
         console.log("THE USER IS NOT FOUND. CANNOT GET TRANSACTIONS")
-        return null;
+        return [];
     }
 
 

@@ -23,12 +23,11 @@ module.exports = async function getMessage(jsonInfo){
     let {id, amount, initialRender, date} = jsonInfo
 
     amount = parseInt(amount)
-    console.log("type is " + typeof(id))
     let doesUserExist = await message.exists({'recipient':id});
     //console.log(doesUserExist);
     if(!doesUserExist){
         console.log("THE USER IS NOT FOUND. CANNOT GET TRANSACTIONS")
-        return null;
+        return [];
     }
 
     try{
