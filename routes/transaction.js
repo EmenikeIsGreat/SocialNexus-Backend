@@ -173,7 +173,8 @@ router.get('/getTxFromID', async (req,res) =>{
     let {id} = req.body
     let response = await getTxFromID(id)
     console.log(response)
-    res.send(response)
+    //res.send(response)
+    res.send({sample:"test"})
     res.end()
 })
 
