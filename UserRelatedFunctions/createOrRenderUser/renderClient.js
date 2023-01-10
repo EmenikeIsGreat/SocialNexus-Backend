@@ -18,7 +18,7 @@ module.exports = async function renderUser(jsonInfo){
     let {id,self} = jsonInfo
     try{
 
-        let renderSpecifications = {id:id, amount:1, initialRender:true, date: null}
+        let renderSpecifications = {id:id, amount:15, initialRender:true, date: null}
 
         
         console.log(id)
