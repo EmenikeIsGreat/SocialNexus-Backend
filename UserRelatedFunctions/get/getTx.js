@@ -18,7 +18,7 @@ mongoose.connect(process.env.MONGODB_URL, { useNewUrlParser: true, useUnifiedTop
 
     })
 
-module.exports = async function getTransaction(jsonInfo){
+async function getTransaction(jsonInfo){
 
     let {id, amount, initialRender, date} = jsonInfo
     console.log("gettign userID: " + id)
@@ -59,7 +59,7 @@ module.exports = async function getTransaction(jsonInfo){
                 
                 max:max
             }
-            //console.log(output)
+            console.log(JSON.stringify(output))
             return output
         }
     
@@ -98,7 +98,7 @@ module.exports = async function getTransaction(jsonInfo){
 
 }
 
-//getTransaction({id: '63b79170871e180d114f80c9',amount: 100,initialRender: true,date: "2022-08-13T20:01:25.546Z"})
+getTransaction({id: '63b79170871e180d114f80c9',amount: 100,initialRender: true,date: "2022-08-13T20:01:25.546Z"})
 
 async function test1(){
     let order = await tx.find({'UserID':'63b79170871e180d114f80c9'}).sort({$natural:-1}).limit(1)

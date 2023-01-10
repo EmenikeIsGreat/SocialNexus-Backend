@@ -86,6 +86,7 @@ module.exports = async function TxProcessing(events){
             case "Order":
                 
                 let transaction1 = await tx.create({
+                    External:false,
                     Type: event.Transaction.Type,
                     UserID: event.UserID,
                     OrderID: event.Transaction.orderID,
@@ -106,6 +107,7 @@ module.exports = async function TxProcessing(events){
             case "RecievedAssetFromInit":
   
                 let transaction2 = await tx.create({
+                    External:false,
                     Type: event.Transaction.Type,
                     UserID: event.UserID,
                     OrderID: event.Transaction.orderID,
@@ -120,6 +122,7 @@ module.exports = async function TxProcessing(events){
             case "Bid":
  
                 let transaction3 = await tx.create({
+                    External:false,
                     Type: event.Transaction.Type,
                     UserID: event.UserID,
                     OrderID: event.Transaction.orderID,
@@ -133,6 +136,7 @@ module.exports = async function TxProcessing(events){
             case "External":
                 console.log("processing external transactions")
                 let transaction4 = await tx.create({
+                    External:true,
                     Type: event.Transaction.Type,
                     UserID: event.UserID,
                     OrderID: event.Transaction.orderID,
