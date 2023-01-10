@@ -25,10 +25,11 @@ module.exports = async function renderUser(jsonInfo){
         let user = await User.findById(id)
 
 
-        
+
 
         const notifications = await getNotifications(renderSpecifications)
         const transactions = await getTx(renderSpecifications)
+        console.log(transactions);
         //const portfolioInvestments = await getUsersPortfolioorandBalance(id)
         const balance = self ? await getBalance(id):null
 
