@@ -1,6 +1,5 @@
 const tx = require('../schemas/transaction')
 const createMessage = require('../Notification/createMessage')
-const updateFrontEnd = require('../events/eventEmitter')
 
 
 // this code is responsible for taking events from the blockchain and sending them as  notifcications to the user
@@ -115,7 +114,6 @@ module.exports = async function TxProcessing(events){
                 })
 
 
-                updateFrontEnd(event.Transaction.Type + " - " + event.UserID,event)
                 break
             
 
@@ -129,7 +127,6 @@ module.exports = async function TxProcessing(events){
                     Transaction: event.Transaction,
                 })
           
-                updateFrontEnd(event.Transaction.Type + " - " + event.UserID,event)
                 break
             
 
