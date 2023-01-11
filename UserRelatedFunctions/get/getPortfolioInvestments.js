@@ -54,4 +54,4 @@ module.exports = async function getUsersPortfolio(id){
 
 }
 
-getUsersPortfolio('63b79170871e180d114f80c9')
+//getUsersPortfolio('63b79170871e180d114f80c9')

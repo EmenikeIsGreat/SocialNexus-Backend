@@ -77,7 +77,7 @@ async function createAsset(userID,name){
 
 }
 
-//createAsset('Testing',"ArinzeAsset")
+//createAsset('EmenikeTesting',"SampleAsset")
 
 
 

@@ -32,7 +32,7 @@ mongoose.connect(process.env.MONGODB_URL, { useNewUrlParser: true, useUnifiedTop
 
     })
 
-async function validInputs(userName, phoneNumber, email){
+module.exports = async function validInputs(userName, phoneNumber, email){
 
 
     let inputStatus = {
@@ -52,7 +52,7 @@ async function validInputs(userName, phoneNumber, email){
     return inputStatus
 }
 
-module.exports = async function createUser(userJson){
+async function createUser(userJson){
     
     let checkDuplicates = await validInputs(userJson.userName, userJson.phoneNumber, userJson.email)
     if(!checkDuplicates.valid){
@@ -139,10 +139,12 @@ module.exports = async function createUser(userJson){
 
 
 const userJson = {
-    userName:"user1kvjkjv kefjv",     
-    name:"Ariekv ekjvnze",
-    phoneNumber:"phovkjefbvnjoernvfeneno",
-    email:"usevkjenfjovnfeojkvr1",
+    firstName:"Emenike",
+    lastName:"Anigbogu",
+    userName:"EmenikeV1",     
+    name:"Emenike",
+    phoneNumber:"6172869618",
+    email:"emenikeani333@gmail.com",
     password:"socialnexus"
 }
 

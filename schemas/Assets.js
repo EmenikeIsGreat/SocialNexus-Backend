@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-
+const mongoose_fuzzy_searching = require('mongoose-fuzzy-searching');
 
 
 
@@ -37,4 +37,9 @@ const AssetTracking = new mongoose.Schema({
     { timestamps: true },
 )
 
+
+AssetTracking.plugin(mongoose_fuzzy_searching, { fields: ['name'] });
+
+
 module.exports = mongoose.model('Assets', AssetTracking)
+
