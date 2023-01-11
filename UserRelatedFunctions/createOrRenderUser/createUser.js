@@ -32,7 +32,7 @@ mongoose.connect(process.env.MONGODB_URL, { useNewUrlParser: true, useUnifiedTop
 
     })
 
-module.exports = async function validInputs(userName, phoneNumber, email){
+async function validInputs(userName, phoneNumber, email){
 
 
     let inputStatus = {
