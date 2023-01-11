@@ -67,7 +67,7 @@ module.exports = async function getTransaction(jsonInfo){
 
             let nextTransaction = await tx.find({"UserID":id,
             createdAt: {
-                $lte: new Date(date)
+                $lt: new Date(date)
             }
                 }).sort({$natural:-1}).limit(amount)
     

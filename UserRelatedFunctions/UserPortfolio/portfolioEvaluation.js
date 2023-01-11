@@ -1,22 +1,38 @@
+const mongoose = require("mongoose");
 const query = require('../../Blockchain/wrappedFabConnect/query')
 const Asset = require('../../schemas/Assets')
 const stringify = require('json-stringify-deterministic');
 
+const path = require('path');
+const coolPath = path.join(__dirname, '../../.env')
+require("dotenv").config({path:coolPath})
+
+//console.log(process.env.MONGODB_URL);
+
+mongoose.connect(process.env.MONGODB_URL, { useNewUrlParser: true, useUnifiedTopology: true }).then(()=>{
+    console.log("connected")
+})
+    .catch((error)=>{
+        console.log(error);
+
+    })
+
 
 async function getAllPrices(){
     let returnVal = await Asset.find().select('name -_id');
-    
     let assetNames = []
 
     let priceJson = {}
     for(i = 0; i < returnVal.length; i++){
         assetNames.push(returnVal[i].name)
     }
+
+
     
     let prices = await query('getPrice',[stringify(assetNames)])
     prices = prices.result
     
-    for(i = 0; i < prices.length; i++){
+    for(let i = 0; i < prices.length; i++){
         priceJson[prices[i].asset] = prices[i].price
     }
 
@@ -71,3 +87,5 @@ module.exports = async function calculateTotalValOfUsersPortfolio(userID){
 
     return totalAssetEvalInUSD
 }
+
+//calculateTotalValOfUsersPortfolio("63bf09a91342c16e79cd57d1")
