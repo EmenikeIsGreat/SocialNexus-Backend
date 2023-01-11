@@ -56,5 +56,5 @@ module.exports = async function renderUser(jsonInfo){
 
 
 }
-//renderUser({id:'63b79170871e180d114f80c9',self:true})
+//renderUser({id:'63bf13f5f8086e6fe2c9d2b6',self:true})
 
