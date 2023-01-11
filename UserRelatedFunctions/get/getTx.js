@@ -90,7 +90,6 @@ module.exports = async function getTransaction(jsonInfo){
             }
 
 
-            console.log(output)
             return output
         }
     }

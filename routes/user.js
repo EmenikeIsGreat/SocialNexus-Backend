@@ -186,7 +186,7 @@ router.get('/getTx', async (req, res) =>{
 
     console.log("check 1 " + stringify(req.query))
     let response = await getTx(req.query);
-    console.log("---------------")
+    console.log("------------------------------Sending these trasnactions------------------------")
     console.log(response)
     res.send(response);
 
