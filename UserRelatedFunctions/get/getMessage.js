@@ -56,9 +56,17 @@ module.exports = async function getMessage(jsonInfo){
                 $lte: new Date(date)
             }}).sort({$natural:-1}).limit(amount)
 
+            
+            let lastDate;
+
             let max = false
             if(nextMessages.length < amount){
                 max = true
+                lastDate = null
+            }
+
+            else{
+                lastDate =  nextMessages[nextMessages.length-1].createdAt
             }
     
             

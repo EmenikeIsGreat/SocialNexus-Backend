@@ -64,27 +64,33 @@ module.exports = async function getTransaction(jsonInfo){
         }
     
         else{
-
             let nextTransaction = await tx.find({"UserID":id,
             createdAt: {
                 $lt: new Date(date)
             }
                 }).sort({$natural:-1}).limit(amount)
     
-            //console.log(nextTransaction)
 
-
+            let lastDate;
+        
 
             let max = false
             if(nextTransaction.length < amount){
                 max = true
+                lastDate = null
+            }
+
+            else{
+                lastDate = nextTransaction[nextTransaction.length-1].createdAt
             }
             let output = {
                 transactions: nextTransaction,
-                lastDate: nextTransaction[nextTransaction.length-1].createdAt,
+                lastDate: lastDate,
                 max:max
             }
-            //console.log(output)
+
+
+            console.log(output)
             return output
         }
     }
@@ -98,7 +104,7 @@ module.exports = async function getTransaction(jsonInfo){
 
 }
 
-//getTransaction({id: '63b79170871e180d114f80c9',amount: 100,initialRender: true,date: "2022-08-13T20:01:25.546Z"})
+//getTransaction({id: '63b79170871e180d114f80c9',amount: 100,initialRender: false,date: "2023-01-10T06:24:37.825Z"})
 
 async function test1(){
     let order = await tx.find({'UserID':'63b79170871e180d114f80c9'}).sort({$natural:-1}).limit(1)
