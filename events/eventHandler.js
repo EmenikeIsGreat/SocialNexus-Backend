@@ -75,7 +75,12 @@ let sampleExternalEvent = {
 }
 
 module.exports = async function TxProcessing(events){
+<<<<<<< Updated upstream
 
+=======
+    console.log("now processing trasnactions")
+    console.log("events look liek this ")
+>>>>>>> Stashed changes
     console.log(events)
     for(i = 0; i < events.length ; i++){
         let event = events[i].payload
@@ -143,6 +148,11 @@ module.exports = async function TxProcessing(events){
                     Transaction: event.Transaction,
                 })
                 console.log("hitting")
+<<<<<<< Updated upstream
+=======
+                updateFrontEnd(event.Transaction.Type + " - " + event.UserID,event)
+                updateFrontEnd("testing",event)
+>>>>>>> Stashed changes
                 await createMessage(event.UserID, event.Transaction) 
                 break 
 

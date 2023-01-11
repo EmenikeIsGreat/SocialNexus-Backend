@@ -112,10 +112,16 @@ when invoking a function that requires json data you should stringify it first a
 //   transaction('withdraw',["sample","Emenike","100",'true'])
 // }
 
+<<<<<<< Updated upstream
 
 //transaction('createUser',["EmenikeTXFROMID"])
 //transaction('deposit',["EmenikeTXFROMID","Emenike","1000000","true"])
 //transaction('withdraw',["EmenikeTXFROMID","Emenike23","105000",'true'])
+=======
+// for(i = 0; i < 1; i++){
+//   transaction('deposit',["63b79170871e180d114f80c9","694201",'true'])
+// }
+>>>>>>> Stashed changes
 
 
 
