@@ -64,6 +64,7 @@ module.exports = async function getTransaction(jsonInfo){
         }
     
         else{
+            conosole.log("initial render is false")
             let nextTransaction = await tx.find({"UserID":id,
             createdAt: {
                 $lt: new Date(date)
