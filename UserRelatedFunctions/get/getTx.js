@@ -21,7 +21,6 @@ mongoose.connect(process.env.MONGODB_URL, { useNewUrlParser: true, useUnifiedTop
 module.exports = async function getTransaction(jsonInfo){
 
     let {id, amount, initialRender, date} = jsonInfo
-    console.log("This is the intial render " + initialRender);
     console.log("gettign userID: " + id)
     amount = parseInt(amount)
 
@@ -36,7 +35,8 @@ module.exports = async function getTransaction(jsonInfo){
 
 
     try{
-        if(initialRender){
+        console.log("This is the intial render " + initialRender);
+        if(initialRender == true){
             let transaction = await tx.find({'UserID':id}).sort({$natural:-1}).limit(amount)
             console.log("trasnaction: " + transaction == 'undefined');
             
