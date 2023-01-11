@@ -100,8 +100,8 @@ async function searchAsset(element){
     }
 }
 
-searchAsset("slight")
-// exports.searchAsset = searchAsset
+//searchAsset("slight")
+exports.searchAsset = searchAsset
 
 async function delete2(){
     let cursor = AssetList.find().cursor()
