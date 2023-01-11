@@ -48,7 +48,12 @@ app.post('/signIn', async (req, res) =>{
     console.log(req.body)
 
     let potentialUser = await user.findOne({email:email})
+    if(potentialUser == null){
+        res.send({valid:false})
+    }
     console.log(potentialUser)
+
+
     let userID = potentialUser.email;
     
     let encryptedUsers = await passwordCollection.findOne({user:userID})
