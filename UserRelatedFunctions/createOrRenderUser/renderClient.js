@@ -30,7 +30,7 @@ module.exports = async function renderUser(jsonInfo){
         const notifications = await getNotifications(renderSpecifications)
         const transactions = await getTx(renderSpecifications)
         //console.log(transactions);
-        //const portfolioInvestments = await getUsersPortfolioorandBalance(id)
+        const portfolioInvestments = await getUsersPortfolioorandBalance(id)
         const balance = self ? await getBalance(id):null
 
         let returnVal = {
@@ -39,10 +39,13 @@ module.exports = async function renderUser(jsonInfo){
             notifications: notifications,
             transactions:transactions,
             valid:true,
-            //portfolioInvestments: portfolioInvestments
+            portfolio: portfolioInvestments
         }
 
-        //console.log(returnVal)
+
+        console.log("---------ouput----------")
+        console.log(returnVal)
+        console.log("---------ouput----------")
         return returnVal;
     }
 
@@ -53,5 +56,5 @@ module.exports = async function renderUser(jsonInfo){
 
 
 }
-//renderUser({id:'63b790f4871e180d114f80c6',self:true})
+//renderUser({id:'63b79170871e180d114f80c9',self:true})
 

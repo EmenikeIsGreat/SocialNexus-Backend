@@ -121,9 +121,8 @@ module.exports = async function createUser(userJson){
 
          // create user on the blockchain
         // once you activate the blockchain uncomment this
-        //await blockchainTx('createUser',[userID]);
         
-        transaction("createUser", [userID])
+        await transaction("createUser", [userID])
         let response = await renderUser({id:userID})
         response.valid = true
         console.log(response);

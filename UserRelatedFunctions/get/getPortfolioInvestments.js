@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const getUserBalance = require('./getUserBalance')
 const chainQuery = require("../../Blockchain/wrappedFabConnect/query")
 const portfolioEvaluation = require('../UserPortfolio/portfolioEvaluation')
+const userPortfolio = require('../../schemas/userPortfolio')
 
 const path = require('path');
 const { text } = require('express');
@@ -25,7 +26,7 @@ module.exports = async function getUsersPortfolio(id){
     const evluation = await portfolioEvaluation(id)
     
     const userBalances = (await chainQuery("getUser",[id])).result
-    console.log(userBalances);
+    const portfolio = await userPortfolio.find({userID:id});
     console.log("---------------")
     const assetKeys = Object.keys(userBalances)
 
@@ -45,12 +46,12 @@ module.exports = async function getUsersPortfolio(id){
         userBalances[assetName].deltas = deltas;
     }
     userBalances.evluation = evluation;
+    userBalances.portfolio = portfolio;
+
     console.log(userBalances)
-
-
     return userBalances
 
 
 }
 
-//getUsersPortfolio('Emenike')
+getUsersPortfolio('63b79170871e180d114f80c9')

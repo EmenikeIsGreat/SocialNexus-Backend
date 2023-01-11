@@ -208,8 +208,9 @@ class AssetTransfer extends Contract {
                 Type: "External",
                 
                 Transaction:{
+                    txID:txID,
                     External: "deposit",
-                    USDSHAmount: amount,
+                    USDSHAmount: amount-fee,
                     fee: fee
                 },
             
@@ -256,15 +257,15 @@ class AssetTransfer extends Contract {
         let bal = await this.hasBalance(ctx, userID, amount)
         
 
-        userJson.USDSH.balance = userJson.USDSH.balance - (amount - fee)
+        userJson.USDSH.balance = userJson.USDSH.balance - (amount)
         
         let externalEvent = {
             UserID:userID,
             Type: "External",
-            
+            txID:txID,
             Transaction:{
                 External: "withdraw",
-                USDSHAmount: amount,
+                USDSHAmount: amount-fee,
                 fee: fee,
                 valid: false
             }
@@ -306,6 +307,7 @@ class AssetTransfer extends Contract {
             let userID = orders[i].userID;
             let assetID = orders[i].assetID
             let usdsn = orders[i].usdsn
+            let txID = orders[i].txID
 
             let user = await this.getUser(ctx, userID)
 
@@ -361,6 +363,7 @@ class AssetTransfer extends Contract {
             let bidEvent = {
                 UserID:userID,
                 Type: "Bid",
+                txID:txID,
                 Transaction:{
                     BidID: id,
                     AssetID: assetID,
@@ -558,6 +561,7 @@ class AssetTransfer extends Contract {
             let tokenAmount = orders[i].tokenAmount
             let strikePrice = orders[i].strikePrice
             let slippage = orders[i].slippage
+            let txID = orders[i].txID
 
 
 
@@ -569,6 +573,7 @@ class AssetTransfer extends Contract {
             let orderEvent = {
                 UserID:assetID,
                 Type: "Order",
+                txID:txID,
                 Transaction:{
                     Type:"Buy",
                     orderID: id,

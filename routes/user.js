@@ -54,14 +54,12 @@ router.post('/changeBio', async (req, res) =>{
 
 
 
-router.get('/getAsset', (req, res) =>{
+router.get('/getAsset', async (req, res) =>{
     console.log("running get asset commmand")
     let {asset} = req.query
 
-    let resValue = getAsset(asset).then((data)=>{
-        res.send(data)
-    })
-    .catch((error)=>res.send(error))
+    let resValue = await getAsset(asset)
+    res.send(resValue);
 
 })
 
