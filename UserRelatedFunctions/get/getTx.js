@@ -105,7 +105,7 @@ module.exports = async function getTransaction(jsonInfo){
 
 }
 
-//getTransaction({id: '63b79170871e180d114f80c9',amount: 10,initialRender: false , date: "2023-01-12T03:09:40.737Z"})
+//getTransaction({id: '63b79170871e180d114f80c9',amount: 3,initialRender: false , date: "2023-01-12T03:09:49.423Z"})
 
 async function test1(){
     let order = await tx.find({'UserID':'63b79170871e180d114f80c9'}).sort({$natural:-1}).limit(1)
