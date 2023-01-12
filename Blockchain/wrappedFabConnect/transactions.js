@@ -108,8 +108,8 @@ when invoking a function that requires json data you should stringify it first a
 // transaction('createUser',["SocialNexus"])
 //transaction('createUser',["Emenike"])
 
-// for(i = 0; i < 1; i++){
-//   transaction('withdraw',["sample","Emenike","100",'true'])
+// for(i = 0; i < 10; i++){
+//   transaction('withdraw',["sample","63b79170871e180d114f80c9","100",'true'])
 // }
 
 
