@@ -1,22 +1,23 @@
 
+const { Double } = require('mongodb');
 const mongoose = require('mongoose');
 
 const Portfolio = new mongoose.Schema({
 
 
         userID:String,
-        currentPrice: Number,
-        yearlyChart:[Number],
-        monthlyChart:[Number],
-        weeklyChart:[Number],
-        dailyChart:[Number],
-        minuteChart:[Number],
+        currentPrice: Double,
+        yearlyChart:[Double],
+        monthlyChart:[Double],
+        weeklyChart:[Double],
+        dailyChart:[Double],
+        minuteChart:[Double],
     
         stats:{
-            deltaYear:Number,
-            deltaWeek:Number,
-            deltaDay:Number,
-            deltaMonth:Number,
+            deltaYear:Double,
+            deltaWeek:Double,
+            deltaDay:Double,
+            deltaMonth:Double,
         },
     },
     { timestamps: true },
