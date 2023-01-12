@@ -146,14 +146,14 @@ function updateStats(portfolio, evaluation){
     if(portfolio.yearlyChart.length > 1){
 
         portfolio.stats.deltaYear = (portfolio.yearlyChart[portfolio.yearlyChart.length-1] - 
-            portfolio.yearlyChart[portfolio.yearlyChart.length-2])/portfolio.yearlyChart[portfolio.yearlyChart.length-2]*100
+            portfolio.yearlyChart[portfolio.yearlyChart.length-2])/portfolio.yearlyChart[portfolio.yearlyChart.length-2]
 
     }
 
     if(portfolio.monthlyChart.length > 1){
 
         portfolio.stats.deltaMonth = (portfolio.monthlyChart[portfolio.monthlyChart.length-1] - 
-            portfolio.monthlyChart[portfolio.monthlyChart.length-2])/portfolio.monthlyChart[portfolio.monthlyChart.length-2]*100
+            portfolio.monthlyChart[portfolio.monthlyChart.length-2])/portfolio.monthlyChart[portfolio.monthlyChart.length-2]
 
     }
 
@@ -161,14 +161,14 @@ function updateStats(portfolio, evaluation){
     if(portfolio.weeklyChart.length > 1){
         
         portfolio.stats.deltaWeek = (portfolio.weeklyChart[portfolio.weeklyChart.length-1] - 
-            portfolio.weeklyChart[portfolio.weeklyChart.length-2])/portfolio.weeklyChart[portfolio.weeklyChart.length-2]*100
+            portfolio.weeklyChart[portfolio.weeklyChart.length-2])/portfolio.weeklyChart[portfolio.weeklyChart.length-2]
   
     }
 
 
     if(portfolio.dailyChart.length > 1){
         portfolio.stats.deltaDay = (portfolio.dailyChart[portfolio.dailyChart.length-1] - 
-            portfolio.dailyChart[portfolio.dailyChart.length-2])/portfolio.dailyChart[portfolio.dailyChart.length-2]*100
+            portfolio.dailyChart[portfolio.dailyChart.length-2])/portfolio.dailyChart[portfolio.dailyChart.length-2]
     }
     
     return portfolio
