@@ -26,7 +26,7 @@ module.exports = async function getUsersPortfolio(id){
     const evluation = await portfolioEvaluation(id)
     
     const userBalances = (await chainQuery("getUser",[id])).result
-    const portfolio = await userPortfolio.find({userID:id});
+    const portfolio = await userPortfolio.findOne({userID:id});
     console.log("---------------")
     const assetKeys = Object.keys(userBalances)
 
