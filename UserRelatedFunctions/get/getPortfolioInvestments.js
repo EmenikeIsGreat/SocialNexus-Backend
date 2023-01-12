@@ -45,11 +45,11 @@ module.exports = async function getUsersPortfolio(id){
 
         userBalances[assetName].deltas = deltas;
     }
-    userBalances.evluation = evluation;
-    userBalances.portfolio = portfolio;
 
-    console.log(userBalances)
-    return userBalances
+    return {
+        portfolio,
+        evaluation:evluation
+    }
 
 
 }
