@@ -60,7 +60,7 @@ module.exports = async function getTransaction(jsonInfo){
                 
                 max:max
             }
-            //console.log(JSON.stringify(output))
+            console.log(output)
             return output
         }
     
@@ -91,7 +91,7 @@ module.exports = async function getTransaction(jsonInfo){
                 max:max
             }
 
-
+            console.log(output)
             return output
         }
     }
@@ -105,7 +105,7 @@ module.exports = async function getTransaction(jsonInfo){
 
 }
 
-//getTransaction({id: '63b79170871e180d114f80c9',amount: 100,initialRender: false, date: "2023-01-10T06:24:37.825Z"})
+//getTransaction({id: '63b79170871e180d114f80c9',amount: 10,initialRender: false , date: "2023-01-12T03:09:40.737Z"})
 
 async function test1(){
     let order = await tx.find({'UserID':'63b79170871e180d114f80c9'}).sort({$natural:-1}).limit(1)
