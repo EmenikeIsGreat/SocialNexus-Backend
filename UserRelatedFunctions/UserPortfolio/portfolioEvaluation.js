@@ -47,7 +47,7 @@ module.exports = async function calculateTotalValOfUsersPortfolio(userID){
     let prices = await getAllPrices();
     let usersBalance = await query('getUser', [userID])
     usersBalance = usersBalance.result
- 
+    //console.log(usersBalance)
     
     let totalAssetEvalInUSD = 0
 
@@ -61,7 +61,10 @@ module.exports = async function calculateTotalValOfUsersPortfolio(userID){
 
 
     let usersAsset = Object.keys(usersBalance)
-
+    let dollarValueJSON = {
+        dollarValue:{},
+        evaluation:0
+    }
     for(let i = 0; i < Object.keys(usersBalance).length; i++){
         
         if(usersAsset[i] == "USDSH"){
@@ -77,15 +80,18 @@ module.exports = async function calculateTotalValOfUsersPortfolio(userID){
         let tokenShare = parseFloat(usersBalance[usersAsset[i]].balance)
 
         let assetPPS = parseFloat(prices[usersAsset[i]])
+
    
         let totalValuationOfAssetInUSD = tokenShare*assetPPS
         totalAssetEvalInUSD += totalValuationOfAssetInUSD
-
+        dollarValueJSON.dollarValue[usersAsset[i]] = totalValuationOfAssetInUSD
 
        
     }
-    console.log(totalAssetEvalInUSD)
-    return totalAssetEvalInUSD
+
+    dollarValueJSON.evaluation = totalAssetEvalInUSD
+    console.log(dollarValueJSON)
+    return dollarValueJSON
 }
 
 //calculateTotalValOfUsersPortfolio("63b79170871e180d114f80c9")

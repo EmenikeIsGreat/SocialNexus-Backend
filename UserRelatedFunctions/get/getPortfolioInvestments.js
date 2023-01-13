@@ -4,6 +4,8 @@ const getUserBalance = require('./getUserBalance')
 const chainQuery = require("../../Blockchain/wrappedFabConnect/query")
 const portfolioEvaluation = require('../UserPortfolio/portfolioEvaluation')
 const userPortfolio = require('../../schemas/userPortfolio')
+const stringify = require('json-stringify-deterministic');
+
 
 const path = require('path');
 const { text } = require('express');
@@ -21,15 +23,17 @@ mongoose.connect(process.env.MONGODB_URL, { useNewUrlParser: true, useUnifiedTop
 
     })
 
-module.exports = async function getUsersPortfolio(id){
+async function getUsersPortfolio(id){
 
-    const evluation = await portfolioEvaluation(id)
-    
+    const portEvaluation = await portfolioEvaluation(id)
+    const evluation = portEvaluation.evaluation
     const userBalances = (await chainQuery("getUser",[id])).result
+
     const portfolio = await userPortfolio.findOne({userID:id});
     console.log("---------------")
     const assetKeys = Object.keys(userBalances)
     
+    let balances = []
 
     for(i = 0; i < assetKeys.length; i++){
         if(assetKeys[i] == "USDSH"){
@@ -44,19 +48,30 @@ module.exports = async function getUsersPortfolio(id){
             deltaMonth:assetJSON.stats.deltaMonth
         }
 
-        userBalances[assetName].deltas = deltas;
+        let tempJSON = {
+            detlas:deltas,
+            name:assetName,
+            dollarValue:portEvaluation.dollarValue[assetName]
+        }
+       
+        balances.push(tempJSON)
+
+
+        // userBalances[assetName].deltas = deltas;
+        // userBalances[assetName].name = assetName;
+        // userBalances[assetName].dollarValue = portEvaluation.dollarValue[assetName]
     }
     let returnVal = {
         portfolio,
         evaluation:evluation,
-        userBalances
+        balances: balances
     }
 
-    console.log(returnVal.userBalances)
+    console.log(returnVal.balances)
 
     return returnVal
 
 
 }
 
-//getUsersPortfolio('63b79170871e180d114f80c9')
+getUsersPortfolio('63b79170871e180d114f80c9')

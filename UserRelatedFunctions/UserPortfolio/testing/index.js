@@ -66,7 +66,7 @@ let sampleBid = [{
 // intialize Asset
 //transaction('initalizeAssets',["Izzy"])
 //transaction('initalizeAssets',["Adaze"])
-// transaction('initalizeAssets',["SumSum"])
+//transaction('initalizeAssets',["SumSum"])
 // transaction('initalizeAssets',["Ravetron"])
 // transaction('initalizeAssets',["NZ"])
 
