@@ -49,7 +49,7 @@ module.exports = async function getUsersPortfolio(id){
         }
 
         let tempJSON = {
-            detlas:deltas,
+            deltas:deltas,
             name:assetName,
             dollarValue:portEvaluation.dollarValue[assetName]
         }
