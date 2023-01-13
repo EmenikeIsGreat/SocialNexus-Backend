@@ -67,7 +67,7 @@ async function getUsersPortfolio(id){
         balances: balances
     }
 
-    console.log(returnVal.balances)
+    //console.log(returnVal.balances)
 
     return returnVal
 
