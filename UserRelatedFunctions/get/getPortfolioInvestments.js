@@ -23,7 +23,7 @@ mongoose.connect(process.env.MONGODB_URL, { useNewUrlParser: true, useUnifiedTop
 
     })
 
-async function getUsersPortfolio(id){
+module.exports = async function getUsersPortfolio(id){
 
     const portEvaluation = await portfolioEvaluation(id)
     const evluation = portEvaluation.evaluation
