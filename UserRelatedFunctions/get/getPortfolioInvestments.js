@@ -45,7 +45,8 @@ module.exports = async function getUsersPortfolio(id){
         let deltas = {
             deltaDay:assetJSON.stats.deltaDay,
             deltaWeek:assetJSON.stats.deltaWeek,
-            deltaMonth:assetJSON.stats.deltaMonth
+            deltaMonth:assetJSON.stats.deltaMonth,
+            deltaMonth:assetJSON.stats.deltaYear
         }
 
         let tempJSON = {
