@@ -27,11 +27,11 @@ async function getAllPrices(){
         assetNames.push(returnVal[i].name)
     }
 
+    //console.log(assetNames)
 
     
     let prices = await query('getPrice',[stringify(assetNames)])
     prices = prices.result
-    
     for(let i = 0; i < prices.length; i++){
         priceJson[prices[i].asset] = prices[i].price
     }
@@ -40,7 +40,7 @@ async function getAllPrices(){
     return priceJson
 }
 
-
+//getAllPrices()
 
 module.exports = async function calculateTotalValOfUsersPortfolio(userID){
 
@@ -84,8 +84,11 @@ module.exports = async function calculateTotalValOfUsersPortfolio(userID){
 
        
     }
-
+    console.log(totalAssetEvalInUSD)
     return totalAssetEvalInUSD
 }
 
-//calculateTotalValOfUsersPortfolio("63bf09a91342c16e79cd57d1")
+//calculateTotalValOfUsersPortfolio("63b79170871e180d114f80c9")
+
+
+

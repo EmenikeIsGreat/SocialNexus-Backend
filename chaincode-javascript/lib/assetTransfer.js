@@ -125,6 +125,7 @@ class AssetTransfer extends Contract {
     }
 
 
+    
     async createAsset(ctx, AssetID, UserID){
 
         let assetObj = {
@@ -306,7 +307,7 @@ class AssetTransfer extends Contract {
             let id = orders[i].id
             let userID = orders[i].userID;
             let assetID = orders[i].assetID
-            let usdsn = orders[i].usdsn
+            let usdsn = parseFloat(orders[i].usdsn)
             let txID = orders[i].txID
 
             let user = await this.getUser(ctx, userID)

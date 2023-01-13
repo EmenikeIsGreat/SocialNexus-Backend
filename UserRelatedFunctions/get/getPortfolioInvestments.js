@@ -29,13 +29,14 @@ module.exports = async function getUsersPortfolio(id){
     const portfolio = await userPortfolio.findOne({userID:id});
     console.log("---------------")
     const assetKeys = Object.keys(userBalances)
+    
 
     for(i = 0; i < assetKeys.length; i++){
         if(assetKeys[i] == "USDSH"){
             continue;
         }
         let assetName = assetKeys[i];
-        let assetJSON = (await Assets.find({name:assetName}))[0]
+        let assetJSON = await Assets.findOne({name:assetName})
         
         let deltas = {
             deltaDay:assetJSON.stats.deltaDay,
@@ -45,11 +46,15 @@ module.exports = async function getUsersPortfolio(id){
 
         userBalances[assetName].deltas = deltas;
     }
-
-    return {
+    let returnVal = {
         portfolio,
-        evaluation:evluation
+        evaluation:evluation,
+        userBalances
     }
+
+    console.log(returnVal.userBalances)
+
+    return returnVal
 
 
 }

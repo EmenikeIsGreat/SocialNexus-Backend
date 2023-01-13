@@ -95,6 +95,23 @@ let testOrder4 = stringify([
 
 
 
+// let id = orders[i].id
+// let userID = orders[i].userID;
+// let assetID = orders[i].assetID
+// let usdsn = orders[i].usdsn
+// let txID = orders[i].txID
+
+let sampleBid = [{
+  id:"test",
+  userID:"Samar",
+  assetID:"Rav",
+  usdsn:"10",
+  txID:"test"
+}]
+
+
+
+
 
 /*
 
@@ -118,40 +135,6 @@ when invoking a function that requires json data you should stringify it first a
 //transaction('withdraw',["EmenikeTXFROMID","Emenike23","105000",'true'])
 
 
-
-let sampleOrderBid = stringify([{
-  orderID: "EmenikeOrderID",
-  userID: "Emenike23",
-  assetID: "testCoin",
-  orderType: "Bid",
-  usdsn: 20
-}])
-
-
-let SampleDepositWithdrawOrder = [
-  {
-    id:"Emenike",
-    txID:"testing1",
-    deposit:true,
-    amount:200,
-    modify:true
-  },
-  {
-    id:"Arinze",
-    txID:"testing2",
-    deposit:false,
-    amount:200,
-    modify:true
-  },
-  {
-    id:"Izunna",
-    txID:"testing3",
-    deposit:false,
-    amount:200,
-    modify:true
-  }
-
-]
 
 //console.log(JSON.parse(SampleDepositWithdrawOrder)[0])
 

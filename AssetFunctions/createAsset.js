@@ -65,10 +65,11 @@ async function createAsset(userID,name){
         })
 
         // notify user that their asset has been created
-        await createMessage("SocialNexus",userID,"Your Asset has been Created")
+        //await createMessage("SocialNexus",userID,"Your Asset has been Created")
         
         // create asset on the blockchain
-        //await transaction('createAsset',[userID,userID])
+        let response = await transaction('createAsset',[name,userID])
+        
     }
 
     catch(error){
@@ -77,7 +78,13 @@ async function createAsset(userID,name){
 
 }
 
-//createAsset('EmenikeTesting',"SampleAsset")
+// switch the inputs
+// createAsset('Arinze',"NZ")
+// createAsset('Rav',"Ravetron")
+// createAsset('Izunna',"Izzy")
+//createAsset('Adanna',"Adaze")
+// createAsset('Samar',"SumSum")
+
 
 
 

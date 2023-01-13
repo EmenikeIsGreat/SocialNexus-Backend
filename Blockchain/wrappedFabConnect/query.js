@@ -88,7 +88,7 @@ module.exports = async function query(func, args){
 
 
 
-// query("getUser", ["EmenikeAsset"]).then((data)=>{
+// query("getAsset", ["NZ"]).then((data)=>{
 //   console.log(data.result)
 // })
 
